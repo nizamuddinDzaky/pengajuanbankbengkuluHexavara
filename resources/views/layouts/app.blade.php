@@ -18,6 +18,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/login.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/plugins/fontawesome-free/css/all.min.css')}}">
+
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -76,5 +80,9 @@
             @yield('content')
         </main>
     </div>
+
+{{--    <script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>--}}
+{{--    <script src="{{asset('admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script>--}}
+{{--    @yield('script')--}}
 </body>
 </html>
