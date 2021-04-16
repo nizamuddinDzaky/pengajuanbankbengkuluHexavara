@@ -18,10 +18,13 @@ class KantorSeeder extends Seeder
         DB::table('kantor')->insert([
             'nama_kantor' => "Kantor Pusat",
             "parent" => "0",
+            "alamat" => "Bengkulu",
             "provinsi_id" => 7,
             "kabkot_id" => rand(116,125),
             "kecamatan_id"=> rand(1437, 1562),
             "kelurahan_id"=>rand(20279,21791),
+            "updated_at" => date('Y-m-d H:i:s'),
+            "created_at" => date('Y-m-d H:i:s')
         ]);
     }
 }

@@ -28,6 +28,14 @@
     <link rel="stylesheet" href="{{asset('admin/plugins/summernote/summernote-bs4.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Data Table -->
+    <link rel="stylesheet" href="{{asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+    <!-- select 2 -->
+    <link rel="stylesheet" href="{{asset('admin/plugins/select2/css/select2.min.css')}}">
+    <script src="{{asset('admin/plugins/select2/js/select2.min.js')}}"></script>
+    <script src="{{asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
 
     <style type="text/css">
         li {
@@ -95,84 +103,27 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-light-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{url('/')}}" class="brand-link">
 
-            <img src=""
+            <img src="{{asset('images/logo.png')}}"
                  class="brand-image"
                  style="opacity: 1; background-color: transparent">
-            <span class="brand-text font-weight-light" style="font-size: 0.8em; color: transparent">Hexavara</span>
+            <span class="brand-text font-weight-light" style="font-size: 0.8em; color: transparent">{{$role}}</span>
         </a>
 
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
-                <li class="nav-header">Main Menu</li>
-                <li class="nav-item">
-                    @if(Request::is('/'))
-                        <a href="{{url('/')}}" class="nav-link active">
-                            @else
-                                <a href="{{url('/')}}" class="nav-link">
-                                    @endif
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Dashboard
-                                    </p>
-                                </a>
-
-                </li>
-
-
-                <li class="nav-item ">
-                    @if(Request::is('user'))
-                        <a href="{{url('user')}}" class="nav-link active">
-                            @else
-                                <a href="{{url('user')}}" class="nav-link">
-                                    @endif
-                                    <i class="nav-icon fas fa-table"></i>
-                                    <p>
-                                        User
-                                    </p>
-                                </a>
-                        </a>
-                </li>
-
-
-
-                <li class="nav-item has-treeview">
-                    @if(Request::is('manajemenpengguna'))
-                        <a href="{{url('manajemenpengguna')}}" class="nav-link active">
-                            @else
-                                <a href="{{url('manajemenpengguna')}}" class="nav-link">
-                                    @endif
-                                    <i class="nav-icon fas fa-user"></i>
-                                    <p>
-                                        Some Menu
-                                    </p>
-                                </a>
-
-                </li>
-
-                <li class="nav-item has-treeview">
-                    @if(Request::is('manajemenrole'))
-                        <a href="{{url('manajemenrole')}}" class="nav-link active">
-                            @else
-                                <a href="{{url('manajemenrole')}}" class="nav-link">
-                                    @endif
-                                    <i class="nav-icon fas fa-user-tag"></i>
-                                    <p>
-                                        Some Menu
-                                    </p>
-                                </a>
-
-                </li>
-
-
-            </ul>
+            @if ($role == 'AdminPusat')
+                @include('layouts.sidebar.admin-pusat')
+            @elseif ($role == 'AdminCabang')
+                @include('layouts.sidebar.admin-cabang')
+            @else
+                @include('layouts.sidebar.main')
+            @endif
+        
         </nav>
         <!-- /.sidebar-menu -->
 </div>
@@ -181,10 +132,44 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{ $message }}</strong>
+    </div>
+    @endif
+
+    @if ($message = Session::get('error'))
+    <div class="alert alert-danger alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{ $message }}</strong>
+    </div>
+    @endif
+
+    @if ($message = Session::get('warning'))
+    <div class="alert alert-warning alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{ $message }}</strong>
+    </div>
+    @endif
+
+    @if ($message = Session::get('info'))
+    <div class="alert alert-info alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{ $message }}</strong>
+    </div>
+    @endif
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        Check the following errors :(
+    </div>
+    @endif
     <!-- Content Header (Page header) -->
 
 @yield('content')
-
+@yield('modal')
 
 
 <!-- /.content -->
@@ -221,8 +206,8 @@
 <!-- Sparkline -->
 <script src="{{asset('admin/plugins/sparklines/sparkline.js')}}"></script>
 <!-- JQVMap -->
-<script src="{{asset('admin/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{asset('admin/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<!-- <script src="{{asset('admin/plugins/jqvmap/jquery.vmap.min.js')}}"></script> -->
+<!-- <script src="{{asset('admin/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script> -->
 <!-- jQuery Knob Chart -->
 <script src="{{asset('admin/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
@@ -237,9 +222,68 @@
 <!-- AdminLTE App -->
 <script src="{{asset('admin/dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('admin/dist/js/pages/dashboard.js')}}"></script>
+<!-- <script src="{{asset('admin/dist/js/pages/dashboard.js')}}"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('admin/dist/js/demo.js')}}"></script>
+<!-- Data Table -->
+<script src="{{asset('admin/plugins/datatables/jquery.dataTables.js')}}"></script>
+<!-- select2 -->
+<script src="{{asset('admin/plugins/select2/js/select2.min.js')}}"></script>
+
+<!-- select2 -->
+<script src="{{asset('js/bootstrap-notify.js')}}"></script>
+<!-- sweetalert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script src="{{asset('js/core.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        @if (session('notification'))
+        $.notify({
+            icon: '{{ session('icon') }}',
+            message: "{{ session('notification') }}"
+        },{
+            type: 'info',
+            timer: 2000
+        });
+        @endif
+    });
+</script>
+
+<script>
+    notif ={
+        statusSuccess: function () {
+            $.notify({
+                icon: "pe-7s-check",
+                message: "<b> {{Session::get('success')}}</b>"
+
+            }, {
+                type: "success",
+                timer: 4000
+            });
+        },
+        statusFail: function () {
+            $.notify({
+                icon: "pe-7s-close-circle",
+                message: "<b>{{Session::get('error')}}</b>"
+
+            }, {
+                type: "danger",
+                timer: 4000
+            });
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    $().ready(function(){
+        @if(Session::has('success'))
+        notif.statusSuccess();
+        @elseif(Session::has('error'))
+        notif.statusFail();
+        @endif
+    });
+</script>
 @yield('script')
 </body>
 </html>

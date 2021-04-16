@@ -16,6 +16,7 @@ class Kantor extends Migration
         Schema::create('kantor', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama_kantor');
+            $table->string('alamat', 255);
             $table->string('parent')->default('1');
             $table->bigInteger('provinsi_id')->unsigned()->nullable();
             $table->foreign('provinsi_id')->references('id')->on('provinsi');
@@ -25,6 +26,9 @@ class Kantor extends Migration
             $table->foreign('kecamatan_id')->references('id')->on('kecamatan');
             $table->bigInteger('kelurahan_id')->unsigned()->nullable();
             $table->foreign('kelurahan_id')->references('id')->on('kelurahan');
+            $table->enum('is_active', ['1', '0']);
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
         });
     }
 
