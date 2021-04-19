@@ -17,7 +17,7 @@
                 <div class="small-box bg-info">
                     <div class="inner">
                         <h3>000</h3>
-                        <p>Data</p>
+                        <p></p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person"></i>
