@@ -3,6 +3,21 @@
 @section('title','Biodata Diri')
 
 
+@section('style')
+
+    <style>
+    @media only screen and (max-width: 640px) and (min-width: 0px) {
+
+
+        .title {
+            margin-left: 3%;
+        }
+
+    }
+    </style>
+    @endsection
+
+
 
 @section('content')
 <div class="container">
@@ -29,7 +44,7 @@
             <form action="{{url('user/biodata/update')}}" method="post">
                 @csrf
                 <div class="row">
-                    <h3 class="mt-5">Biodata Diri</h3>
+                    <h3 class="mt-5 title">Biodata Diri</h3>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -130,7 +145,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -154,6 +168,7 @@
             </form>
         </div>
     </div>
+
 
 </div>
 

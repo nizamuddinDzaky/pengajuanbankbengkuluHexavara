@@ -6,8 +6,6 @@
       <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
       <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
       <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
-      <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-color" />
-      <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-highlighter" />
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
@@ -84,6 +82,17 @@
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
       <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
       <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/php-parallel-lint/php-console-color" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/php-parallel-lint/php-console-highlighter" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1">

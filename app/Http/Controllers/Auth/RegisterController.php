@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\UserRole;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -65,12 +67,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'no_ktp' => $data['no_ktp'],
             'no_hp' => $data['no_hp'],
         ]);
+
+
+        //untuk mencari id user yang baru saja di input
+        $user = User::latest('id')->first();
+
+        //untuk memasukkan role user yang registrasi di tabel role_user
+        $role = new UserRole();
+        $role->user_id = $user->id;
+        $role->role_id = 5;
+        $role->save();
+
+        return $user;
+
+
     }
 }

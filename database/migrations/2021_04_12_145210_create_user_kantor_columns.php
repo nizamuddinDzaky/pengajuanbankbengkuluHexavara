@@ -14,7 +14,7 @@ class CreateUserKantorColumns extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('kantor_id')->unsigned()->default('0');;
+            $table->bigInteger('kantor_id')->unsigned()->nullable();
             $table->foreign('kantor_id')->references('id')->on('kantor');
         });
     }

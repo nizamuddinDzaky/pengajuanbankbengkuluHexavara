@@ -11,7 +11,28 @@
     <link rel="stylesheet" href="{{asset('css/biodata.css')}}">
     <link rel="stylesheet" href="{{asset('admin/plugins/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+    <style>
 
+        .divider {
+            border-left: 1px solid gray;
+            padding-left: 10px;
+        }
+
+
+        @media only screen and (max-width: 640px) and (min-width: 0px) {
+
+            .daftar-pengajuan {
+                margin-left: 0!important;
+            }
+
+            .divider {
+                border-left: 0px solid gray;
+                padding-left: 0px;
+            }
+
+
+        }
+    </style>
 
         @yield('style')
 
@@ -31,10 +52,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('tentang_kami')}}">Tentang Kami </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{url('daftar_pengajuan')}}"><i class="fa fa-calendar-alt mr-3 ml-2"></i>Daftar Pengajuan</a>
+                <li @if(Request::is('user/daftar_pengajuan'))class="nav-item active mr-2" @else class="nav-item mr-2" @endif>
+                    <a class="nav-link" href="{{url('user/daftar_pengajuan')}}"><i class="fa fa-calendar-alt daftar-pengajuan mr-2 ml-5"></i>Daftar Pengajuan</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown divider">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
@@ -61,6 +82,7 @@
 
 
 @yield('content')
+@yield('modal')
 
 <!-- Optional JavaScript; choose one of the two! -->
 

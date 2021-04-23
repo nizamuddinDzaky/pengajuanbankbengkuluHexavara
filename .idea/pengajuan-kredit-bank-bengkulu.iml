@@ -7,8 +7,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/fzaninotto/faker" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ramsey/uuid" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hamcrest/hamcrest-php" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-color" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-highlighter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/version" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
@@ -85,6 +83,17 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dragonmantank/cron-expression" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/mime-type-detection" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/event-manager" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/dbal" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-parallel-lint/php-console-color" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php80" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-parallel-lint/php-console-highlighter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/deprecation-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-client-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-intl-normalizer" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

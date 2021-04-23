@@ -19,7 +19,7 @@ Route::get('/','HomeController@index');
 
 
 
-Route::middleware([ 'auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     //biodata
     Route::get('/user/biodata', 'BiodataController@biodata');
@@ -28,8 +28,7 @@ Route::middleware([ 'auth'])->group(function () {
     Route::post('/user/biodata/getkelurahan', 'BiodataController@getKelurahan');
     Route::post('/user/biodata/getkodepos', 'BiodataController@getKodePos');
 
-
-//dokumen_saya
+    //dokumen_saya
     Route::get('/user/dokumen', 'BiodataController@dokumenSaya');
     Route::post('/user/dokumen/uploadnpwp', 'BiodataController@uploadNPWP')->name('dokumen.uploadnpwp');
     Route::post('/user/dokumen/uploadpasfoto', 'BiodataController@uploadPasFoto')->name('dokumen.uploadpasfoto');
@@ -43,12 +42,21 @@ Route::middleware([ 'auth'])->group(function () {
     });
     Route::post('/user/ubah_katasandi/update', 'BiodataController@updateKataSandi');
 
+
+    //pengajuan pinjaman
+    Route::get('/user/pengajuan', 'PengajuanController@index');
+    Route::get('/user/pengajuan/update', 'PengajuanController@updatePengajuan');
+
+
+    //daftar pengajuan
+    Route::get('/user/daftar_pengajuan', function () {
+        return view('user.daftar_pengajuan');
+    });
+
+
 });
 
 
-Route::get('/user/pengajuan', function () {
-    return view('user.pengajuan');
-});
 
 
 
@@ -58,9 +66,6 @@ Route::get('/user/tentang_kami', function () {
     return view('user.tentang_kami');
 });
 
-Route::get('/user/daftar_pengajuan', function () {
-    return view('user.daftar_pengajuan');
-});
 
 
 

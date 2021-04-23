@@ -18,6 +18,15 @@
             z-index: 2;
         }
 
+        @media only screen and (max-width: 640px) and (min-width: 0px) {
+
+            .title {
+                margin-left: 3%;
+            }
+
+        }
+
+
     </style>
 
 
@@ -50,7 +59,7 @@
                 <form action="{{url('user/ubah_katasandi/update')}}" method="post">
                     @csrf
                     <div class="row">
-                        <h3 class="mt-5">Ubah Kata Sandi</h3>
+                        <h3 class="mt-5 title">Ubah Kata Sandi</h3>
                     </div>
                     <div class="row">
                         <div class="col-md-6">

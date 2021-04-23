@@ -17,7 +17,7 @@ class RoleSeeder extends Seeder
         User::truncate();
         $data = [
             [
-                'role'=> 'AdminPusat',    
+                'role'=> 'AdminPusat',
             ],
             [
                 'role'=> 'AdminCabang',
@@ -26,7 +26,10 @@ class RoleSeeder extends Seeder
                 'role'=> 'AdminCabangPembantu',
             ],
             [
-                'role'=> 'Teller',
+                'role'=> 'CustomerService',
+            ],
+            [
+                'role' => 'Nasabah'
             ]
         ];
         DB::table('role')->insert($data);

@@ -12,7 +12,15 @@
             width: 130px;
             height:130px;
         }
-        
+
+        @media only screen and (max-width: 640px) and (min-width: 0px) {
+
+            .title {
+                margin-left: 3%;
+            }
+
+        }
+
     </style>
     @endsection
 
@@ -39,7 +47,7 @@
             </div>
             <div class="col-md-9">
                     <div class="row">
-                        <h3 class="mt-5">Dokumen Saya</h3>
+                        <h3 class="mt-5 title">Dokumen Saya</h3>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
