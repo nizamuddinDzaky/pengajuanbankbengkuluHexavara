@@ -5,28 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0940031-9645-4aa3-aab1-739a08d6efc7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/PengajuanController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/AdminMiddleware.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/user/modal/simulasi_kredit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pengajuan-kredit-bank-bengkulu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pengajuan-kredit-bank-bengkulu.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/CustomerServiceController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/CustomerServiceMiddleware.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customer_service/jadwal.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customer_service/modal/detail_pengajuan.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customer_service/pelayanan_nasabah.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/sidebar/customer-service.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BiodataController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BiodataController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_04_12_145210_create_user_kantor_columns.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_04_12_145210_create_user_kantor_columns.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/RoleSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RoleSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/user.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/user.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/biodata_diri.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/biodata_diri.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/daftar_pengajuan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/daftar_pengajuan.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/dokumen_saya.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/dokumen_saya.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/pengajuan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/pengajuan.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/ubah_kata_sandi.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/ubah_kata_sandi.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -150,6 +138,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -196,7 +185,9 @@
       <workItem from="1617965797477" duration="9055000" />
       <workItem from="1618232477772" duration="2505000" />
       <workItem from="1618279336388" duration="606000" />
-      <workItem from="1619145583514" duration="8067000" />
+      <workItem from="1619145583514" duration="15640000" />
+      <workItem from="1619277813137" duration="188000" />
+      <workItem from="1619402775184" duration="861000" />
     </task>
     <servers />
   </component>
@@ -213,5 +204,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

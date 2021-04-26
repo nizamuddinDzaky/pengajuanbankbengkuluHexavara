@@ -42,6 +42,14 @@ class HomeController extends Controller
                 'content'       => 'Berhasil login!'
             ]);
         }
+        else if($user->userRole->role->role == 'CustomerService'){
+            return redirect('customer-service')->with('status', [
+                'enabled'       => true,
+                'type'          => 'success',
+                'content'       => 'Berhasil login!'
+            ]);
+        }
+
         return view('home');
     }
 }

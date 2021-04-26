@@ -29,9 +29,10 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- Data Table -->
-    <link rel="stylesheet" href="{{asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+
     <!-- select 2 -->
     <link rel="stylesheet" href="{{asset('admin/plugins/select2/css/select2.min.css')}}">
     <script src="{{asset('admin/plugins/select2/js/select2.min.js')}}"></script>
@@ -120,10 +121,12 @@
                 @include('layouts.sidebar.admin-pusat')
             @elseif ($role == 'AdminCabang')
                 @include('layouts.sidebar.admin-cabang')
+            @elseif($role == 'CustomerService')
+                @include('layouts.sidebar.customer-service')
             @else
                 @include('layouts.sidebar.main')
             @endif
-        
+
         </nav>
         <!-- /.sidebar-menu -->
 </div>
@@ -176,7 +179,7 @@
 </div>
 <!-- /.content-wrapper -->
 <footer class="main-footer">
-    <strong>Copyright &copy; 2020 <a href="http://">Hexavara</a>.</strong>
+    <strong>Copyright &copy; {{\Carbon\Carbon::now()->year}} <a href="http://">Bank Bengkulu</a></strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 0.0.1
