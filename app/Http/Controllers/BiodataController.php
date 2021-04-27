@@ -63,7 +63,12 @@ class BiodataController extends Controller
         $user->kecamatan_id = $request->kecamatan;
         $user->kelurahan_id = $request->kelurahan;
         $user->alamat = $request->alamat;
-        $user->pekerjaan = $request->pekerjaan;
+        if ($request->pekerjaan != 'Lainnya'){
+            $user->pekerjaan = $request->pekerjaan;
+        }else{
+            $user->pekerjaan = $request->pekerjaan_lainnya;
+        }
+
         $user->npwp = $request->no_npwp;
 
         if ($user->save()){

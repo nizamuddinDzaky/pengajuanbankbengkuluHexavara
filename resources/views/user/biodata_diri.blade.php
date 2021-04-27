@@ -149,13 +149,29 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="tanggallahir">Pekerjaan</label>
-                            <input type="text" class="form-control" value="{{Auth::user()->pekerjaan}}" name="pekerjaan" required>
+                            <select name="pekerjaan" class="form-control" id="pekerjaan"  required>
+                                <option value="CPNS">CPNS</option>
+                                <option value="PNS">PNS</option>
+                                <option value="Pensiunan PNS">Pensiunan PNS</option>
+                                <option value="DPRD">DPRD</option>
+                                <option value="Pejabat Non PNS / Komisioner KPU">Pejabat Non PNS / Komisioner KPU</option>
+                                <option value="Perangkat Desa">Perangkat Desa</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="tanggallahir">Nomor NPWP</label>
                             <input type="text" maxlength="15" minlength="15" value="{{Auth::user()->npwp}}" class="form-control" name="no_npwp" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="keterangan_lainnya">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="tanggallahir">Nama Pekerjaan</label>
+                            <input type="text" class="form-control" id="pekerjaan_lainnya" name="pekerjaan_lainnya" >
                         </div>
                     </div>
                 </div>
@@ -182,9 +198,9 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
-            var kabkot = {{Auth::user()->kabkot_id}};
-            var kecamatan = {{Auth::user()->kecamatan_id}};
-            var kelurahan = {{Auth::user()->kelurahan_id}};
+            var kabkot = "{{Auth::user()->kabkot_id}}";
+            var kecamatan = "{{Auth::user()->kecamatan_id}}";
+            var kelurahan = "{{Auth::user()->kelurahan_id}}";
 
             if (kabkot != null){
                 $('#kabkot').val(kabkot);
@@ -207,6 +223,15 @@
                         $('#kode_pos').val(data['kd_pos']);
                     }
                 });
+            }
+
+            var pekerjaan = "{{Auth::user()->pekerjaan}}";
+            if(pekerjaan !== 'CPNS' && pekerjaan!== 'PNS' && pekerjaan!== 'Pensiunan PNS' && pekerjaan !== 'DPRD' && pekerjaan !== 'Pejabat Non PNS / Komisioner KPU' && pekerjaan !== 'Perangkat Desa') {
+                $('#pekerjaan').val('Lainnya');
+                $('#pekerjaan_lainnya').val(pekerjaan);
+            }else{
+                $('#pekerjaan').val(pekerjaan);
+                $('#keterangan_lainnya').hide();
             }
 
 
@@ -281,6 +306,22 @@
             });
 
         });
+
+
+        $('#pekerjaan').on('change', function (){
+            var pekerjaan = $(this).val();
+
+            if(pekerjaan == 'Lainnya'){
+                $('#keterangan_lainnya').show();
+            }else{
+                $('#keterangan_lainnya').hide();
+            }
+
+        });
+
+
+
+
 
 
 
