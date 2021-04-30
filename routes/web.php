@@ -36,7 +36,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/user/dokumen/getthumbnail', 'BiodataController@getThumbnail')->name('dokumen.getthumbnail');
 
 
-//ubah kata sandi
+
+    //ubah kata sandi
     Route::get('/user/ubah_katasandi', function () {
         return view('user.ubah_kata_sandi');
     });
@@ -45,7 +46,18 @@ Route::middleware(['auth'])->group(function () {
 
     //pengajuan pinjaman
     Route::get('/user/pengajuan', 'PengajuanController@index');
-    Route::get('/user/pengajuan/update', 'PengajuanController@updatePengajuan');
+    Route::post('/user/pengajuan/insertformulir', 'PengajuanController@insertFormulirPengajuan');
+    Route::post('/user/pengajuan/insertbiodatadiri', 'PengajuanController@insertBiodataDiri');
+    Route::post('/user/pengajuan/getsukubunga', 'PengajuanController@getSukuBunga')->name('user.getsukubunga');
+    Route::post('/user/pengajuan/getjumlahangsuran', 'PengajuanController@getJumlahAngsuran')->name('user.getjumlahangsuran');
+    Route::post('/user/pengajuan/getplafond', 'PengajuanController@getPlafond')->name('user.getplafond');
+    Route::post('/user/pengajuan/getjenisproduk', 'PengajuanController@getJenisProduk')->name('user.getjenisproduk');
+    Route::post('/user/pengajuan/getstatuskawin', 'PengajuanController@getStatusKawin')->name('user.getstatuskawin');
+    Route::post('/user/pengajuan/getstatusjaminan', 'PengajuanController@getStatusJaminan')->name('user.getstatusjaminan');
+
+    //upload dokumen pengajuan
+    Route::post('/user/pengajuan/upload_dokumen_saya/{jenis}', 'PengajuanController@uploadDokumenSaya');
+    Route::post('/user/pengajuan/getthumbnail', 'PengajuanController@getThumbnail');
 
 
     //daftar pengajuan

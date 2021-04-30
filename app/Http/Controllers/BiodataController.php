@@ -6,6 +6,7 @@ use App\Kabkot;
 use App\Kecamatan;
 use App\Kelurahan;
 use App\Provinsi;
+use App\Transaksi;
 use App\User;
 use Illuminate\Http\Request;
 use DB;
@@ -63,6 +64,7 @@ class BiodataController extends Controller
         $user->kecamatan_id = $request->kecamatan;
         $user->kelurahan_id = $request->kelurahan;
         $user->alamat = $request->alamat;
+        $user->jenis_kelamin = $request->jenis_kelamin;
         if ($request->pekerjaan != 'Lainnya'){
             $user->pekerjaan = $request->pekerjaan;
         }else{
@@ -81,13 +83,6 @@ class BiodataController extends Controller
 
 
     }
-
-
-
-
-
-
-
 
 
 

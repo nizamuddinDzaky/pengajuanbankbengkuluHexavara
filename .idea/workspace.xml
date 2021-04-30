@@ -5,28 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0940031-9645-4aa3-aab1-739a08d6efc7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/PengajuanController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/AdminMiddleware.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/user/modal/simulasi_kredit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pengajuan-kredit-bank-bengkulu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pengajuan-kredit-bank-bengkulu.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Service/UploadService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/pangkat.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/smart-wizard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/upload_pengajuan_file/upload_dokumen_saya.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/validation/messages_id.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/user/pengajuan/dokumen_saya.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/user/pengajuan/multiguna.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BiodataController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BiodataController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_04_12_145210_create_user_kantor_columns.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_04_12_145210_create_user_kantor_columns.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/RoleSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RoleSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PengajuanController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PengajuanController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/user.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/user.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/biodata_diri.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/biodata_diri.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/daftar_pengajuan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/daftar_pengajuan.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/dokumen_saya.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/dokumen_saya.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/pengajuan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/pengajuan.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/ubah_kata_sandi.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/ubah_kata_sandi.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +29,13 @@
   <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -153,7 +152,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/wizard" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/js/validation" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -166,7 +165,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/js/validation" />
       <recent name="$PROJECT_DIR$/public/wizard" />
+      <recent name="$PROJECT_DIR$/public/js" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/js" />
     </key>
   </component>
@@ -197,6 +200,15 @@
       <workItem from="1618232477772" duration="2505000" />
       <workItem from="1618279336388" duration="606000" />
       <workItem from="1619145583514" duration="8067000" />
+      <workItem from="1619441179406" duration="7368000" />
+      <workItem from="1619450282888" duration="455000" />
+      <workItem from="1619486680154" duration="12223000" />
+      <workItem from="1619528691924" duration="6595000" />
+      <workItem from="1619572763167" duration="5590000" />
+      <workItem from="1619595360707" duration="5379000" />
+      <workItem from="1619659730983" duration="11216000" />
+      <workItem from="1619702551671" duration="5913000" />
+      <workItem from="1619745463943" duration="7728000" />
     </task>
     <servers />
   </component>
@@ -213,5 +225,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

@@ -91,6 +91,18 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
+                        <label for="tempatlahir">Jenis Kelamin</label>
+                        <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                            <option selected disabled>-Pilih Jenis Kelamin-</option>
+                                <option value="Laki-laki" @if(Auth::user()->jenis_kelamin == "Laki-laki") selected @endif >Laki-laki</option>
+                                <option value="Perempuan"  @if(Auth::user()->jenis_kelamin == "Perempuan")selected  @endif>Perempuan</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label for="alamat">Alamat Domisili</label>
                             <select name="provinsi" class="form-control" id="provinsi">
                                 @foreach($provinsi as $data)
@@ -141,7 +153,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" name="alamat" class="form-control" value="{{Auth::user()->alamat}}" placeholder="Alamat Lengkap">
+                            <textarea  name="alamat" class="form-control"  placeholder="Alamat Lengkap">{{Auth::user()->alamat}}</textarea>
                         </div>
                     </div>
                 </div>

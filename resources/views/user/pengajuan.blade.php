@@ -10,6 +10,23 @@
             background-color: #EEEFF3;
         }
 
+        input.error {
+            border: 1px dashed red;
+            font-weight: 300;
+            color: red;
+        }
+
+        label.error {
+            color: red;
+            font-size: 1rem;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .red {
+            color: red;
+        }
+
         .sw-theme-dots>.nav::before {
             background-color: grey;!important
         }
@@ -46,6 +63,11 @@
 
                     <ul class="nav">
                         <li class="nav-item">
+                            <a class="nav-link" href="#formulir-pengajuan">
+                                Formulir Pengajuan
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#biodata-diri">
                                 Biodata Diri
                             </a>
@@ -53,11 +75,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#dokumen-saya">
                                 Dokumen Saya
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#formulir-pengajuan">
-                                Formulir Pengajuan
                             </a>
                         </li>
                         <li class="nav-item">
@@ -71,187 +88,36 @@
                             </a>
                         </li>
                     </ul>
-                    <form action="{{url('/user/pengajuan/update')}}" method="post" id="formPengajuan">
                     <div class="tab-content">
-                        <div id="biodata-diri" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nama">Nama</label>
-                                        <input type="text" class="form-control" value="{{Auth::user()->name}}" name="name" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="text" class="form-control" value="{{Auth::user()->email}}" name="email" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="noktp">No KTP</label>
-                                        <input type="text" class="form-control" value="{{Auth::user()->no_ktp}}" name="no_ktp" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nohp">No Handphone</label>
-                                        <input type="text" class="form-control" value="{{Auth::user()->no_hp}}" name="no_hp" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="tempatlahir">Tempat Lahir</label>
-                                        <input type="text" class="form-control" value="{{Auth::user()->tempat_lahir}}" name="tempat_lahir" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="tanggallahir">Tanggal Lahir</label>
-                                        <input type="date" class="form-control" value="{{Auth::user()->tanggal_lahir}}" name="tanggal_lahir" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="alamat">Alamat Domisili</label>
-                                        <select name="provinsi" class="form-control" id="provinsi">
-                                            @foreach($provinsi as $data)
-                                                <option value="{{$data->id}}">{{$data->provinsi}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="alamat" style="color: #EEEFF3">-</label>
-                                        <select name="kabkot" class="form-control" id="kabkot">
-                                            <option selected disabled>-Pilih Kabupaten / Kota-</option>
-                                            @foreach($kabkot as $data)
-                                                <option value="{{$data->id}}">{{$data->kabupaten_kota}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <select name="kecamatan" class="form-control" id="kecamatan">
-                                            <option selected disabled>-Pilih Kecamatan-</option>
-                                            @foreach($kecamatan as $data)
-                                                <option value="{{$data->id}}">{{$data->kecamatan}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <select name="kelurahan" class="form-control" id="kelurahan">
-                                            <option selected disabled>-Pilih Kelurahan-</option>
-                                            @foreach($kelurahan as $data)
-                                                <option value="{{$data->id}}">{{$data->kelurahan}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="kode_pos" readonly placeholder="Kode Pos">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" name="alamat" class="form-control" value="{{Auth::user()->alamat}}" placeholder="Alamat Lengkap">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="tanggallahir">Pekerjaan</label>
-                                        <input type="text" class="form-control" value="{{Auth::user()->pekerjaan}}" name="pekerjaan" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="tanggallahir">Nomor NPWP</label>
-                                        <input type="text" maxlength="15" minlength="15" value="{{Auth::user()->npwp}}" class="form-control" name="no_npwp" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="dokumen-saya" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nama">Foto E-KTP (3x4)</label>
-                                        <div class='content'>
-                                            <!-- Dropzone -->
-                                            <div id="dokumenUploadKTP" class="dropzone">
-                                                @csrf
-                                                <div class="dz-message" data-dz-message><span><i class="fa fa-plus" aria-hidden="true"></i></span></div>
-                                            </div>
-                                        </div>
-                                        <small  class="form-text text-muted">Ukuran file maks 5MB. Format file .jpg, .jpeg, .png.</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email">Pas Foto Saya (3x4)</label>
-                                        <div class='content'>
-                                            <!-- Dropzone -->
-                                            <div id="dokumenUploadPasfoto" class="dropzone" >
-                                                @csrf
-                                                <div class="dz-message" data-dz-message><span><i class="fa fa-plus" aria-hidden="true"></i></span></div>
-                                            </div>
-                                        </div>
-                                        <small  class="form-text text-muted">Ukuran file maks 5MB. Format file .jpg, .jpeg, .png.</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="noktp">NPWP (3x4)</label>
-                                        <div class='content'>
-                                            <!-- Dropzone -->
-                                            <div  id="dokumenUploadNPWP" class="dropzone" >
-                                                @csrf
-                                                <div class="dz-message" data-dz-message><span><i class="fa fa-plus" aria-hidden="true"></i></span></div>
-                                            </div>
-                                        </div>
-                                        <small  class="form-text text-muted">Ukuran file maks 5MB. Format file .jpg, .jpeg, .png.</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="formulir-pengajuan" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
+
+                        <div id="formulir-pengajuan" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
+                            <form action="" method="post" id="formPengajuan">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="nama">Produk Kredit</label>
-                                        <select class="form-control" name="produk_kredit">
+                                        <select class="form-control" name="produk_kredit" id="produk_kredit" required>
                                             <option selected disabled>-Pilih Produk Kredit-</option>
+                                            @foreach($produk as $data)
+                                                @if($transaksi->produk_id == $data->id)
+                                                    <option value="{{$data->id}}" selected>{{$data->nama}}</option>
+                                                    @else
+                                                    <option value="{{$data->id}}">{{$data->nama}}</option>
+                                                    @endif
+
+                                                @endforeach
                                         </select>
 
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="email">Penghasilan per Bulan</label>
+                                        <label for="">Penghasilan per Bulan</label>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1">Rp</span>
                                             </div>
-                                            <input type="text" class="form-control"  name="penghasilan_per_bulan" required>
+                                            <input type="text" class="form-control currency"  value="{{$transaksi->penghasilan}}" id="penghasilan_per_bulan" required>
                                         </div>
                                     </div>
                                 </div>
@@ -261,7 +127,7 @@
                                     <div class="form-group">
                                         <label for="nama">Jangka Waktu Kredit</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control"  name="jangka_waktu_kredit" required>
+                                            <input type="number" value="{{$transaksi->masa_tenor}}" class="form-control"  name="jangka_waktu_kredit" id="jangka_waktu_kredit"  required>
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1">Bulan</span>
                                             </div>
@@ -272,7 +138,7 @@
                                     <div class="form-group">
                                         <label for="nama">Suku Bunga per Tahun</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control"  name="suku_bunga" required>
+                                            <input type="text" class="form-control" id="suku_bunga" value="{{$transaksi->suku_bunga}}" disabled>
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1">%</span>
                                             </div>
@@ -281,12 +147,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="email">Maksimal Plafond yang Dapat Diambil</label>
+                                        <label for="">Maksimal Plafond yang Dapat Diambil</label>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1">Rp</span>
                                             </div>
-                                            <input type="text" class="form-control"  name="max_plafond"  readonly required>
+                                            <input type="text" class="form-control currency" value="{{$transaksi->max_plafond}}"  id="max_plafond"  readonly>
                                         </div>
 
                                     </div>
@@ -300,25 +166,49 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1">Rp</span>
                                             </div>
-                                            <input type="text" class="form-control"  name="nominal_pengajuan_kredit" required>
+                                            <input type="text" class="form-control currency"  id="nominal_pengajuan_kredit" value="{{$transaksi->plafond}}" required>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <label for="" style="color: #EEEFF3">-</label>
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                      <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#simulasiKredit" >Simulasi Kredit</button>
+                                        <label for="">Jumlah Angsuran per Bulan</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            </div>
+                                            <input type="text" class="form-control currency" value="{{$transaksi->jumlah_angsuran}}"  id="jumlah_angsuran_per_bulan" readonly>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 pl-0 ml-0">
-                                    <label for="" style="color: #EEEFF3">-</label>
-                                    <div class="form-group">
-                                        <small  style="float: left" class="form-text text-muted">Simulasi kredit menggunakan metode anuitas</small>
-                                    </div>
-                                </div>
-
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nama">Keperluan Pinjaman</label>
+                                            <input type="text" required class="form-control" name="keperluan_pinjaman"  id="keperluan_pinjaman" value="{{$transaksi->keperluan_pinjaman}}" >
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
                         </div>
+
+
+
+                        <div id="biodata-diri" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+                                @include('user.pengajuan.multiguna')
+                        </div>
+
+
+                        <div id="dokumen-saya" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
+                            @include('user.pengajuan.dokumen_saya')
+                        </div>
+
+
+
+
+
+
                         <div id="dokumen-kredit" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
                             Step 4 Content
                         </div>
@@ -334,7 +224,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="email">Customer Service</label>
+                                        <label for="">Customer Service</label>
                                         <select name="cs" class="form-control" id="">
                                             <option selected disabled>-Pilih CS yang Tersedia di Cabang atau Capem Terdekat-</option>
                                         </select>
@@ -350,7 +240,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="email">Slot Waktu Pencairan Dana</label>
+                                        <label for="">Slot Waktu Pencairan Dana</label>
                                         <select name="slot_waktu" class="form-control" id="">
                                             <option selected disabled>-Pilih Slot Waktu yang Tersedia-</option>
                                         </select>
@@ -364,7 +254,6 @@
                             </div>
                         </div>
                     </div>
-                    </form>
                 </div>
         </div>
     </div>
@@ -384,13 +273,13 @@
     @endsection
 
 
-@section('modal')
-    @include('user.modal.simulasi_kredit')
-    @endsection
-
-
 @section('script')
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <script src="{{asset('js/validation/messages_id.min.js')}}"></script>
+    <script src="{{asset('js/smart-wizard.js')}}"></script>
+    <script src="{{asset('js/upload_pengajuan_file/upload_dokumen_saya.js')}}"></script>
+
 {{--   handle toastr --}}
     <script type="text/javascript">
 
@@ -403,32 +292,461 @@
     </script>
 
 
-{{--    handle validation--}}
+{{--    handle validation and insert tab data--}}
 <script type="text/javascript">
-
+    var status = "";
     $("#smartwizard").on("leaveStep", function (e, anchorObject, stepNumber, stepDirection) {
 
-        var $myForm = $('#formPengajuan');
-        if(! $myForm[0].checkValidity()) {
-            $myForm.find(':submit').click();
+        if (stepDirection > stepNumber){
+
+            if (stepNumber == 0){
+                if ($('#formPengajuan').valid()) {
+                    insertFormulirPengajuan();
+                } else {
+                    return false;
+                }
+            }
+
+
+            if(stepNumber == 1){
+                var tipe = "";
+                if ($('#formBiodataDiri').valid()) {
+                    $.ajax({
+                        type: "POST",
+                        headers: {
+                            'X-CSRF-Token': "{{csrf_token()}}"
+                        },
+                        url: "{{route('user.getjenisproduk')}}",
+                        dataType: "JSON",
+                        success: function (response) {
+                            tipe = response;
+                            insertBiodataDiri(tipe);
+                        }
+                    });
+
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+
+
+            if (stepNumber == 2){
+
+                function getData(callback){
+                    $.ajax({
+                        type: "POST",
+                        headers: {
+                            'X-CSRF-Token': "{{csrf_token()}}"
+                        },
+                        url: "{{route('user.getstatuskawin')}}",
+                        dataType: "JSON",
+                        success: callback
+                    });
+                }
+
+
+
+                getData( function(response) {
+                    status = response;
+                });
+
+                if (status == "Kawin") {
+                    $("#kawinValidation").validate({
+                        ignore: "",
+                        errorPlacement: function (error, element) {
+                            return true;
+                        }
+                    });
+
+                    if ($('#kawinValidation').valid()) {
+                        return true;
+                    } else {
+                        toastr.error("Upload Semua File Yang Bertanda Bintang Merah");
+                        return false
+                    }
+
+                }
+                else{
+                    $("#tidakKawinValidation").validate({
+                        ignore: "",
+                        errorPlacement: function (error, element) {
+                            return true;
+                        }
+                    });
+
+                    if ($('#tidakKawinValidation').valid()) {
+                        return true;
+                    } else {
+                        toastr.error("Upload Semua File Yang Bertanda Bintang Merah");
+                        return false
+                    }
+                }
+
+
+
+
+
+
+
+            }
+        }
+
+
+    });
+
+
+    $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
+        if(stepIndex == 1){
+
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-Token': "{{csrf_token()}}"
+                },
+                url: "{{route('user.getjenisproduk')}}",
+                dataType: "JSON",
+                success: function (response) {
+                  if (response == 'multiguna'){
+                      $('.pengajuan_multiguna').show();
+                  }
+
+
+                }
+            });
+        }
+
+        if(stepIndex == 2){
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-Token': "{{csrf_token()}}"
+                },
+                url: "{{route('user.getstatuskawin')}}",
+                dataType: "JSON",
+                success: function (response) {
+                    if (response == 'Kawin'){
+                        $('.dokumenSayaKawin').show();
+                    }else{
+                        $('.dokumenSayaKawin').hide();
+                    }
+
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-Token': "{{csrf_token()}}"
+                },
+                url: "{{route('user.getstatusjaminan')}}",
+                dataType: "JSON",
+                success: function (response) {
+                    if (response == true){
+                        $('.jaminanSHMBPKB').show();
+                    }else{
+                        $('.jaminanSHMBPKB').hide();
+                    }
+
+                }
+            });
+
 
         }
     });
 
-    // $(".sw-btn-next").on('click', function(){ // when the button is clicked...
-    //     console.log('hello world');
-    //
-    //
-    // })
+
+    function insertFormulirPengajuan(){
+        var produk_kredit = $('#produk_kredit').val();
+        var penghasilan = $('#penghasilan_per_bulan').val();
+        var jangka_waktu_kredit = $('#jangka_waktu_kredit').val();
+        var keperluan_pinjaman = $('#keperluan_pinjaman').val();
+        var suku_bunga = $('#suku_bunga').val();
+        var max_plafond = $('#max_plafond').val();
+        var jumlah_angsuran = $('#jumlah_angsuran_per_bulan').val();
+        var nominal_pengajuan = $('#nominal_pengajuan_kredit').val();
+
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-Token': "{{csrf_token()}}"
+            },
+            url: "{{url('/user/pengajuan/insertformulir')}}",
+            dataType: "JSON",
+            data: {produk: produk_kredit, penghasilan : penghasilan, jangka_waktu_kredit : jangka_waktu_kredit, keperluan_pinjaman : keperluan_pinjaman , suku_bunga : suku_bunga, jumlah_angsuran : jumlah_angsuran, max_plafond : max_plafond, nominal_pengajuan : nominal_pengajuan},
+            success: function (response) {
+                if (response == "success"){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+
+
+            }
+        });
+    }
+
+
+    function insertBiodataDiri(tipe){
+
+        if (tipe == 'multiguna'){
+            //dari biodata
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var no_ktp = $('#no_ktp').val();
+            var no_hp = $('#no_hp').val();
+            var tempat_lahir = $('#tempat_lahir').val();
+            var tanggal_lahir = $('#tanggal_lahir').val();
+            var jenis_kelamin = $('#jenis_kelamin').val();
+            var provinsi = $('#provinsi').val();
+            var kabkot = $('#kabkot').val();
+            var kecamatan = $('#kecamatan').val();
+            var kelurahan = $('#kelurahan').val();
+            var alamat = $('#alamat').val();
+            var no_npwp = $('#no_npwp').val();
+            var pekerjaan = $('#pekerjaan').val();
+            if (pekerjaan  == "Lainnya"){
+                pekerjaan = $('#pekerjaan_lainnya').val();
+            }
+
+
+            //wajib ada
+            var nama_ibu_kandung = $('#nama_ibu_kandung').val();
+            var status_perkawinan = $('#status_perkawinan').val();
+            var agama = $('#agama').val();
+            var pendidikan = $('#pendidikan').val();
+            var kewarganegaraan = $('#kewarganegaraan').val();
+            var no_telp_rumah = $('#no_telp_rumah').val();
+            var status_kepemilikan_rumah = $('#status_kepemilikan_rumah').val();
+            var kantor =  $('#kantor').val();
+            var alamat_kantor =  $('#alamat_kantor').val();
+            var no_telp_kantor = $('#no_telp_kantor').val();
+            var lama_bekerja = $('#lama_bekerja').val();
+            var jabatan = $('#jabatan').val();
+            var pangkat = $('#pangkat').val();
+            var NIP = $('#nip').val();
+
+
+
+            //tidak wajib ada
+            var nama_panggilan = $('#nama_panggilan').val();
+            var masa_berlaku_ktp = $('#masa_berlaku_ktp').val();
+            var keterangan_gelar = $('#keterangan_gelar').val();
+            var jumlah_anak = $('#jumlah_anak').val();
+            var no_fax_kantor = $('#no_fax_kantor').val();
+            var email_kantor = $('#email_kantor').val();
+
+
+            //tidak wajib hanya kalo kawin
+            var nama_pasangan = $('#nama_pasangan').val();
+            var no_ktp_pasangan = $('#no_ktp_pasangan').val();
+            var pekerjaan_pasangan = $('#pekerjaan_pasangan').val();
+            var alamat_nohp_pasangan = $('#alamat_nohp_pasangan').val();
+            var hubungan = $('#hubungan_pasangan').val();
+
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-Token': "{{csrf_token()}}"
+                },
+                url: "{{url('/user/pengajuan/insertbiodatadiri')}}",
+                dataType: "JSON",
+                data: {tipe : tipe, name : name, email : email, no_ktp : no_ktp, no_hp: no_hp, tempat_lahir : tempat_lahir, tanggal_lahir : tanggal_lahir, provinsi : provinsi, kabkot : kabkot , kecamatan : kecamatan, kelurahan : kelurahan, alamat : alamat, jenis_kelamin : jenis_kelamin , pekerjaan : pekerjaan , no_npwp : no_npwp, nama_ibu_kandung : nama_ibu_kandung, status_perkawinan : status_perkawinan, agama : agama, pendidikan : pendidikan, kewarganegaraan : kewarganegaraan, no_telp_rumah : no_telp_rumah, status_kepemilikan_rumah : status_kepemilikan_rumah, kantor: kantor, alamat_kantor : alamat_kantor, no_telp_kantor : no_telp_kantor, lama_bekerja : lama_bekerja, jabatan : jabatan, pangkat : pangkat, NIP : NIP, nama_panggilan : nama_panggilan, masa_berlaku_ktp : masa_berlaku_ktp, keterangan_gelar: keterangan_gelar, no_fax_kantor : no_fax_kantor, email_kantor : email_kantor, nama_pasangan : nama_pasangan, no_ktp_pasangan : no_ktp_pasangan, pekerjaan_pasangan : pekerjaan_pasangan, alamat_nohp_pasangan : alamat_nohp_pasangan, hubungan : hubungan, jumlah_anak : jumlah_anak},
+                success: function (response) {
+                    if (response == "success"){
+                        return true;
+                    }
+                    else{
+                        console.log(response);
+                        return false;
+                    }
+
+
+                }
+            });
+
+
+
+        }
+
+
+
+
+
+    }
+
+
+
 
 </script>
+
+{{-- handle formulir pengajuan--}}
+    <script type="text/javascript">
+            $('#produk_kredit').on('change', function () {
+                var produk = $(this).val();
+                var jangka_waktu = $('#jangka_waktu_kredit').val();
+                var nominal = $('#nominal_pengajuan_kredit').val();
+
+                updateSukuBunga(produk, jangka_waktu);
+
+                var suku_bunga =  $('#suku_bunga').val();
+
+                updateJumlahAngsuranPerBulan(nominal, jangka_waktu, suku_bunga);
+
+        });
+
+
+            $('#penghasilan_per_bulan').on('keyup', function () {
+                var penghasilan = $(this).val();
+                var jangka_waktu = $('#jangka_waktu_kredit').val();
+
+                if (penghasilan != ""){
+                   updatePlafond(penghasilan, jangka_waktu)
+                }else{
+                    $('#max_plafond').val("");
+                }
+
+            });
+
+            $('#jangka_waktu_kredit').on('keyup', function () {
+                var jangka_waktu = $(this).val();
+                var produk = $('#produk_kredit').val();
+                var nominal = $('#nominal_pengajuan_kredit').val();
+                var penghasilan =  $('#penghasilan_per_bulan').val();
+                penghasilan = penghasilan.replaceAll('.', '');
+                nominal = nominal.replaceAll('.', '');
+
+                if (jangka_waktu != ""){
+
+                    updateSukuBunga(produk,jangka_waktu);
+
+                    var suku_bunga =  $('#suku_bunga').val();
+
+                    updateJumlahAngsuranPerBulan(nominal, jangka_waktu, suku_bunga);
+                    updatePlafond(penghasilan , jangka_waktu);
+
+                }else{
+                    $('#suku_bunga').val("");
+                    $('#jangka_waktu_kredit').val("");
+                    $('#jumlah_angsuran_per_bulan').val("");
+                }
+
+            });
+
+            $('#nominal_pengajuan_kredit').on('keyup', function () {
+                var nominal = $(this).val();
+                var jangka_waktu = $('#jangka_waktu_kredit').val();
+                var suku_bunga =  $('#suku_bunga').val();
+                var max_plafond =  $('#max_plafond').val();
+
+
+                if (nominal != ""){
+                    var nominal = nominal.replaceAll('.', '');
+                    var max_plafond = max_plafond.replaceAll('.','');
+
+                    if (parseInt(nominal) > parseInt(max_plafond) ){
+                        $(this).val(max_plafond);
+                        $(this).maskMoney('mask', $(this).val());
+                        updateJumlahAngsuranPerBulan(max_plafond, jangka_waktu, suku_bunga);
+
+                    }else{
+                        updateJumlahAngsuranPerBulan(nominal, jangka_waktu, suku_bunga);
+                    }
+
+                }else{
+                    $('#nominal_pengajuan_kredit').val("");
+                    $('#jumlah_angsuran_per_bulan').val("");
+                }
+
+
+
+
+
+            });
+
+
+
+
+
+            function updateJumlahAngsuranPerBulan(nominal, jangka_waktu, suku_bunga){
+
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-Token': "{{csrf_token()}}"
+                    },
+                    url: "{{route('user.getjumlahangsuran')}}",
+                    data: {nominal: nominal, jangka_waktu : jangka_waktu, suku_bunga: suku_bunga},
+                    success: function (data) {
+                        $('#jumlah_angsuran_per_bulan').val(data);
+                        $('#jumlah_angsuran_per_bulan').maskMoney('mask', $('#jumlah_angsuran_per_bulan').val());
+                    }
+                });
+
+            }
+
+            function updatePlafond(penghasilan , jangka_waktu){
+                 penghasilan = penghasilan.replaceAll('.', '');
+                 var nominal = $('#nominal_pengajuan_kredit').val();
+                 nominal = nominal.replaceAll('.', '');
+
+
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-Token': "{{csrf_token()}}"
+                    },
+                    url: "{{route('user.getplafond')}}",
+                    data: {penghasilan: penghasilan, jangka_waktu : jangka_waktu},
+                    success: function (data) {
+                        $('#max_plafond').val(data);
+                        if (parseInt(nominal) > parseInt(data)){
+                            $('#nominal_pengajuan_kredit').val(data);
+
+                        }
+                        $('#max_plafond').maskMoney('mask', $('#max_plafond').val());
+                        $('#nominal_pengajuan_kredit').maskMoney('mask', $('#nominal_pengajuan_kredit').val());
+
+
+
+
+
+                    }
+                });
+            }
+
+            function updateSukuBunga(produk, jangka_waktu){
+
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-Token': "{{csrf_token()}}"
+                    },
+                    url: "{{route('user.getsukubunga')}}",
+                    data: {produk: produk, jangka_waktu : jangka_waktu},
+                    success: function (data) {
+                        $('#suku_bunga').val(data);
+                    }
+                });
+            }
+
+
+    </script>
+
+
+
 
 {{--    handle biodata diri--}}
     <script type="text/javascript">
         $(document).ready(function() {
-            var kabkot = {{Auth::user()->kabkot_id}};
-            var kecamatan = {{Auth::user()->kecamatan_id}};
-            var kelurahan = {{Auth::user()->kelurahan_id}};
+
+            var kabkot = "{{Auth::user()->kabkot_id}}";
+            var kecamatan = "{{Auth::user()->kecamatan_id}}";
+            var kelurahan = "{{Auth::user()->kelurahan_id}}";
 
             if (kabkot != null){
                 $('#kabkot').val(kabkot);
@@ -452,6 +770,30 @@
                     }
                 });
             }
+
+            var pekerjaan = "{{Auth::user()->pekerjaan}}";
+            if(pekerjaan !== 'CPNS' && pekerjaan!== 'PNS' && pekerjaan!== 'Pensiunan PNS' && pekerjaan !== 'DPRD' && pekerjaan !== 'Pejabat Non PNS / Komisioner KPU' && pekerjaan !== 'Perangkat Desa') {
+                $('#pekerjaan').val('Lainnya');
+                $('#pekerjaan_lainnya').val(pekerjaan);
+                $('.pangkat').hide();
+            }else{
+                $('#pekerjaan').val(pekerjaan);
+                $('#keterangan_lainnya').hide();
+                if (pekerjaan == 'Pensiunan PNS' || pekerjaan == "PNS"){
+                    $('.pangkat').show();
+                }
+            }
+
+
+            var status_kawin = $('#status_perkawinan').val();
+            if(status_kawin == 'Kawin' ) {
+                $('#status_perkawinan').val('Kawin');
+                $('.referensi_kawin').show();
+            }else{
+                $('.referensi_kawin').hide();
+            }
+
+
 
 
         });
@@ -526,248 +868,40 @@
 
         });
 
+        $('#pekerjaan').on('change', function (){
+            var pekerjaan = $(this).val();
 
-    </script>
-
-
-{{--handle dokumen saya--}}
-<script type="text/javascript">
-
-    var dropzone1 =  Dropzone.options.dokumenUploadKTP = {
-        autoProcessQueue: true,
-        url: '{{route('dokumen.uploadktp')}}',
-        addRemoveLinks: true,
-        uploadMultiple: false,
-        headers: {
-            'X-CSRF-Token': "{{csrf_token()}}"
-        },
-        autoDiscover : false,
-        maxFilesize: 5,
-        acceptedFiles: '.jpg, .jpeg, .png',
-        maxFiles: 1,
-        parallelUploads : 3,
-        init: function () {
-
-            var myDropzone = this;
-
-            $.ajax({
-                url: '{{route('dokumen.getthumbnail')}}',
-                type: 'post',
-                headers: {
-                    'X-CSRF-Token': "{{csrf_token()}}"
-                },
-                data: {data: "ktp"},
-                dataType: 'json',
-                success: function(response){
-
-                    $.each(response, function(key,value) {
-                        var mockFile = { name: value.name, size: value.size };
-
-                        myDropzone.emit("addedfile", mockFile);
-                        myDropzone.emit("thumbnail", mockFile, value.path);
-                        myDropzone.emit("complete", mockFile);
-
-                    });
-
+            if(pekerjaan == 'Lainnya'){
+                $('#keterangan_lainnya').show();
+                $('.pangkat').hide();
+            }else{
+                if (pekerjaan == "Pensiunan PNS" || pekerjaan == "PNS"){
+                    $('.pangkat').show();
+                }else{
+                    $('.pangkat').hide();
                 }
-            });
-
-            // Update selector to match your button
-            $("#upload_dokumen").click(function (e) {
-                e.preventDefault();
-                myDropzone.processQueue();
-            });
-
-            this.on('sending', function(file, xhr, formData) {
-                // Append all form inputs to the formData Dropzone will POST
-                var data = $('#frmTarget').serializeArray();
-                $.each(data, function(key, el) {
-                    formData.append(el.name, el.value);
-                });
-            });
-
-            this.on("success", function() {
-                location.reload();
-            });
-        }
-    }
-
-    var dropzone2 =  Dropzone.options.dokumenUploadPasfoto = {
-        autoProcessQueue: true,
-        url: '{{route('dokumen.uploadpasfoto')}}',
-        addRemoveLinks: true,
-        uploadMultiple: false,
-        autoDiscover : false,
-        headers: {
-            'X-CSRF-Token': "{{csrf_token()}}"
-        },
-        maxFilesize: 5,
-        acceptedFiles: '.jpg, .jpeg, .png',
-        maxFiles: 1,
-        parallelUploads : 3,
-        init: function () {
-
-            var myDropzone = this;
-
-
-            $.ajax({
-                url: '{{route('dokumen.getthumbnail')}}',
-                type: 'post',
-                headers: {
-                    'X-CSRF-Token': "{{csrf_token()}}"
-                },
-                data: {data: "pas_foto"},
-                dataType: 'json',
-                success: function(response){
-
-                    $.each(response, function(key,value) {
-                        var mockFile = { name: value.name, size: value.size };
-
-                        myDropzone.emit("addedfile", mockFile);
-                        myDropzone.emit("thumbnail", mockFile, value.path);
-                        myDropzone.emit("complete", mockFile);
-
-                    });
-
-                }
-            });
-
-            // Update selector to match your button
-            $("#upload_dokumen").click(function (e) {
-                e.preventDefault();
-                myDropzone.processQueue();
-            });
-
-            this.on('sending', function(file, xhr, formData) {
-                // Append all form inputs to the formData Dropzone will POST
-                var data = $('#frmTarget').serializeArray();
-                $.each(data, function(key, el) {
-                    formData.append(el.name, el.value);
-                });
-            });
-
-            this.on("success", function() {
-                location.reload();
-            });
-        }
-    }
-
-    var dropzone3 =  Dropzone.options.dokumenUploadNPWP = {
-        autoProcessQueue: true,
-        url: '{{route('dokumen.uploadnpwp')}}',
-        addRemoveLinks: true,
-        uploadMultiple: false,
-        autoDiscover : false,
-        headers: {
-            'X-CSRF-Token': "{{csrf_token()}}"
-        },
-        maxFilesize: 5,
-        acceptedFiles: '.jpg, .jpeg, .png',
-        maxFiles: 1,
-        parallelUploads : 3,
-        init: function () {
-
-            var myDropzone = this;
-
-
-            $.ajax({
-                url: '{{route('dokumen.getthumbnail')}}',
-                type: 'post',
-                headers: {
-                    'X-CSRF-Token': "{{csrf_token()}}"
-                },
-                data: {data: "npwp"},
-                dataType: 'json',
-                success: function(response){
-
-                    $.each(response, function(key,value) {
-                        var mockFile = { name: value.name, size: value.size };
-                        myDropzone.emit("addedfile", mockFile);
-                        myDropzone.emit("thumbnail", mockFile, value.path);
-                        myDropzone.emit("complete", mockFile);
-
-                    });
-
-                }
-            });
-
-            // Update selector to match your button
-            $("#upload_dokumen").click(function (e) {
-                e.preventDefault();
-                myDropzone.processQueue();
-            });
-
-            this.on('sending', function(file, xhr, formData) {
-                // Append all form inputs to the formData Dropzone will POST
-                var data = $('#frmTarget').serializeArray();
-                $.each(data, function(key, el) {
-                    formData.append(el.name, el.value);
-                });
-            });
-
-            this.on("success", function() {
-                location.reload();
-            });
-        }
-    }
-
-
-
-
-</script>
-
-
-
-
-
-{{--    handle wizard--}}
-    <script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-            $('#smartwizard').smartWizard({
-                selected: 0, // Initial selected step, 0 = first step
-                theme: 'dots', // theme for the wizard, related css need to include for other than default theme
-                justified: true, // Nav menu justification. true/false
-                darkMode:false, // Enable/disable Dark Mode if the theme supports. true/false
-                autoAdjustHeight: false, // Automatically adjust content height
-                cycleSteps: false, // Allows to cycle the navigation of steps
-                backButtonSupport: true, // Enable the back button support
-                transition: {
-                    animation: 'fade', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
-                    speed: '400', // Transion animation speed
-                    easing:'' // Transition animation easing. Not supported without a jQuery easing plugin
-                },
-                toolbarSettings: {
-                    toolbarPosition: 'bottom', // none, top, bottom, both
-                    toolbarButtonPosition: 'right', // left, right, center
-                    showNextButton: true, // show/hide a Next button
-                    showPreviousButton: true, // show/hide a Previous button
-                    toolbarExtraButtons: [] // Extra buttons to show on toolbar, array of jQuery input/buttons elements
-                },
-                anchorSettings: {
-                    anchorClickable: true, // Enable/Disable anchor navigation
-                    enableAllAnchors: false, // Activates all anchors clickable all times
-                    markDoneStep: true, // Add done state on navigation
-                    markAllPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
-                    removeDoneStepOnNavigateBack: true, // While navigate back done step after active step will be cleared
-                    enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
-                },
-                keyboardSettings: {
-                    keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
-                    keyLeft: [37], // Left key code
-                    keyRight: [39] // Right key code
-                },
-                lang: { // Language variables for button
-                    next: 'Selanjutnya',
-                    previous: 'Sebelumnya'
-                },
-                disabledSteps: [], // Array Steps disabled
-                errorSteps: [], // Highlight step with errors
-                hiddenSteps: [] // Hidden steps
-            });
+                $('#keterangan_lainnya').hide();
+            }
 
         });
+
+
+        $('#status_perkawinan').on('change', function (){
+            var status = $(this).val();
+
+            if(status == 'Kawin'){
+                $('.referensi_kawin').show();
+            }else{
+                $('.referensi_kawin').hide();
+            }
+
+        });
+
+
+
+
+
     </script>
+
 
     @endsection
