@@ -48,22 +48,31 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/pengajuan', 'PengajuanController@index');
     Route::post('/user/pengajuan/insertformulir', 'PengajuanController@insertFormulirPengajuan');
     Route::post('/user/pengajuan/insertbiodatadiri', 'PengajuanController@insertBiodataDiri');
+    Route::post('/user/pengajuan/insertnoshm', 'PengajuanController@insertNoSHM');
+    Route::post('/user/pengajuan/insertnoSK', 'PengajuanController@insertNoSK');
+    Route::post('/user/pengajuan/inserttahapakhir', 'PengajuanController@insertTahapAkhir');
     Route::post('/user/pengajuan/getsukubunga', 'PengajuanController@getSukuBunga')->name('user.getsukubunga');
     Route::post('/user/pengajuan/getjumlahangsuran', 'PengajuanController@getJumlahAngsuran')->name('user.getjumlahangsuran');
     Route::post('/user/pengajuan/getplafond', 'PengajuanController@getPlafond')->name('user.getplafond');
     Route::post('/user/pengajuan/getjenisproduk', 'PengajuanController@getJenisProduk')->name('user.getjenisproduk');
+    Route::post('/user/pengajuan/getnamaproduk', 'PengajuanController@getNamaProduk')->name('user.getnamaproduk');
     Route::post('/user/pengajuan/getstatuskawin', 'PengajuanController@getStatusKawin')->name('user.getstatuskawin');
     Route::post('/user/pengajuan/getstatusjaminan', 'PengajuanController@getStatusJaminan')->name('user.getstatusjaminan');
+    Route::post('/user/pengajuan/konfirmasipengajuan', 'PengajuanController@konfirmasiPengajuan')->name('user.konfirmasi_pengajuan');
+
+    //pengajuan pinjaman tahap akhir
+    Route::post('/user/pengajuan/getcustomerservice', 'PengajuanController@getCustomerService');
+    Route::post('/user/pengajuan/getslotwaktu', 'PengajuanController@getSlotWaktu');
+
 
     //upload dokumen pengajuan
     Route::post('/user/pengajuan/upload_dokumen_saya/{jenis}', 'PengajuanController@uploadDokumenSaya');
+    Route::post('/user/pengajuan/upload_dokumen_kredit/{jenis}', 'PengajuanController@uploadDokumenKredit');
     Route::post('/user/pengajuan/getthumbnail', 'PengajuanController@getThumbnail');
 
 
     //daftar pengajuan
-    Route::get('/user/daftar_pengajuan', function () {
-        return view('user.daftar_pengajuan');
-    });
+    Route::get('/user/daftar_pengajuan', 'DaftarPengajuanController@index');
 
 
 });

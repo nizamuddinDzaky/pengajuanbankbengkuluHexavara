@@ -1,65 +1,6 @@
-var dropzoneKTP =  Dropzone.options.dokumenUploadKTP = {
+var dokumenScanGajiLegalisir =  Dropzone.options.dokumenScanGajiLegalisir = {
     autoProcessQueue: true,
-    url: '/user/dokumen/uploadktp',
-    addRemoveLinks: true,
-    uploadMultiple: false,
-    headers: {
-        'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-    },
-    autoDiscover : false,
-    maxFilesize: 5,
-    acceptedFiles: '.jpg, .jpeg, .png',
-    maxFiles: 1,
-    parallelUploads : 3,
-    init: function () {
-
-        var myDropzone = this;
-
-        myDropzone.on("removedfile", function (file) {
-            $('.ktp_validation').val('');
-        });
-
-        $.ajax({
-            url: '/user/dokumen/getthumbnail',
-            type: 'post',
-            headers: {
-                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-            },
-            data: {data: "ktp"},
-            dataType: 'json',
-            success: function(response){
-
-                $.each(response, function(key,value) {
-                    var mockFile = { name: value.name, size: value.size };
-                    $('.ktp_validation').val(value.path);
-
-                    myDropzone.emit("addedfile", mockFile);
-                    myDropzone.emit("thumbnail", mockFile, value.path);
-                    myDropzone.emit("complete", mockFile);
-
-                });
-
-            }
-        });
-
-
-        this.on('sending', function(file, xhr, formData) {
-            // Append all form inputs to the formData Dropzone will POST
-            var data = $('#frmTarget').serializeArray();
-            $.each(data, function(key, el) {
-                formData.append(el.name, el.value);
-            });
-        });
-
-        this.on("success", function() {
-            location.reload();
-        });
-    }
-}
-
-var dropzonePasFoto =  Dropzone.options.dokumenUploadPasfoto = {
-    autoProcessQueue: true,
-    url:  '/user/dokumen/uploadpasfoto',
+    url:  '/user/pengajuan/upload_dokumen_kredit/gaji_terakhir',
     addRemoveLinks: true,
     uploadMultiple: false,
     autoDiscover : false,
@@ -75,126 +16,7 @@ var dropzonePasFoto =  Dropzone.options.dokumenUploadPasfoto = {
         var myDropzone = this;
 
         myDropzone.on("removedfile", function (file) {
-            $('.pas_foto_validation').val('');
-        });
-
-
-        $.ajax({
-            url:  '/user/dokumen/getthumbnail',
-            type: 'post',
-            headers: {
-                'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-            },
-            data: {data: "pas_foto"},
-            dataType: 'json',
-            success: function(response){
-
-                $.each(response, function(key,value) {
-                    var mockFile = { name: value.name, size: value.size };
-                    $('.pas_foto_validation').val(value.path);
-                    myDropzone.emit("addedfile", mockFile);
-                    myDropzone.emit("thumbnail", mockFile, value.path);
-                    myDropzone.emit("complete", mockFile);
-
-                });
-
-            }
-        });
-
-
-        this.on('sending', function(file, xhr, formData) {
-            // Append all form inputs to the formData Dropzone will POST
-            var data = $('#frmTarget').serializeArray();
-            $.each(data, function(key, el) {
-                formData.append(el.name, el.value);
-            });
-        });
-
-        this.on("success", function() {
-            location.reload();
-        });
-    }
-}
-
-var dropzoneNPWP =  Dropzone.options.dokumenUploadNPWP = {
-    autoProcessQueue: true,
-    url:  '/user/dokumen/uploadnpwp',
-    addRemoveLinks: true,
-    uploadMultiple: false,
-    autoDiscover : false,
-    headers: {
-        'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-    },
-    maxFilesize: 5,
-    acceptedFiles: '.jpg, .jpeg, .png',
-    maxFiles: 1,
-    parallelUploads : 3,
-    init: function () {
-
-        var myDropzone = this;
-
-        myDropzone.on("removedfile", function (file) {
-            $('.npwp_validation').val('');
-        });
-
-
-        $.ajax({
-            url:  '/user/dokumen/getthumbnail',
-            type: 'post',
-            headers: {
-                'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-            },
-            data: {data: "npwp"},
-            dataType: 'json',
-            success: function(response){
-
-                $.each(response, function(key,value) {
-                    var mockFile = { name: value.name, size: value.size };
-                    $('.npwp_validation').val(value.path);
-                    myDropzone.emit("addedfile", mockFile);
-                    myDropzone.emit("thumbnail", mockFile, value.path);
-                    myDropzone.emit("complete", mockFile);
-
-                });
-
-            }
-        });
-
-
-        this.on('sending', function(file, xhr, formData) {
-            // Append all form inputs to the formData Dropzone will POST
-            var data = $('#frmTarget').serializeArray();
-            $.each(data, function(key, el) {
-                formData.append(el.name, el.value);
-            });
-        });
-
-        this.on("success", function() {
-            location.reload();
-        });
-    }
-}
-
-
-var dropzoneKartuKeluarga =  Dropzone.options.dokumenKartuKeluarga = {
-    autoProcessQueue: true,
-    url:  '/user/pengajuan/upload_dokumen_saya/kartu_keluarga',
-    addRemoveLinks: true,
-    uploadMultiple: false,
-    autoDiscover : false,
-    headers: {
-        'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-    },
-    maxFilesize: 5,
-    acceptedFiles: '.jpg, .jpeg, .png',
-    maxFiles: 1,
-    parallelUploads : 3,
-    init: function () {
-
-        var myDropzone = this;
-
-        myDropzone.on("removedfile", function (file) {
-            $('.kartu_keluarga_validation').val('');
+            $('.gaji_terakhir').val('');
         });
 
 
@@ -204,12 +26,12 @@ var dropzoneKartuKeluarga =  Dropzone.options.dokumenKartuKeluarga = {
             headers: {
                 'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
             },
-            data: {data: "kartu_keluarga", tipe : "dokumen_saya"},
+            data: {data: "gaji_terakhir", tipe: "dokumen_kredit"},
             dataType: 'json',
             success: function(response){
                 $.each(response, function(key,value) {
                     var mockFile = { name: value.name, size: value.size };
-                    $('.kartu_keluarga_validation').val(value.path);
+                    $('.gaji_terakhir').val(value.path);
                     myDropzone.emit("addedfile", mockFile);
                     myDropzone.emit("thumbnail", mockFile, value.path);
                     myDropzone.emit("complete", mockFile);
@@ -235,9 +57,9 @@ var dropzoneKartuKeluarga =  Dropzone.options.dokumenKartuKeluarga = {
 }
 
 
-var dokumenFotoKTPPasangan =  Dropzone.options.dokumenFotoKTPPasangan = {
+var dokumenScanStrukGaji =  Dropzone.options.dokumenScanStrukGaji = {
     autoProcessQueue: true,
-    url:  '/user/pengajuan/upload_dokumen_saya/ktp_pasangan',
+    url:  '/user/pengajuan/upload_dokumen_kredit/struk_gaji_bulan_terakhir',
     addRemoveLinks: true,
     uploadMultiple: false,
     autoDiscover : false,
@@ -253,7 +75,7 @@ var dokumenFotoKTPPasangan =  Dropzone.options.dokumenFotoKTPPasangan = {
         var myDropzone = this;
 
         myDropzone.on("removedfile", function (file) {
-            $('.foto_ktp_pasangan').val('');
+            $('.struk_gaji_bulan_terakhir').val('');
         });
 
 
@@ -263,12 +85,12 @@ var dokumenFotoKTPPasangan =  Dropzone.options.dokumenFotoKTPPasangan = {
             headers: {
                 'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
             },
-            data: {data: "ktp_pasangan", tipe : "dokumen_saya"},
+            data: {data: "struk_gaji_bulan_terakhir", tipe: "dokumen_kredit"},
             dataType: 'json',
             success: function(response){
                 $.each(response, function(key,value) {
                     var mockFile = { name: value.name, size: value.size };
-                    $('.foto_ktp_pasangan').val(value.path);
+                    $('.struk_gaji_bulan_terakhir').val(value.path);
                     myDropzone.emit("addedfile", mockFile);
                     myDropzone.emit("thumbnail", mockFile, value.path);
                     myDropzone.emit("complete", mockFile);
@@ -293,9 +115,10 @@ var dokumenFotoKTPPasangan =  Dropzone.options.dokumenFotoKTPPasangan = {
     }
 }
 
-var dokumenPasFotoPasangan =  Dropzone.options.dokumenPasFotoPasangan = {
+
+var dokumenSKCAPEG =  Dropzone.options.dokumenSKCAPEG = {
     autoProcessQueue: true,
-    url:  '/user/pengajuan/upload_dokumen_saya/pas_foto_pasangan',
+    url:  '/user/pengajuan/upload_dokumen_kredit/SK_CAPEG',
     addRemoveLinks: true,
     uploadMultiple: false,
     autoDiscover : false,
@@ -311,7 +134,7 @@ var dokumenPasFotoPasangan =  Dropzone.options.dokumenPasFotoPasangan = {
         var myDropzone = this;
 
         myDropzone.on("removedfile", function (file) {
-            $('#pas_foto_pasangan').val('');
+            $('.SK_CAPEG').val('');
         });
 
 
@@ -321,13 +144,12 @@ var dokumenPasFotoPasangan =  Dropzone.options.dokumenPasFotoPasangan = {
             headers: {
                 'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
             },
-            data: {data: "pas_foto_pasangan", tipe : "dokumen_saya"},
+            data: {data: "SK_CAPEG", tipe: "dokumen_kredit"},
             dataType: 'json',
             success: function(response){
                 $.each(response, function(key,value) {
                     var mockFile = { name: value.name, size: value.size };
-                    $('#pas_foto_pasangan').val(value.path);
-
+                    $('.SK_CAPEG').val(value.path);
                     myDropzone.emit("addedfile", mockFile);
                     myDropzone.emit("thumbnail", mockFile, value.path);
                     myDropzone.emit("complete", mockFile);
@@ -352,10 +174,9 @@ var dokumenPasFotoPasangan =  Dropzone.options.dokumenPasFotoPasangan = {
     }
 }
 
-
-var dokumenFotoBukuNikah =  Dropzone.options.dokumenFotoBukuNikah = {
+var dokumenSKPegawaiTetap =  Dropzone.options.dokumenSKPegawaiTetap = {
     autoProcessQueue: true,
-    url:  '/user/pengajuan/upload_dokumen_saya/buku_nikah',
+    url:  '/user/pengajuan/upload_dokumen_kredit/SK_pegawai_tetap',
     addRemoveLinks: true,
     uploadMultiple: false,
     autoDiscover : false,
@@ -366,176 +187,12 @@ var dokumenFotoBukuNikah =  Dropzone.options.dokumenFotoBukuNikah = {
     acceptedFiles: '.jpg, .jpeg, .png',
     maxFiles: 1,
     parallelUploads : 3,
-    init: function () {
-
-        var myDropzone = this;
-
-
-        $.ajax({
-            url:  '/user/pengajuan/getthumbnail',
-            type: 'post',
-            headers: {
-                'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-            },
-            data: {data: "buku_nikah", tipe : "dokumen_saya"},
-            dataType: 'json',
-            success: function(response){
-                $.each(response, function(key,value) {
-                    var mockFile = { name: value.name, size: value.size };
-                    myDropzone.emit("addedfile", mockFile);
-                    myDropzone.emit("thumbnail", mockFile, value.path);
-                    myDropzone.emit("complete", mockFile);
-
-                });
-
-            }
-        });
-
-
-        this.on('sending', function(file, xhr, formData) {
-            // Append all form inputs to the formData Dropzone will POST
-            var data = $('#frmTarget').serializeArray();
-            $.each(data, function(key, el) {
-                formData.append(el.name, el.value);
-            });
-        });
-
-        this.on("success", function() {
-            location.reload();
-        });
-    }
-}
-
-
-var dokumenFotoBukuTabungan =  Dropzone.options.dokumenFotoBukuTabungan = {
-    autoProcessQueue: true,
-    url:  '/user/pengajuan/upload_dokumen_saya/buku_tabungan',
-    addRemoveLinks: true,
-    uploadMultiple: false,
-    autoDiscover : false,
-    headers: {
-        'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-    },
-    maxFilesize: 5,
-    acceptedFiles: '.jpg, .jpeg, .png',
-    maxFiles: 1,
-    parallelUploads : 3,
-    init: function () {
-
-        var myDropzone = this;
-
-
-        $.ajax({
-            url:  '/user/pengajuan/getthumbnail',
-            type: 'post',
-            headers: {
-                'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-            },
-            data: {data: "buku_tabungan", tipe : "dokumen_saya"},
-            dataType: 'json',
-            success: function(response){
-                $.each(response, function(key,value) {
-                    var mockFile = { name: value.name, size: value.size };
-                    myDropzone.emit("addedfile", mockFile);
-                    myDropzone.emit("thumbnail", mockFile, value.path);
-                    myDropzone.emit("complete", mockFile);
-
-                });
-
-            }
-        });
-
-        this.on('sending', function(file, xhr, formData) {
-            // Append all form inputs to the formData Dropzone will POST
-            var data = $('#frmTarget').serializeArray();
-            $.each(data, function(key, el) {
-                formData.append(el.name, el.value);
-            });
-        });
-
-        this.on("success", function() {
-            location.reload();
-        });
-    }
-}
-
-var dokumenJaminanSHM =  Dropzone.options.dokumenJaminanSHM = {
-    autoProcessQueue: true,
-    url:  '/user/pengajuan/upload_dokumen_saya/jaminan_shm',
-    addRemoveLinks: true,
-    uploadMultiple: false,
-    autoDiscover : false,
-    headers: {
-        'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-    },
-    maxFilesize: 5,
-    acceptedFiles: '.jpg, .jpeg, .png',
-    maxFiles: 1,
-    parallelUploads : 3,
-    init: function () {
-
-        var myDropzone = this;
-        myDropzone.on("removedfile", function (file) {
-            $('.jaminanSHM_validation').val('');
-        });
-
-
-        $.ajax({
-            url:  '/user/pengajuan/getthumbnail',
-            type: 'post',
-            headers: {
-                'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-            },
-            data: {data: "jaminan_shm", tipe : "dokumen_saya"},
-            dataType: 'json',
-            success: function(response){
-                $.each(response, function(key,value) {
-                    var mockFile = { name: value.name, size: value.size };
-                    $('.jaminanSHM_validation').val(value.path);
-                    myDropzone.emit("addedfile", mockFile);
-                    myDropzone.emit("thumbnail", mockFile, value.path);
-                    myDropzone.emit("complete", mockFile);
-
-                });
-
-            }
-        });
-
-
-
-        this.on('sending', function(file, xhr, formData) {
-            // Append all form inputs to the formData Dropzone will POST
-            var data = $('#frmTarget').serializeArray();
-            $.each(data, function(key, el) {
-                formData.append(el.name, el.value);
-            });
-        });
-
-        this.on("success", function() {
-            location.reload();
-        });
-    }
-}
-
-var dokumenSPT =  Dropzone.options.dokumenSPT = {
-    autoProcessQueue: true,
-    url:  '/user/pengajuan/upload_dokumen_saya/dokumen_spt',
-    addRemoveLinks: true,
-    uploadMultiple: false,
-    autoDiscover : false,
-    headers: {
-        'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-    },
-    maxFilesize: 1,
-    acceptedFiles: '.jpg, .jpeg, .png',
-    maxFiles: 1,
-    parallelUploads : 1,
     init: function () {
 
         var myDropzone = this;
 
         myDropzone.on("removedfile", function (file) {
-            $('.SPT_validation').val('');
+            $('.SK_pegawai_tetap').val('');
         });
 
 
@@ -545,12 +202,12 @@ var dokumenSPT =  Dropzone.options.dokumenSPT = {
             headers: {
                 'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
             },
-            data: {data: "dokumen_spt", tipe : "dokumen_saya"},
+            data: {data: "SK_pegawai_tetap", tipe: "dokumen_kredit"},
             dataType: 'json',
             success: function(response){
                 $.each(response, function(key,value) {
                     var mockFile = { name: value.name, size: value.size };
-                    $('.SPT_validation').val(value.path);
+                    $('.SK_pegawai_tetap').val(value.path);
                     myDropzone.emit("addedfile", mockFile);
                     myDropzone.emit("thumbnail", mockFile, value.path);
                     myDropzone.emit("complete", mockFile);
@@ -559,6 +216,7 @@ var dokumenSPT =  Dropzone.options.dokumenSPT = {
 
             }
         });
+
 
         this.on('sending', function(file, xhr, formData) {
             // Append all form inputs to the formData Dropzone will POST
@@ -569,31 +227,251 @@ var dokumenSPT =  Dropzone.options.dokumenSPT = {
         });
 
         this.on("success", function() {
-            $.ajax({
-                url:  '/user/pengajuan/getthumbnail',
-                type: 'post',
-                headers: {
-                    'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-                },
-                data: {data: "dokumen_spt", tipe : "dokumen_saya"},
-                dataType: 'json',
-                success: function(response){
-                    $.each(response, function(key,value) {
-                        var mockFile = { name: value.name, size: value.size };
-                        $('.SPT_validation').val(value.path);
-                        myDropzone.emit("addedfile", mockFile);
-                        myDropzone.emit("thumbnail", mockFile, value.path);
-                        myDropzone.emit("complete", mockFile);
+            location.reload();
+        });
+    }
+}
 
-                    });
+var dokumenSKPangkatTerakhir =  Dropzone.options.dokumenSKPangkatTerakhir = {
+    autoProcessQueue: true,
+    url:  '/user/pengajuan/upload_dokumen_kredit/SK_pangkat_terakhir',
+    addRemoveLinks: true,
+    uploadMultiple: false,
+    autoDiscover : false,
+    headers: {
+        'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
+    },
+    maxFilesize: 5,
+    acceptedFiles: '.jpg, .jpeg, .png',
+    maxFiles: 1,
+    parallelUploads : 3,
+    init: function () {
 
-                }
-            });
+        var myDropzone = this;
 
+        myDropzone.on("removedfile", function (file) {
+            $('.SK_pangkat_terakhir').val('');
         });
 
 
+        $.ajax({
+            url:  '/user/pengajuan/getthumbnail',
+            type: 'post',
+            headers: {
+                'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
+            },
+            data: {data: "SK_pangkat_terakhir", tipe: "dokumen_kredit"},
+            dataType: 'json',
+            success: function(response){
+                $.each(response, function(key,value) {
+                    var mockFile = { name: value.name, size: value.size };
+                    $('.SK_pangkat_terakhir').val(value.path);
+                    myDropzone.emit("addedfile", mockFile);
+                    myDropzone.emit("thumbnail", mockFile, value.path);
+                    myDropzone.emit("complete", mockFile);
+
+                });
+
+            }
+        });
+
+
+        this.on('sending', function(file, xhr, formData) {
+            // Append all form inputs to the formData Dropzone will POST
+            var data = $('#frmTarget').serializeArray();
+            $.each(data, function(key, el) {
+                formData.append(el.name, el.value);
+            });
+        });
+
+        this.on("success", function() {
+            location.reload();
+        });
     }
 }
+
+var dokumenSKBerkalaTerakhir =  Dropzone.options.dokumenSKBerkalaTerakhir = {
+    autoProcessQueue: true,
+    url:  '/user/pengajuan/upload_dokumen_kredit/SK_berkala_terakhir',
+    addRemoveLinks: true,
+    uploadMultiple: false,
+    autoDiscover : false,
+    headers: {
+        'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
+    },
+    maxFilesize: 5,
+    acceptedFiles: '.jpg, .jpeg, .png',
+    maxFiles: 1,
+    parallelUploads : 3,
+    init: function () {
+
+        var myDropzone = this;
+
+        myDropzone.on("removedfile", function (file) {
+            $('.SK_berkala_terakhir').val('');
+        });
+
+
+        $.ajax({
+            url:  '/user/pengajuan/getthumbnail',
+            type: 'post',
+            headers: {
+                'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
+            },
+            data: {data: "SK_berkala_terakhir", tipe: "dokumen_kredit"},
+            dataType: 'json',
+            success: function(response){
+                $.each(response, function(key,value) {
+                    var mockFile = { name: value.name, size: value.size };
+                    $('.SK_berkala_terakhir').val(value.path);
+                    myDropzone.emit("addedfile", mockFile);
+                    myDropzone.emit("thumbnail", mockFile, value.path);
+                    myDropzone.emit("complete", mockFile);
+
+                });
+
+            }
+        });
+
+
+        this.on('sending', function(file, xhr, formData) {
+            // Append all form inputs to the formData Dropzone will POST
+            var data = $('#frmTarget').serializeArray();
+            $.each(data, function(key, el) {
+                formData.append(el.name, el.value);
+            });
+        });
+
+        this.on("success", function() {
+            location.reload();
+        });
+    }
+}
+
+var dokumenKartuPegawai =  Dropzone.options.dokumenKartuPegawai = {
+    autoProcessQueue: true,
+    url:  '/user/pengajuan/upload_dokumen_kredit/kartu_pegawai',
+    addRemoveLinks: true,
+    uploadMultiple: false,
+    autoDiscover : false,
+    headers: {
+        'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
+    },
+    maxFilesize: 5,
+    acceptedFiles: '.jpg, .jpeg, .png',
+    maxFiles: 1,
+    parallelUploads : 3,
+    init: function () {
+
+        var myDropzone = this;
+
+        myDropzone.on("removedfile", function (file) {
+            $('.kartu_pegawai').val('');
+        });
+
+
+        $.ajax({
+            url:  '/user/pengajuan/getthumbnail',
+            type: 'post',
+            headers: {
+                'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
+            },
+            data: {data: "kartu_pegawai", tipe: "dokumen_kredit"},
+            dataType: 'json',
+            success: function(response){
+                $.each(response, function(key,value) {
+                    var mockFile = { name: value.name, size: value.size };
+                    $('.kartu_pegawai').val(value.path);
+                    myDropzone.emit("addedfile", mockFile);
+                    myDropzone.emit("thumbnail", mockFile, value.path);
+                    myDropzone.emit("complete", mockFile);
+
+                });
+
+            }
+        });
+
+
+        this.on('sending', function(file, xhr, formData) {
+            // Append all form inputs to the formData Dropzone will POST
+            var data = $('#frmTarget').serializeArray();
+            $.each(data, function(key, el) {
+                formData.append(el.name, el.value);
+            });
+        });
+
+        this.on("success", function() {
+            location.reload();
+        });
+    }
+}
+
+
+var dokumenKartuTASPEN =  Dropzone.options.dokumenKartuTASPEN = {
+    autoProcessQueue: true,
+    url:  '/user/pengajuan/upload_dokumen_kredit/kartu_taspen',
+    addRemoveLinks: true,
+    uploadMultiple: false,
+    autoDiscover : false,
+    headers: {
+        'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
+    },
+    maxFilesize: 5,
+    acceptedFiles: '.jpg, .jpeg, .png',
+    maxFiles: 1,
+    parallelUploads : 3,
+    init: function () {
+
+        var myDropzone = this;
+
+        myDropzone.on("removedfile", function (file) {
+            $('.kartu_taspen').val('');
+        });
+
+
+        $.ajax({
+            url:  '/user/pengajuan/getthumbnail',
+            type: 'post',
+            headers: {
+                'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
+            },
+            data: {data: "kartu_taspen", tipe: "dokumen_kredit"},
+            dataType: 'json',
+            success: function(response){
+                $.each(response, function(key,value) {
+                    var mockFile = { name: value.name, size: value.size };
+                    $('.kartu_taspen').val(value.path);
+                    myDropzone.emit("addedfile", mockFile);
+                    myDropzone.emit("thumbnail", mockFile, value.path);
+                    myDropzone.emit("complete", mockFile);
+
+                });
+
+            }
+        });
+
+
+        this.on('sending', function(file, xhr, formData) {
+            // Append all form inputs to the formData Dropzone will POST
+            var data = $('#frmTarget').serializeArray();
+            $.each(data, function(key, el) {
+                formData.append(el.name, el.value);
+            });
+        });
+
+        this.on("success", function() {
+            location.reload();
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
 
 

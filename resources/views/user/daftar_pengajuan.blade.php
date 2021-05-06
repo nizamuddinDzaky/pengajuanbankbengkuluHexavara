@@ -43,12 +43,13 @@
             <h3 class="mt-3 title">Daftar Pengajuan</h3>
         </div>
         <div class="row mt-4">
-            <div class="col-12">
+            @foreach($transaksi as $data)
+            <div class="col-12 mt-3">
                 <div class="card" style="width: 100%; border-radius: 10px">
                     <div class="card-header" style="display: inline; background-color: white">
                         <div class="row">
                             <div class="col-md-6 py-2 px-2">
-                                <h5>Kredit Multiguna Aktif</h5>
+                                <h5>{{$data->nama}}</h5>
                             </div>
                             <div class="col-md-6 py-2 px-2">
                                 <button
@@ -67,28 +68,28 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <p style="font-size: 24px">Rana Wijdan Naim</p>
-                                <p style="font-size: 18px" class="text-muted">35110231234908671</p>
-                                <p style="font-size: 18px" class="text-muted">Pegawai Negeri Sipil</p>
+                                <p style="font-size: 24px">{{$data->name}}</p>
+                                <p style="font-size: 18px" class="text-muted">{{$data->no_ktp}}</p>
+                                <p style="font-size: 18px" class="text-muted">{{$data->pekerjaan}}</p>
                             </div>
                             <div class="col-md-4 text-center text-left-mobile">
                                 <label class="text-muted">Jumlah Plafond</label>
-                                <h4 >Rp 70.000.000</h4>
+                                <h4 >Rp {{number_format($data->plafond) }}</h4>
                                 <label class="text-muted ">Angsuran Per Bulan</label>
-                                <h4 >Rp 2.142.246</h4>
+                                <h4 >Rp {{number_format($data->jumlah_angsuran)}}</h4>
                             </div>
                             <div class="col-md-4 text-right text-left-mobile">
-                                <label class="text-muted">Jadwal Pencairan</label><br>
-                                <h4>1 April 2021</h4>
+                                <label class="text-muted">Jadwal Verifikasi Data Fisik</label><br>
+                                <h4>{{\Carbon\Carbon::createFromFormat('Y-m-d',$data->tanggal)->format('d F Y')}}</h4>
                                 <label class="text-muted">Jangka Waktu</label>
-                                <h4 >36 Bulan</h4>
+                                <h4 >{{$data->masa_tenor}} Bulan</h4>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer" style="background-color: white">
                         <div class="row">
                             <div class="col-md-6 text-left">
-                                <p style="color: #E46931">1 Hari 2 Jam 54 Menit</p>
+                                <p style="color: #E46931">{{$data->countdown}}</p>
                                 <p>Menuju waktu pencairan dana</p>
                             </div>
                             <div class="col-md-6 text-right button-row">
@@ -102,8 +103,14 @@
 {{--                        <button class="btn btn-primary button-block" >Detail Pengajuan</button>--}}
                     </div>
                 </div>
-            </div>
 
+            </div>
+            @endforeach
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 offset-5">
+                {{$transaksi->links()}}
+            </div>
         </div>
     </div>
 
@@ -122,6 +129,16 @@
                 trigger: 'focus'
             })
         })
+    </script>
+
+    <script type="text/javascript">
+
+        @if(Session::has('error'))
+        toastr.error("{{ Session::get('error') }}");
+        @elseif(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}");
+        @endif
+
     </script>
 
 

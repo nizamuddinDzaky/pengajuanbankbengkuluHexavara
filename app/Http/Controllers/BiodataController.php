@@ -122,60 +122,22 @@ class BiodataController extends Controller
         $jenis = $request->data;
         $user = User::find(Auth::user()->id);
         $file_list = array();
-        if ($jenis == "ktp"){
 
-            if (json_decode($user->path_file)->ktp != null && isset(json_decode($user->path_file)->ktp)){
-                // Target directory
+        if (json_decode($user->path_file)->$jenis != null && isset(json_decode($user->path_file)->$jenis)){
+            // Target directory
 
-                $file = json_decode($user->path_file)->ktp;
-                $file_path = public_path("storage/ktp/").$file;
-                $file_source = "/storage/ktp/".$file;
+            $file = json_decode($user->path_file)->$jenis;
+            $file_path = public_path($file);
+            $file_source = "/".$file;
+            $file = explode('/', $file);
 
-                // Check its not folder
-                if(!is_dir($file_path)){
+            // Check its not folder
+            if(!is_dir($file_path)){
 
-                    $size = filesize($file_path);
+                $size = filesize($file_path);
 
-                    $file_list[] = array('name'=>$file,'size'=>$size,'path'=>$file_source);
+                $file_list[] = array('name'=>$file[2],'size'=>$size,'path'=>$file_source);
 
-                }
-            }
-
-        }elseif($jenis == "pas_foto"){
-
-            if (json_decode($user->path_file)->pas_foto != null && isset(json_decode($user->path_file)->pas_foto)){
-                // Target directory
-
-                $file = json_decode($user->path_file)->pas_foto;
-                $file_path = public_path("storage/pas_foto/").$file;
-                $file_source = "/storage/pas_foto/".$file;
-
-                // Check its not folder
-                if(!is_dir($file_path)){
-
-                    $size = filesize($file_path);
-
-                    $file_list[] = array('name'=>$file,'size'=>$size,'path'=>$file_source);
-
-                }
-            }
-
-        }elseif($jenis == "npwp"){
-            if (json_decode($user->path_file)->npwp != null && isset(json_decode($user->path_file)->npwp)){
-                // Target directory
-
-                $file = json_decode($user->path_file)->npwp;
-                $file_path = public_path("storage/npwp/").$file;
-                $file_source = "/storage/npwp/".$file;
-
-                // Check its not folder
-                if(!is_dir($file_path)){
-
-                    $size = filesize($file_path);
-
-                    $file_list[] = array('name'=>$file,'size'=>$size,'path'=>$file_source);
-
-                }
             }
         }
 
@@ -226,23 +188,9 @@ class BiodataController extends Controller
 
                 $user = User::find(Auth::user()->id);
 
-
-
-                if ($jenis == "pas_foto"){
-                    $destinationPath = 'storage/pas_foto/';
-                    if (json_decode($user->path_file)->pas_foto != null){
-                        File::delete(public_path($destinationPath.json_decode($user->path_file)->pas_foto));
-                    }
-                }elseif($jenis == "ktp"){
-                    $destinationPath = 'storage/ktp/';
-                    if (json_decode($user->path_file)->ktp != null){
-                        File::delete(public_path($destinationPath.json_decode($user->path_file)->ktp));
-                    }
-                }elseif($jenis == "npwp"){
-                    $destinationPath = 'storage/npwp/';
-                    if (json_decode($user->path_file)->npwp != null){
-                        File::delete(public_path($destinationPath.json_decode($user->path_file)->npwp));
-                    }
+                $destinationPath = 'storage/'.$jenis.'/';
+                if (json_decode($user->path_file)->$jenis != null){
+                    File::delete(public_path($destinationPath.json_decode($user->path_file)->$jenis));
                 }
 
                 // Create directory if not exists
@@ -260,37 +208,18 @@ class BiodataController extends Controller
                     if(in_array(strtolower($extension), $validextensions)){
 
                         // Rename file
-                        $fileName = $request->file('file')->getClientOriginalName().time() .'.' . $extension;
+                        $fileName = Auth::user()->name.'_'.$jenis.'_'.time() .'.' . $extension;
                         // Uploading file to given path
                         $request->file('file')->move($destinationPath, $fileName);
 
                     }
 
-                    $pathNow = $destinationPath.'/'.$fileName;
+                    $pathNow = $destinationPath.$fileName;
                     $user = User::find(Auth::user()->id);
-
-                    if ($jenis == "pas_foto"){
-                        $file = [
-                            'ktp' => json_decode($user->path_file)->ktp,
-                            'pas_foto' => $fileName,
-                            'npwp' =>  json_decode($user->path_file)->npwp
-                        ];
-                    }elseif($jenis == "ktp"){
-                        $file = [
-                            'ktp' => $fileName,
-                            'pas_foto' =>  json_decode($user->path_file)->pas_foto,
-                            'npwp' =>  json_decode($user->path_file)->npwp
-                        ];
-                    }elseif($jenis == "npwp"){
-                        $file = [
-                            'ktp' => json_decode($user->path_file)->ktp,
-                            'pas_foto' => json_decode($user->path_file)->pas_foto,
-                            'npwp' =>  $fileName
-                        ];
-                    }
-
-
+                    $file = json_decode($user->path_file, true);
+                    $file[$jenis] = $pathNow;
                     $user->path_file =  json_encode($file);
+
 
                     if ($user->save()){
                         DB::commit();

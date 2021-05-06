@@ -23,6 +23,10 @@
             margin-top: 5px;
         }
 
+        .dropzone .dz-message {
+            margin: 3em!important;
+        }
+
         .red {
             color: red;
         }
@@ -31,10 +35,43 @@
             background-color: grey;!important
         }
 
+        .sw-theme-dots .toolbar>.btn {
+            background-color: #e46931!important;
+            border : none!important;
+        }
+
         .dz-image img{
             width: 130px;
             height:130px;
         }
+
+        .active {
+            text-underline: #e46931;
+        }
+
+        .tab-bar-konfirmasi-active {
+            color: #e46931;
+            font-size: 20pt;
+            text-decoration: underline;
+        }
+
+        .tab-bar-konfirmasi-active:hover {
+            color: #e46931;
+        }
+
+        .tab-bar-konfirmasi-inactive {
+            color: grey;
+            font-size: 20pt;
+            text-decoration: none;
+        }
+
+        .tab-bar-konfirmasi-inactive:hover {
+            color: #e46931;
+        }
+
+
+
+
 
         @media only screen and (max-width: 640px) and (min-width: 0px) {
 
@@ -196,7 +233,8 @@
 
 
                         <div id="biodata-diri" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                                @include('user.pengajuan.multiguna')
+                                @include('user.pengajuan.biodata.multiguna')
+                                @include('user.pengajuan.biodata.kredit_guna_usaha')
                         </div>
 
 
@@ -210,59 +248,75 @@
 
 
                         <div id="dokumen-kredit" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
-                            Step 4 Content
+                            @include('user.pengajuan.dokumen_kredit.multiguna_aktif')
+                            @include('user.pengajuan.dokumen_kredit.multiguna_aktif_pensiun')
+                            @include('user.pengajuan.dokumen_kredit.multiguna_pensiun')
+                            @include('user.pengajuan.dokumen_kredit.multiguna_anggota_dprd')
+                            @include('user.pengajuan.dokumen_kredit.multiguna_nonpns_kpu')
+                            @include('user.pengajuan.dokumen_kredit.multiguna_perangkat_desa')
+                            @include('user.pengajuan.dokumen_kredit.kredit_guna_usaha')
                         </div>
+
+
                         <div id="tahap-terakhir" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
+                            <form action="" id="formTahapAkhir">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="nama">Cabang atau Capem</label>
-                                        <select name="cabang" class="form-control" id="">
+                                        <select name="cabang" class="form-control" id="cabang" required>
                                             <option selected disabled>-Pilih Cabang atau Capem Terdekat-</option>
+                                            @foreach($cabang as $data)
+                                                @if($transaksi->kantor_id == $data->id)
+                                                    <option selected value="{{$data->id}}">{{$data->nama_kantor}}</option>
+                                                @else
+                                                    <option value="{{$data->id}}">{{$data->nama_kantor}}</option>
+                                                    @endif
+                                                @endforeach
                                         </select>
+                                        <input type="hidden" value="{{$transaksi->kantor_id}}" id="checkerCabang">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Customer Service</label>
-                                        <select name="cs" class="form-control" id="">
+                                        <select name="customer_service" class="form-control" id="customer_service" required>
                                             <option selected disabled>-Pilih CS yang Tersedia di Cabang atau Capem Terdekat-</option>
                                         </select>
+                                        <input type="hidden" value="{{$transaksi->cs_id}}" id="checkerCS">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="nama">Jadwal Pencairan Dana</label>
-                                        <input type="date" class="form-control" name="jadwal_pencairan" required>
+                                        <label for="nama">Jadwal Verifikasi Data Fisik</label>
+                                        @if($transaksi->tanggal != null)
+                                            <input type="date" min="{{\Carbon\Carbon::now()->toDateString()}}" value="{{$transaksi->tanggal}}" class="form-control" name="tanggalVerifikasi" id="tanggalVerifikasi" required >
+                                        @else
+                                            <input type="date" min="{{\Carbon\Carbon::now()->toDateString()}}" value="{{$dateVerifikasi}}" class="form-control" name="tanggalVerifikasi" id="tanggalVerifikasi" required >
+                                            @endif
+                                        <input type="hidden" value="{{$transaksi->tanggal}}" id="checkerTanggal">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Slot Waktu Pencairan Dana</label>
-                                        <select name="slot_waktu" class="form-control" id="">
+                                        <label for="">Slot Waktu Verifikasi Data Fisik</label>
+                                        <select name="slotWaktu" class="form-control" id="slotWaktu" required>
                                             <option selected disabled>-Pilih Slot Waktu yang Tersedia-</option>
                                         </select>
+                                        <input type="hidden" value="{{$transaksi->jam_mulai}}" id="checkerMulai">
+                                        <input type="hidden" value="{{$transaksi->jam_selesai}}" id="checkerSelesai">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12 mb-5">
-                                    <button class="btn btn-primary" type="submit" style="float: right">Konfirmasi</button>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
         </div>
     </div>
-{{--    <div class="card">--}}
 
-
-
-
-{{--    </div>--}}
 
 </div>
 
@@ -273,12 +327,19 @@
     @endsection
 
 
+@section('modal')
+    @include('user.modal.konfirmasi_pengajuan')
+    @endsection
+
+
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
     <script src="{{asset('js/validation/messages_id.min.js')}}"></script>
     <script src="{{asset('js/smart-wizard.js')}}"></script>
     <script src="{{asset('js/upload_pengajuan_file/upload_dokumen_saya.js')}}"></script>
+    <script src="{{asset('js/upload_pengajuan_file/upload_dokumen_kredit.js')}}"></script>
+    <script src="{{asset('js/pengajuan/tahap_akhir.js')}}"></script>
 
 {{--   handle toastr --}}
     <script type="text/javascript">
@@ -294,7 +355,10 @@
 
 {{--    handle validation and insert tab data--}}
 <script type="text/javascript">
+    //for validation dokumen saya
     var status = "";
+    var statusJaminan = "";
+
     $("#smartwizard").on("leaveStep", function (e, anchorObject, stepNumber, stepDirection) {
 
         if (stepDirection > stepNumber){
@@ -334,72 +398,266 @@
 
             if (stepNumber == 2){
 
-                function getData(callback){
-                    $.ajax({
-                        type: "POST",
-                        headers: {
-                            'X-CSRF-Token': "{{csrf_token()}}"
-                        },
-                        url: "{{route('user.getstatuskawin')}}",
-                        dataType: "JSON",
-                        success: callback
-                    });
-                }
 
-
-
-                getData( function(response) {
-                    status = response;
+                $("#wajibValidation").validate({
+                    ignore: "",
+                    errorPlacement: function (error, element) {
+                        return true;
+                    }
                 });
 
-                if (status == "Kawin") {
-                    $("#kawinValidation").validate({
-                        ignore: "",
-                        errorPlacement: function (error, element) {
+                if ($('#wajibValidation').valid()) {
+
+                    if (status == "Kawin") {
+
+                        $("#kawinValidation").validate({
+                            ignore: "",
+                            errorPlacement: function (error, element) {
+                                return true;
+                            }
+                        });
+
+
+                        if ($('#kawinValidation').valid()) {
+
+
+                            if (statusJaminan == true) {
+
+                                $("#jaminanValidation").validate({
+                                    ignore: "",
+                                    errorPlacement: function (error, element) {
+                                        return true;
+                                    }
+                                });
+
+                                if ($('#jaminanValidation').valid()) {
+
+                                    var noSHM = $('#no_shm_bpkb').val();
+
+                                    if(noSHM === ""){
+                                        toastr.error("Isi nomor SHM / BPKB");
+                                        return false;
+
+                                    }else {
+                                        $.ajax({
+                                            type: "POST",
+                                            headers: {
+                                                'X-CSRF-Token': "{{csrf_token()}}"
+                                            },
+                                            url: "{{url('user/pengajuan/insertnoshm')}}",
+                                            dataType: "JSON",
+                                            data: {data: noSHM},
+                                            success: function (response) {
+
+                                            }
+                                        });
+                                    }
+
+                                        return true;
+
+                                }else {
+                                    console.log('masuk sini');
+                                    toastr.error("Upload Semua File yang Bertanda Bintang Merah");
+                                    return false;
+                                }
+
+
+                            }else {
+                                return true;
+                            }
+
+                        }else {
+                            toastr.error("Upload Semua File yang Bertanda Bintang Merah");
+                            return false;
+                        }
+
+                    }else {
+
+                        if (statusJaminan == true) {
+
+                            $("#jaminanValidation").validate({
+                                ignore: "",
+                                errorPlacement: function (error, element) {
+                                    return true;
+                                }
+                            });
+
+                            if ($('#jaminanValidation').valid()) {
+
+                                var noSHM = $('#no_shm_bpkb').val();
+
+                                if(noSHM === ""){
+                                    toastr.error("Isi nomor SHM / BPKB");
+                                    return false;
+
+
+                                }else {
+                                    $.ajax({
+                                        type: "POST",
+                                        headers: {
+                                            'X-CSRF-Token': "{{csrf_token()}}"
+                                        },
+                                        url: "{{url('user/pengajuan/insertnoshm')}}",
+                                        dataType: "JSON",
+                                        data: {data: noSHM},
+                                        success: function (response) {
+
+                                            if (response === "success"){
+                                                return true;
+                                            }else{
+                                                return false;
+                                            }
+
+                                        }
+                                    });
+                                }
+
+                                return true;
+
+                            }else {
+                                toastr.error("Upload Semua File yang Bertanda Bintang Merah");
+                                return false;
+
+                            }
+                        }else {
                             return true;
                         }
-                    });
-
-                    if ($('#kawinValidation').valid()) {
-                        return true;
-                    } else {
-                        toastr.error("Upload Semua File Yang Bertanda Bintang Merah");
-                        return false
                     }
 
+
+                }else{
+                    toastr.error("Upload Semua File yang Bertanda Bintang Merah");
+                    return false;
+
                 }
-                else{
-                    $("#tidakKawinValidation").validate({
-                        ignore: "",
-                        errorPlacement: function (error, element) {
-                            return true;
-                        }
-                    });
-
-                    if ($('#tidakKawinValidation').valid()) {
-                        return true;
-                    } else {
-                        toastr.error("Upload Semua File Yang Bertanda Bintang Merah");
-                        return false
-                    }
-                }
-
-
-
-
 
 
 
             }
+
+
+            if (stepNumber == 3){
+
+                var pekerjaan = $('#pekerjaan').val();
+
+
+                if (pekerjaan === "CPNS"){
+
+                    $("#dokumenMultigunaAktifCPNS").validate({
+                        ignore: "",
+                        errorPlacement: function (error, element) {
+                            return true;
+                        }
+                    });
+
+                    if ($('#dokumenMultigunaAktifCPNS').valid()) {
+
+
+                        if ($('#nomorSKMultigunaAktif').valid()){
+                            var no_SK_pangkat_terakhir = $('#no_SK_pangkat_terakhir').val();
+                            var no_SK_berkala_terakhir = $('#no_SK_berkala_terakhir').val();
+                            var no_SK_CAPEG = $('#no_SK_CAPEG').val();
+
+
+                            $.ajax({
+                                type: "POST",
+                                headers: {
+                                    'X-CSRF-Token': "{{csrf_token()}}"
+                                },
+                                url: "{{url('user/pengajuan/insertnoSK')}}",
+                                dataType: "JSON",
+                                data: {data: [no_SK_berkala_terakhir, no_SK_pangkat_terakhir, no_SK_CAPEG], tipe : ["no_SK_pangkat_terakhir", "no_SK_berkala_terakhir", "no_SK_CAPEG"]},
+                                success: function (response) {
+
+                                    if (response === "success"){
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+
+                                }
+                            });
+
+
+
+
+
+                        }else{
+                            return false;
+                        }
+
+
+                        return true;
+                    }else {
+                        toastr.error("Upload Semua File yang Bertanda Bintang Merah");
+                        return false;
+                    }
+                }else{
+
+                    $("#dokumenMultigunaAktifPNS").validate({
+                        ignore: "",
+                        errorPlacement: function (error, element) {
+                            return true;
+                        }
+                    });
+
+                    if ($('#dokumenMultigunaAktifPNS').valid()) {
+
+
+                        if ($('#nomorSKMultigunaAktif').valid()){
+                            var no_SK_pangkat_terakhir = $('#no_SK_pangkat_terakhir').val();
+                            var no_SK_berkala_terakhir = $('#no_SK_berkala_terakhir').val();
+                            var no_SK_pegawai_tetap = $('#no_SK_pegawai_tetap').val();
+
+
+                            $.ajax({
+                                type: "POST",
+                                headers: {
+                                    'X-CSRF-Token': "{{csrf_token()}}"
+                                },
+                                url: "{{url('user/pengajuan/insertnoSK')}}",
+                                dataType: "JSON",
+                                data: {data: [no_SK_berkala_terakhir, no_SK_pangkat_terakhir, no_SK_pegawai_tetap], tipe : ["no_SK_pangkat_terakhir", "no_SK_berkala_terakhir", "no_SK_pegawai_tetap"]},
+                                success: function (response) {
+
+                                    if (response === "success"){
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+
+                                }
+                            });
+
+
+
+
+
+                        }else{
+                            return false;
+                        }
+
+                        return true;
+
+                    }else {
+                        toastr.error("Upload Semua File yang Bertanda Bintang Merah");
+                        return false;
+                    }
+                }
+
+            }
         }
+
 
 
     });
 
 
     $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
-        if(stepIndex == 1){
 
+        if(stepIndex == 1){
+            $('.pengajuan_multiguna').hide();
+            $('.pengajuan_kgu').hide();
 
             $.ajax({
                 type: "POST",
@@ -409,9 +667,11 @@
                 url: "{{route('user.getjenisproduk')}}",
                 dataType: "JSON",
                 success: function (response) {
-                  if (response == 'multiguna'){
-                      $('.pengajuan_multiguna').show();
-                  }
+                    if (response == 'multiguna'){
+                        $('.pengajuan_multiguna').show();
+                    }else if(response == 'kredit_guna_usaha'){
+                        $('.pengajuan_kgu').show();
+                    }
 
 
                 }
@@ -429,8 +689,10 @@
                 success: function (response) {
                     if (response == 'Kawin'){
                         $('.dokumenSayaKawin').show();
+                        status = "Kawin";
                     }else{
                         $('.dokumenSayaKawin').hide();
+                        status = response;
                     }
 
                 }
@@ -446,16 +708,86 @@
                 success: function (response) {
                     if (response == true){
                         $('.jaminanSHMBPKB').show();
+                        statusJaminan = response;
                     }else{
                         $('.jaminanSHMBPKB').hide();
+                        statusJaminan = response;
                     }
 
                 }
             });
 
+        }
+
+
+        if(stepIndex == 3){
+
+            $('.dokumenMultigunaAktif').hide();
+            $('.dokumenMultigunaAktifPensiun').hide();
+            $('.dokumenMultigunaPensiun').hide();
+            $('.dokumenMultigunaAnggotaDPRD').hide();
+            $('.dokumenMultigunaNonPNSKPU').hide();
+            $('.dokumenMultigunaPerangkatDesa').hide();
+            $('.dokumenKreditGunaUsaha').hide();
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-Token': "{{csrf_token()}}"
+                },
+                url: "{{route('user.getnamaproduk')}}",
+                dataType: "JSON",
+                success: function (response) {
+                    if (response === "Multiguna Aktif"){
+                        $('.dokumenMultigunaAktif').css('display','block');
+
+                        var pekerjaan = $('#pekerjaan').val();
+                        if (pekerjaan == "PNS"){
+                            $('.cpns').hide();
+                            $('.pns').show();
+                        }else if(pekerjaan == "CPNS"){
+                            $('.cpns').show();
+                            $('.pns').hide();
+                        }
+
+
+                    }else if(response  === "Multiguna Aktif Pensiun"){
+                        $('.dokumenMultigunaAktifPensiun').show();
+                    }else if(response === "Multiguna Pensiun"){
+                        $('.dokumenMultigunaPensiun').show();
+                    }else if(response === "Multiguna Anggota DPRD"){
+                        $('.dokumenMultigunaAnggotaDPRD').show();
+                    }else if(response === "Multiguna Non PNS / Komisioner KPU"){
+                        $('.dokumenMultigunaNonPNSKPU').show();
+                    }else if(response == "Multiguna Perangkat Desa"){
+                        $('.dokumenMultigunaPerangkatDesa').show();
+                    }else if(response == "Kredit Guna Usaha"){
+                        $('.dokumenKreditGunaUsaha').show();
+                    }
+
+                }
+            });
 
         }
+
+        if (stepIndex == 4){
+            $('.sw-btn-next').html('Konfirmasi');
+            $('.sw-btn-next').attr('onClick', 'insertTahapAkhir()');
+            $('.sw-btn-next').removeClass('disabled');
+
+            if ($('#checkerCabang').val() != ""){
+                getCustomerService($('#cabang').val());
+                getSlotWaktu($('#tanggalVerifikasi').val(), $('#customer_service').val());
+            }
+
+        }else{
+            $('.sw-btn-next').html('Selanjutnya');
+            $('.sw-btn-next').removeClass('disabled');
+            $('.sw-btn-next').removeAttr('onClick');
+        }
     });
+
+
 
 
     function insertFormulirPengajuan(){
@@ -561,7 +893,6 @@
                         return true;
                     }
                     else{
-                        console.log(response);
                         return false;
                     }
 
@@ -571,6 +902,62 @@
 
 
 
+        }else if(tipe == 'kredit_guna_usaha'){
+            var name = $('#name').val();
+            var tempat_lahir = $('#tempat_lahir').val();
+            var tanggal_lahir = $('#tanggal_lahir').val();
+            var alamat = $('#alamat').val();
+            var no_npwp = $('#no_npwp').val();
+
+
+            //wajib ada
+            var nama_ibu_kandung = $('#nama_ibu_kandung').val();
+            var kewarganegaraan = $('#kewarganegaraan').val();
+            var no_telp_rumah = $('#no_telp_rumah').val();
+            var NIP = $('#nip').val();
+            var status_usaha = $('#status_usaha').val();
+            var nama_usaha = $('#nama_usaha').val();
+            var jenis_usaha = $('#jenis_usaha').val();
+            var alamat_usaha = $('#alamat_usaha').val();
+            var instansi = $('#instansi').val();
+            var alamat_instansi = $('#alamat_instansi').val();
+            var pendapatan_per_bulan = $('#pendapatan_per_bulan').val();
+            pendapatan_per_bulan = pendapatan_per_bulan.replaceAll('.', '');
+            var keuntungan_per_bulan = $('#keuntungan_per_bulan').val();
+            keuntungan_per_bulan = keuntungan_per_bulan.replaceAll('.', '');
+            var biaya_sekolah = $('#biaya_sekolah').val();
+            biaya_sekolah = biaya_sekolah.replaceAll('.', '');
+            var biaya_konsumsi_keluarga = $('#biaya_konsumsi_keluarga').val();
+            biaya_konsumsi_keluarga = biaya_konsumsi_keluarga.replaceAll('.', '');
+            var listrik_air_telepon = $('#listrik_air_telepon').val();
+
+
+
+
+            //tidak wajib hanya kalo kawin
+            var nama_pasangan = $('#nama_pasangan').val();
+            var no_ktp_pasangan = $('#no_ktp_pasangan').val();
+
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-Token': "{{csrf_token()}}"
+                },
+                url: "{{url('/user/pengajuan/insertbiodatadiri')}}",
+                dataType: "JSON",
+                data: {tipe : tipe, name : name, email : email, no_ktp : no_ktp, no_hp: no_hp, tempat_lahir : tempat_lahir, tanggal_lahir : tanggal_lahir, provinsi : provinsi, kabkot : kabkot , kecamatan : kecamatan, kelurahan : kelurahan, alamat : alamat, jenis_kelamin : jenis_kelamin , pekerjaan : pekerjaan , no_npwp : no_npwp, nama_ibu_kandung : nama_ibu_kandung, status_perkawinan : status_perkawinan, agama : agama, pendidikan : pendidikan, kewarganegaraan : kewarganegaraan, no_telp_rumah : no_telp_rumah, status_kepemilikan_rumah : status_kepemilikan_rumah, kantor: kantor, alamat_kantor : alamat_kantor, no_telp_kantor : no_telp_kantor, lama_bekerja : lama_bekerja, jabatan : jabatan, pangkat : pangkat, NIP : NIP, nama_panggilan : nama_panggilan, masa_berlaku_ktp : masa_berlaku_ktp, keterangan_gelar: keterangan_gelar, no_fax_kantor : no_fax_kantor, email_kantor : email_kantor, nama_pasangan : nama_pasangan, no_ktp_pasangan : no_ktp_pasangan, pekerjaan_pasangan : pekerjaan_pasangan, alamat_nohp_pasangan : alamat_nohp_pasangan, hubungan : hubungan, jumlah_anak : jumlah_anak},
+                success: function (response) {
+                    if (response == "success"){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+
+
+                }
+            });
         }
 
 
@@ -590,6 +977,7 @@
                 var produk = $(this).val();
                 var jangka_waktu = $('#jangka_waktu_kredit').val();
                 var nominal = $('#nominal_pengajuan_kredit').val();
+                nominal = nominal.replaceAll('.', '');
 
                 updateSukuBunga(produk, jangka_waktu);
 
@@ -898,6 +1286,42 @@
         });
 
 
+
+
+
+    </script>
+
+
+{{--    handle tahap akhir--}}
+    <script type="text/javascript">
+
+        $('#biodata_diri_tab').on('click', function(){
+            $('#biodata_diri_link').addClass('tab-bar-konfirmasi-active')
+            $('#biodata_diri_link').removeClass('tab-bar-konfirmasi-inactive');
+            $('#formulir_pengajuan_link').removeClass('tab-bar-konfirmasi-active')
+            $('#dokumen_link').removeClass('tab-bar-konfirmasi-active');
+            $('#formulir_pengajuan_link').addClass('tab-bar-konfirmasi-inactive')
+            $('#dokumen_link').addClass('tab-bar-konfirmasi-inactive');
+        });
+
+        $('#formulir_pengajuan_tab').on('click', function(){
+            $('#biodata_diri_link').addClass('tab-bar-konfirmasi-inactive')
+            $('#biodata_diri_link').removeClass('tab-bar-konfirmasi-active');
+            $('#formulir_pengajuan_link').removeClass('tab-bar-konfirmasi-inactive')
+            $('#dokumen_link').removeClass('tab-bar-konfirmasi-active');
+            $('#formulir_pengajuan_link').addClass('tab-bar-konfirmasi-active')
+            $('#dokumen_link').addClass('tab-bar-konfirmasi-inactive');
+        });
+
+
+        $('#dokumen_tab').on('click', function(){
+            $('#biodata_diri_link').addClass('tab-bar-konfirmasi-inactive')
+            $('#biodata_diri_link').removeClass('tab-bar-konfirmasi-active');
+            $('#formulir_pengajuan_link').removeClass('tab-bar-konfirmasi-active')
+            $('#dokumen_link').removeClass('tab-bar-konfirmasi-inactive');
+            $('#formulir_pengajuan_link').addClass('tab-bar-konfirmasi-inactive')
+            $('#dokumen_link').addClass('tab-bar-konfirmasi-active');
+        });
 
 
 
