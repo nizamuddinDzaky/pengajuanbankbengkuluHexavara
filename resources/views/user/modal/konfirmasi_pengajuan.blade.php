@@ -65,9 +65,9 @@
                             </div>
                         </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn" style="background-color: #e46931; border: none; color: white">Konfirmasi</button>
+                    <button type="submit" class="btn" onClick='return confirmSubmit()' style="background-color: #e46931; border: none; color: white">Konfirmasi</button>
                 </div>
-                    </form>
+                </form>
         </div>
     </div>
     </div>

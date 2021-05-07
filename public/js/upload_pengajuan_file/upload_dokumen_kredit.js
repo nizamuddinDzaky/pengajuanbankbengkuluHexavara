@@ -51,7 +51,8 @@ var dokumenScanGajiLegalisir =  Dropzone.options.dokumenScanGajiLegalisir = {
         });
 
         this.on("success", function() {
-            location.reload();
+            $('.gaji_terakhir').val('success');
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -110,7 +111,8 @@ var dokumenScanStrukGaji =  Dropzone.options.dokumenScanStrukGaji = {
         });
 
         this.on("success", function() {
-            location.reload();
+            $('.struk_gaji_bulan_terakhir').val('success');
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -169,7 +171,8 @@ var dokumenSKCAPEG =  Dropzone.options.dokumenSKCAPEG = {
         });
 
         this.on("success", function() {
-            location.reload();
+            $('.SK_CAPEG').val('success');
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -227,7 +230,8 @@ var dokumenSKPegawaiTetap =  Dropzone.options.dokumenSKPegawaiTetap = {
         });
 
         this.on("success", function() {
-            location.reload();
+            $('.SK_pegawai_tetap').val('success');
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -285,7 +289,8 @@ var dokumenSKPangkatTerakhir =  Dropzone.options.dokumenSKPangkatTerakhir = {
         });
 
         this.on("success", function() {
-            location.reload();
+            $('.SK_pangkat_terakhir').val('success');
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -343,7 +348,8 @@ var dokumenSKBerkalaTerakhir =  Dropzone.options.dokumenSKBerkalaTerakhir = {
         });
 
         this.on("success", function() {
-            location.reload();
+            $('.SK_berkala_terakhir').val('success');
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -401,7 +407,8 @@ var dokumenKartuPegawai =  Dropzone.options.dokumenKartuPegawai = {
         });
 
         this.on("success", function() {
-            location.reload();
+            $('.kartu_pegawai').val('success');
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -460,7 +467,8 @@ var dokumenKartuTASPEN =  Dropzone.options.dokumenKartuTASPEN = {
         });
 
         this.on("success", function() {
-            location.reload();
+            $('.kartu_taspen').val('success');
+            toastr.success('Berhasil Upload File');
         });
     }
 }

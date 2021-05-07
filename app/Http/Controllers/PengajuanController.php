@@ -553,49 +553,23 @@ class PengajuanController extends Controller
         $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 0)->first();
         $kode_cabang = str_pad($transaksi->kantor_id, 3, "0", STR_PAD_LEFT);
 
-        $durasi = Kantor::where('parent',0)->select('durasi_layanan_cs')->first();
-        $durasi = $durasi->durasi_layanan_cs;
+        $jumlah_transaksi = Transaksi::where('kantor_id', $transaksi->kantor_id)
+            ->where('status', '<>', 0)
+            ->count();
 
-//        $transaksi = Transaksi::where('tanggal', $tanggal)
-//            ->where('jam_mulai', '<>' , null)
-//            ->where('jam_selesai', '<>' , null)
-//            ->where('cs_id', $customer_service)
-//            ->where('status', '<>', 0)
-//            ->get();
-//
-//        $arrayPenampung = [];
-//        $awal = Carbon::createFromTime(8);
-//        $akhir = Carbon::createFromTime(15);
-//
-//        while ($awal < $akhir) {
-//
-//            if ($transaksi != null){
-//                $checker = 0;
-//                foreach ($transaksi as $data){
-//
-//                    if ($data->jam_mulai == $awal->format('H:i:s') &&  $data->jam_selesai == $awal->addMinutes($durasi)->format('H:i:s')){
-//                        $checker += 1;
-//                    }
-//                }
-//
-//                if ($checker == 0){
-//                    $data = $awal->format('H:i') . ' - ' . $awal->addMinutes($durasi)->format('H:i');
-//                    array_push($arrayPenampung, $data);
-//                }
-//
-//            }else{
-//                $data = $awal->format('H:i') . ' - ' . $awal->addMinutes($durasi)->format('H:i');
-//
-//                array_push($arrayPenampung, $data);
-//            }
-//
-//        }
-//
-//
-//
-//
-//        $nomor_antrian =
+        if ($jumlah_transaksi > 9999){
+            $nomor_antrian = $jumlah_transaksi;
+        }else{
+            $nomor_antrian = str_pad($jumlah_transaksi + 1, 4, "0", STR_PAD_LEFT);
+        }
+
+        $angka_random = str_pad(rand(1,99), 2,"0",STR_PAD_LEFT);
+
+        $kode_pengajuan = $kode_cabang.'.'.$nomor_antrian.'.'.$angka_random;
+
+
         $transaksi->status = 1;
+        $transaksi->kode_pengajuan = $kode_pengajuan;
 
 
         if ($transaksi->save()){

@@ -59,7 +59,7 @@ class UploadService
 
                 if ($transaksi->save()){
                     DB::commit();
-                    session()->flash('success', 'Berhasil Upload '.$jenis);
+//                    session()->flash('success', 'Berhasil Upload '.$jenis);
 
                 }else{
                     DB::rollback();
@@ -119,7 +119,7 @@ class UploadService
 
                 if ($transaksi->save()){
                     DB::commit();
-                    session()->flash('success', 'Berhasil Upload '.$jenis);
+//                    session()->flash('success', 'Berhasil Upload '.$jenis);
 
                 }else{
                     DB::rollback();

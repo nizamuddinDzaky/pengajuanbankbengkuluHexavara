@@ -329,7 +329,7 @@
 
 @section('modal')
     @include('user.modal.konfirmasi_pengajuan')
-    @endsection
+@endsection
 
 
 @section('script')
@@ -1322,6 +1322,17 @@
             $('#formulir_pengajuan_link').addClass('tab-bar-konfirmasi-inactive')
             $('#dokumen_link').addClass('tab-bar-konfirmasi-active');
         });
+
+
+        function confirmSubmit(){
+            var agree=confirm("Apakah seluruh data yang Anda isi telah sesuai dan benar?");
+            if (agree) {
+                return true ;
+            }else {
+                return false;
+            }
+
+        }
 
 
 

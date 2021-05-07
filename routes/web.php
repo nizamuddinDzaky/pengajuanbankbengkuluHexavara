@@ -73,6 +73,8 @@ Route::middleware(['auth'])->group(function () {
 
     //daftar pengajuan
     Route::get('/user/daftar_pengajuan', 'DaftarPengajuanController@index');
+    Route::post('/user/daftar_pengajuan/jadwalkan_ulang_pengajuan', 'DaftarPengajuanController@jadwalkanUlang')->name('user.jadwalkan_ulang_pengajuan');
+    Route::post('/user/daftar_pengajuan/batalkan_pengajuan', 'DaftarPengajuanController@batalkanPengajuan')->name('user.batalkan_pengajuan');
 
 
 });

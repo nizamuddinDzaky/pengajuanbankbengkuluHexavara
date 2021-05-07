@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label >NPWP (3x4) </label>
@@ -77,7 +77,7 @@
             </div>
         </div>
     </div>
-    <div class="row jaminanSHMBPKB mt-5">
+    <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label >Jaminan SHM / BPKB </label>
@@ -114,8 +114,8 @@
              </div>
          </div>
      </div>
-     <div class="row mt-3">
-         <div class="col-md-6 cpns">
+     <div class="row">
+         <div class="col-md-6 ">
              <div class="form-group">
                  <label>SK CAPEG (CPNS) </label>
                  @if(isset(json_decode($transaksi->path_file)->SK_CAPEG))
@@ -126,7 +126,7 @@
              </div>
          </div>
          <div class="col-md-6">
-             <div class="form-group pns">
+             <div class="form-group">
                  <label for="noktp">SK Pegawai Tetap </label>
                  @if(isset(json_decode($transaksi->path_file)->SK_pegawai_tetap))
                  <input type="text" disabled class="form-control" value="{{substr(strstr(substr(strstr(json_decode($transaksi->path_file)->SK_pegawai_tetap, "/"),1),"/"),1)}}">
@@ -159,7 +159,7 @@
              </div>
          </div>
      </div>
-     <div class="row mt-3">
+     <div class="row ">
          <div class="col-md-6">
              <div class="form-group">
                  <label for="noktp">Kartu Pegawai (KARPEG)  </label>
@@ -182,14 +182,14 @@
              </div>
          </div>
      </div>
-         <div class="row mt-3">
-             <div class="col-md-6 cpns">
+         <div class="row ">
+             <div class="col-md-6 ">
                  <div class="form-group">
                      <label >Nomor SK CAPEG </label>
                      @if(isset(json_decode($transaksi->path_file)->no_SK_CAPEG))
                          <input type="text" class="form-control"  name="no_SK_CAPEG" id="no_SK_CAPEG" value="{{json_decode($transaksi->path_file)->no_SK_CAPEG}}" disabled>
                      @else
-                         <input type="text" class="form-control"  name="no_SK_CAPEG" id="no_SK_CAPEG" disabled value="Tidak Diinputkan">
+                         <input type="text" class="form-control"  name="no_SK_CAPEG" id="no_SK_CAPEG" disabled value="">
                      @endif
                  </div>
              </div>
@@ -199,7 +199,7 @@
                      @if(isset(json_decode($transaksi->path_file)->no_SK_pegawai_tetap))
                          <input type="text" class="form-control"  name="no_SK_pegawai_tetap" id="no_SK_pegawai_tetap" value="{{json_decode($transaksi->path_file)->no_SK_pegawai_tetap}}" disabled>
                      @else
-                         <input type="text" class="form-control"  name="no_SK_pegawai_tetap" id="no_SK_pegawai_tetap" disabled value="Tidak Diinputkan">
+                         <input type="text" class="form-control"  name="no_SK_pegawai_tetap" id="no_SK_pegawai_tetap" disabled value="">
                      @endif
                  </div>
              </div>
@@ -212,7 +212,7 @@
                      @if(isset(json_decode($transaksi->path_file)->no_SK_pangkat_terakhir))
                          <input type="text" class="form-control"  name="no_SK_pangkat_terakhir" id="no_SK_pangkat_terakhir" value="{{json_decode($transaksi->path_file)->no_SK_pangkat_terakhir}}" disabled>
                      @else
-                         <input type="text" class="form-control"  name="no_SK_pangkat_terakhir" id="no_SK_pangkat_terakhir" disabled value="Tidak Diinputkan">
+                         <input type="text" class="form-control"  name="no_SK_pangkat_terakhir" id="no_SK_pangkat_terakhir" disabled value="">
                      @endif
                  </div>
              </div>
@@ -222,7 +222,7 @@
                      @if(isset(json_decode($transaksi->path_file)->no_SK_berkala_terakhir))
                          <input type="text" class="form-control"  name="no_SK_berkala_terakhir" id="no_SK_berkala_terakhir" value="{{json_decode($transaksi->path_file)->no_SK_berkala_terakhir}}" disabled>
                      @else
-                         <input type="text" class="form-control"  name="no_SK_berkala_terakhir" id="no_SK_berkala_terakhir" disabled value="Tidak Diinputkan">
+                         <input type="text" class="form-control"  name="no_SK_berkala_terakhir" id="no_SK_berkala_terakhir" disabled value="">
                      @endif
                  </div>
              </div>
@@ -234,7 +234,7 @@
                     @if(isset(json_decode($transaksi->path_file_dokumen_saya)->no_shm_bpkb))
                         <input type="text" disabled class="form-control" value="{{json_decode($transaksi->path_file_dokumen_saya)->no_shm_bpkb}}">
                     @else
-                        <input type="text" disabled class="form-control" value="Tidak Diinputkan">
+                        <input type="text" disabled class="form-control" value="">
                     @endif
 
                 </div>

@@ -52,7 +52,8 @@ var dropzoneKTP =  Dropzone.options.dokumenUploadKTP = {
         });
 
         this.on("success", function() {
-            location.reload();
+            toastr.success('Berhasil Upload File')
+            $('.ktp_validation').val("success");
         });
     }
 }
@@ -111,7 +112,8 @@ var dropzonePasFoto =  Dropzone.options.dokumenUploadPasfoto = {
         });
 
         this.on("success", function() {
-            location.reload();
+            toastr.success('Berhasil Upload File');
+            $('.pas_foto_validation').val("success");
         });
     }
 }
@@ -170,7 +172,8 @@ var dropzoneNPWP =  Dropzone.options.dokumenUploadNPWP = {
         });
 
         this.on("success", function() {
-            location.reload();
+            $('.npwp_validation').val('success');
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -229,7 +232,8 @@ var dropzoneKartuKeluarga =  Dropzone.options.dokumenKartuKeluarga = {
         });
 
         this.on("success", function() {
-            location.reload();
+            toastr.success('Berhasil Upload File');
+            $('.kartu_keluarga_validation').val("success");
         });
     }
 }
@@ -288,7 +292,8 @@ var dokumenFotoKTPPasangan =  Dropzone.options.dokumenFotoKTPPasangan = {
         });
 
         this.on("success", function() {
-            location.reload();
+            $('.foto_ktp_pasangan').val("success");
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -347,7 +352,9 @@ var dokumenPasFotoPasangan =  Dropzone.options.dokumenPasFotoPasangan = {
         });
 
         this.on("success", function() {
-            location.reload();
+            console.log('hello');
+            $('#pas_foto_pasangan').val('success');
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -401,7 +408,7 @@ var dokumenFotoBukuNikah =  Dropzone.options.dokumenFotoBukuNikah = {
         });
 
         this.on("success", function() {
-            location.reload();
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -454,7 +461,7 @@ var dokumenFotoBukuTabungan =  Dropzone.options.dokumenFotoBukuTabungan = {
         });
 
         this.on("success", function() {
-            location.reload();
+            toastr.success('Berhasil Upload File');
         });
     }
 }
@@ -512,7 +519,8 @@ var dokumenJaminanSHM =  Dropzone.options.dokumenJaminanSHM = {
         });
 
         this.on("success", function() {
-            location.reload();
+            toastr.success('Berhasil Upload File');
+            $('.jaminanSHM_validation').val('success');
         });
     }
 }
@@ -526,7 +534,7 @@ var dokumenSPT =  Dropzone.options.dokumenSPT = {
     headers: {
         'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
     },
-    maxFilesize: 1,
+    maxFilesize: 5,
     acceptedFiles: '.jpg, .jpeg, .png',
     maxFiles: 1,
     parallelUploads : 1,
@@ -569,26 +577,8 @@ var dokumenSPT =  Dropzone.options.dokumenSPT = {
         });
 
         this.on("success", function() {
-            $.ajax({
-                url:  '/user/pengajuan/getthumbnail',
-                type: 'post',
-                headers: {
-                    'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
-                },
-                data: {data: "dokumen_spt", tipe : "dokumen_saya"},
-                dataType: 'json',
-                success: function(response){
-                    $.each(response, function(key,value) {
-                        var mockFile = { name: value.name, size: value.size };
-                        $('.SPT_validation').val(value.path);
-                        myDropzone.emit("addedfile", mockFile);
-                        myDropzone.emit("thumbnail", mockFile, value.path);
-                        myDropzone.emit("complete", mockFile);
-
-                    });
-
-                }
-            });
+            $('.SPT_validation').val('success');
+            toastr.success('Berhasil Upload File');
 
         });
 
