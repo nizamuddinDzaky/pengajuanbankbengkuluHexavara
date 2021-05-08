@@ -16,7 +16,7 @@
                           <p>Apakah Anda yakin untuk membatalkan pengajuan kredit?</p>
                         </div>
                     </div>
-                    <div class="row mt-3">
+                    <div class="row mt-5">
                         <div class="col-6 text-right">
                             <button data-dismiss="modal" class="btn orange-outline" style="width: 100%">Tidak</button>
                         </div>

@@ -114,8 +114,8 @@
                                 <p style="font-weight: lighter">Menuju waktu pencairan dana</p>
                             </div>
                             <div class="col-md-6 text-right button-row">
-                                <button class="btn orange-outline mr-2 mt-3 button-block">Unggah Blangko</button>
-                                <button class="btn orange-outline mr-2 mt-3 button-block">Unduh Blangko</button>
+                                <button class="btn orange-outline mr-2 mt-3 button-block" data-toggle="modal" data-target="#unggahBlangkoModal">Unggah Blangko</button>
+                                <button class="btn orange-outline mr-2 mt-3 button-block" data-toggle="modal" data-target="#unduhBlangkoModal">Unduh Blangko</button>
                             </div>
                         </div>
                     </div>
@@ -139,6 +139,8 @@
 @section('modal')
     @include('user.daftar_pengajuan.modal.jadwalkan_ulang')
     @include('user.daftar_pengajuan.modal.batalkan_pengajuan')
+    @include('user.daftar_pengajuan.modal.unduh_blangko')
+    @include('user.daftar_pengajuan.modal.unggah_blangko')
 @endsection
 
 @section('script')
@@ -209,6 +211,68 @@
             $('#transaksi_id_batal').val(id);
 
         });
+    </script>
+
+    <script>
+        Dropzone.options.unggahDokumen = {
+            autoProcessQueue: true,
+            url: '/user/dokumen/uploadktp',
+            addRemoveLinks: true,
+            uploadMultiple: false,
+            headers: {
+                'X-CSRF-Token':  $('meta[name="_token"]').attr('content')
+            },
+            autoDiscover : false,
+            maxFilesize: 5,
+            acceptedFiles: '.jpg, .jpeg, .png',
+            maxFiles: 1,
+            parallelUploads : 3,
+            init: function () {
+
+                var myDropzone = this;
+
+                // myDropzone.on("removedfile", function (file) {
+                //     $('.ktp_validation').val('');
+                // });
+
+                // $.ajax({
+                //     url: '/user/dokumen/getthumbnail',
+                //     type: 'post',
+                //     headers: {
+                //         'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                //     },
+                //     data: {data: "ktp"},
+                //     dataType: 'json',
+                //     success: function(response){
+                //
+                //         $.each(response, function(key,value) {
+                //             var mockFile = { name: value.name, size: value.size };
+                //             $('.ktp_validation').val(value.path);
+                //
+                //             myDropzone.emit("addedfile", mockFile);
+                //             myDropzone.emit("thumbnail", mockFile, value.path);
+                //             myDropzone.emit("complete", mockFile);
+                //
+                //         });
+                //
+                //     }
+                // });
+
+
+                this.on('sending', function(file, xhr, formData) {
+                    // Append all form inputs to the formData Dropzone will POST
+                    var data = $('#frmTarget').serializeArray();
+                    $.each(data, function(key, el) {
+                        formData.append(el.name, el.value);
+                    });
+                });
+
+                this.on("success", function() {
+                    toastr.success('Berhasil Upload File')
+                    $('.ktp_validation').val("success");
+                });
+            }
+        }
     </script>
 
 

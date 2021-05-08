@@ -76,6 +76,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/user/daftar_pengajuan/jadwalkan_ulang_pengajuan', 'DaftarPengajuanController@jadwalkanUlang')->name('user.jadwalkan_ulang_pengajuan');
     Route::post('/user/daftar_pengajuan/batalkan_pengajuan', 'DaftarPengajuanController@batalkanPengajuan')->name('user.batalkan_pengajuan');
 
+    // generate blangko
+    Route::post('user/blangko/download/multiguna-aktif', 'DokumenController@generateMultigunaAktif')->name('user.download_blangko.multiguna-aktif');
+
 
 });
 
