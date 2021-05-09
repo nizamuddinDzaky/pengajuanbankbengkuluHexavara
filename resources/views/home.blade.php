@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                        <a href="{{url('/user/pengajuan')}}">Go To Pengajuan</a>
                 </div>
             </div>
         </div>

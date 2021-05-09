@@ -1,0 +1,23 @@
+.active {
+    text-underline: #e46931;
+}
+
+.tab-bar-konfirmasi-active {
+    color: #e46931;
+    font-size: 20pt;
+    text-decoration: underline;
+}
+
+.tab-bar-konfirmasi-active:hover {
+    color: #e46931;
+}
+
+.tab-bar-konfirmasi-inactive {
+    color: grey;
+    font-size: 20pt;
+    text-decoration: none;
+}
+
+.tab-bar-konfirmasi-inactive:hover {
+    color: #e46931;
+}

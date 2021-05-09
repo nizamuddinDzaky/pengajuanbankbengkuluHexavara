@@ -36,7 +36,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/user/dokumen/getthumbnail', 'BiodataController@getThumbnail')->name('dokumen.getthumbnail');
 
 
-//ubah kata sandi
+
+    //ubah kata sandi
     Route::get('/user/ubah_katasandi', function () {
         return view('user.ubah_kata_sandi');
     });
@@ -45,13 +46,42 @@ Route::middleware(['auth'])->group(function () {
 
     //pengajuan pinjaman
     Route::get('/user/pengajuan', 'PengajuanController@index');
-    Route::get('/user/pengajuan/update', 'PengajuanController@updatePengajuan');
+    Route::post('/user/pengajuan/insertformulir', 'PengajuanController@insertFormulirPengajuan');
+    Route::post('/user/pengajuan/insertbiodatadiri', 'PengajuanController@insertBiodataDiri');
+    Route::post('/user/pengajuan/insertnoshm', 'PengajuanController@insertNoSHM');
+    Route::post('/user/pengajuan/insertnoSK', 'PengajuanController@insertNoSK');
+    Route::post('/user/pengajuan/inserttahapakhir', 'PengajuanController@insertTahapAkhir');
+    Route::post('/user/pengajuan/getsukubunga', 'PengajuanController@getSukuBunga')->name('user.getsukubunga');
+    Route::post('/user/pengajuan/getjumlahangsuran', 'PengajuanController@getJumlahAngsuran')->name('user.getjumlahangsuran');
+    Route::post('/user/pengajuan/getplafond', 'PengajuanController@getPlafond')->name('user.getplafond');
+    Route::post('/user/pengajuan/getjenisproduk', 'PengajuanController@getJenisProduk')->name('user.getjenisproduk');
+    Route::post('/user/pengajuan/getnamaproduk', 'PengajuanController@getNamaProduk')->name('user.getnamaproduk');
+    Route::post('/user/pengajuan/getstatuskawin', 'PengajuanController@getStatusKawin')->name('user.getstatuskawin');
+    Route::post('/user/pengajuan/getstatusjaminan', 'PengajuanController@getStatusJaminan')->name('user.getstatusjaminan');
+    Route::post('/user/pengajuan/konfirmasipengajuan', 'PengajuanController@konfirmasiPengajuan')->name('user.konfirmasi_pengajuan');
+
+    //pengajuan pinjaman tahap akhir
+    Route::post('/user/pengajuan/getcustomerservice', 'PengajuanController@getCustomerService');
+    Route::post('/user/pengajuan/getslotwaktu', 'PengajuanController@getSlotWaktu');
+
+
+    //upload dokumen pengajuan
+    Route::post('/user/pengajuan/upload_dokumen_saya/{jenis}', 'PengajuanController@uploadDokumenSaya');
+    Route::post('/user/pengajuan/upload_dokumen_kredit/{jenis}', 'PengajuanController@uploadDokumenKredit');
+    Route::post('/user/pengajuan/getthumbnail', 'PengajuanController@getThumbnail');
 
 
     //daftar pengajuan
-    Route::get('/user/daftar_pengajuan', function () {
-        return view('user.daftar_pengajuan');
-    });
+    Route::get('/user/daftar_pengajuan', 'DaftarPengajuanController@index');
+    Route::post('/user/daftar_pengajuan/jadwalkan_ulang_pengajuan', 'DaftarPengajuanController@jadwalkanUlang')->name('user.jadwalkan_ulang_pengajuan');
+    Route::post('/user/daftar_pengajuan/batalkan_pengajuan', 'DaftarPengajuanController@batalkanPengajuan')->name('user.batalkan_pengajuan');
+    Route::post('/user/daftar_pengajuan/get_detail_transaksi', 'DaftarPengajuanController@getDetailTransaksi')->name('user.get_detail_transaksi');
+
+    // generate blangko
+    Route::post('user/blangko/download_blangko', 'DokumenController@generateBlangko')->name('user.download_blangko');
+    Route::post('user/blangko/unggah_blangko/{id}', 'DokumenController@unggahBlangko');
+    Route::post('user/blangko/getthumbnail', 'DokumenController@getThumbnailBlangko');
+    Route::post('user/blangko/getblangkostatus', 'DokumenController@getBlangkoStatus')->name('user.get_blangko_status');
 
 
 });
