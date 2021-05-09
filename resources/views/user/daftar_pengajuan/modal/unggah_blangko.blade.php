@@ -11,7 +11,7 @@
 
                 <div class="row mt-3">
                     <div class="col-md-12 text-center">
-                        <p class="text-muted">Ukuran file maks. 5MB. Format file .jpg, .jpeg, .png.</p>
+                        <p class="text-muted">Ukuran file maks. 5MB. Format file .pdf</p>
                     </div>
                 </div>
                 <div class="row">
@@ -24,10 +24,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 mt-2" id="keteranganUnggah">
+
+                    </div>
+                    <input type="hidden" id="transaksi_id_unggah">
                 </div>
                 <div class="row mt-3">
                     <div class="col-12 text-right">
-                        <button type="submit" class="btn orange-primary"> Konfirmasi</button>
+                        <button data-dismiss="modal" class="btn orange-primary"> Konfirmasi</button>
                     </div>
                 </div>
             </div>

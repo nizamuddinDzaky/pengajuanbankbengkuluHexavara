@@ -5,6 +5,7 @@
 @section('style')
 
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('css/tab_bar_modal.css')}}" rel="stylesheet" type="text/css" />
     <style>
         body {
             background-color: #EEEFF3;
@@ -43,30 +44,6 @@
         .dz-image img{
             width: 130px;
             height:130px;
-        }
-
-        .active {
-            text-underline: #e46931;
-        }
-
-        .tab-bar-konfirmasi-active {
-            color: #e46931;
-            font-size: 20pt;
-            text-decoration: underline;
-        }
-
-        .tab-bar-konfirmasi-active:hover {
-            color: #e46931;
-        }
-
-        .tab-bar-konfirmasi-inactive {
-            color: grey;
-            font-size: 20pt;
-            text-decoration: none;
-        }
-
-        .tab-bar-konfirmasi-inactive:hover {
-            color: #e46931;
         }
 
 

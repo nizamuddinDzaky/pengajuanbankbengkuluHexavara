@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body px-5">
-                <form action="{{route('user.download_blangko.multiguna-aktif')}}" method="post">
+                <form action="{{route('user.download_blangko')}}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-12 text-center">
@@ -16,9 +16,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-center">
+{{--                            <iframe src="https://docs.google.com/gview?url=http://.'{{asset('blangko/blangko_multiguna_aktif.docx')}}'.&embedded=true"></iframe>--}}
                             <embed src="{{asset('blangko/blangko_pns_aktif.pdf')}}" width="80%" height="800px" />
                         </div>
                     </div>
+                    <input type="hidden" name="transaksi_id" id="transaksi_id_unduh">
                     <div class="row mt-3">
                         <div class="col-12 text-center">
                             <button type="submit" class="btn orange-primary"><i class="fa fa-download"></i> Unduh Blangko</button>

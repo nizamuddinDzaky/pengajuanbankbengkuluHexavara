@@ -2,23 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Service\UploadService;
 use App\Kantor;
+use App\Produk;
 use App\Transaksi;
 use Carbon\Carbon;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PhpOffice\PhpWord\Settings;
 use DB;
-
+use File;
 
 class DokumenController extends Controller
 {
-    public function generateMultigunaAktif(Request $request){
 
-        $transaksi_id = 1;
+    protected $UploadService;
+    public function __construct(UploadService $UploadService)
+    {
+        $this->UploadService = $UploadService;
+    }
+
+    public function generateBlangko(Request $request){
+
+        $transaksi_id = $request->transaksi_id;
         $transaksi = Transaksi::where('id', $transaksi_id)->first();
         $user = User::where('id', $transaksi->pemohon_id)->first();
         $kantor = Kantor::where('id', $transaksi->kantor_id)->first();
+        $produk = Produk::where('id', $transaksi->produk_id)->first();
+        $template_blangko =  json_decode($produk->path_file)->blangko;
 
         //get bulan awal
         $bulan_awal = $transaksi->tanggal;
@@ -41,7 +53,7 @@ class DokumenController extends Controller
 
 
 
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path('blangko/blangko_multiguna_aktif.docx'));
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path($template_blangko));
         Settings::setOutputEscapingEnabled(true);
         $data = [
             "tanggal" => Carbon::now()->locale('id')->isoFormat('LL'),
@@ -100,13 +112,34 @@ class DokumenController extends Controller
         ];
 
 
-        $filename = "blangko_multiguna_aktif.docx";
+        $filename = 'Blangko_'.$produk->nama.'_'.$transaksi->kode_pengajuan.'.docx';
         $templateProcessor->setValues($data);
         header("Content-Disposition: attachment; filename=$filename");
         $templateProcessor->saveAs('php://output');
 
 
 
+    }
+
+
+    public function unggahBlangko(Request $request){
+        $this->UploadService->unggahBlangko($request);
+    }
+
+    public function getThumbnailBlangko(Request $request){
+        $file_list = $this->UploadService->getThumbnailBlangko($request);
+        return response()->json($file_list);
+    }
+
+    public function getBlangkoStatus(Request  $request){
+        $id = $request->id;
+        $transaksi = Transaksi::where('id', $id)->first();
+
+        if ($transaksi->path_file_blangko != null){
+            return response()->json([true, "/".$transaksi->path_file_blangko]);
+        }else{
+            return response()->json([false]);
+        }
     }
 
 

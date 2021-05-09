@@ -75,9 +75,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/daftar_pengajuan', 'DaftarPengajuanController@index');
     Route::post('/user/daftar_pengajuan/jadwalkan_ulang_pengajuan', 'DaftarPengajuanController@jadwalkanUlang')->name('user.jadwalkan_ulang_pengajuan');
     Route::post('/user/daftar_pengajuan/batalkan_pengajuan', 'DaftarPengajuanController@batalkanPengajuan')->name('user.batalkan_pengajuan');
+    Route::post('/user/daftar_pengajuan/get_detail_transaksi', 'DaftarPengajuanController@getDetailTransaksi')->name('user.get_detail_transaksi');
 
     // generate blangko
-    Route::post('user/blangko/download/multiguna-aktif', 'DokumenController@generateMultigunaAktif')->name('user.download_blangko.multiguna-aktif');
+    Route::post('user/blangko/download_blangko', 'DokumenController@generateBlangko')->name('user.download_blangko');
+    Route::post('user/blangko/unggah_blangko/{id}', 'DokumenController@unggahBlangko');
+    Route::post('user/blangko/getthumbnail', 'DokumenController@getThumbnailBlangko');
+    Route::post('user/blangko/getblangkostatus', 'DokumenController@getBlangkoStatus')->name('user.get_blangko_status');
 
 
 });

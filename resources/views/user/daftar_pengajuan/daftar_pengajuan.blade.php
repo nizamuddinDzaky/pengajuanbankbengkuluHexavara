@@ -4,6 +4,7 @@
 
 
 @section('style')
+    <link href="{{asset('css/tab_bar_modal.css')}}" rel="stylesheet" type="text/css" />
     <style>
 
         @media only screen and (max-width: 640px) and (min-width: 0px) {
@@ -114,8 +115,8 @@
                                 <p style="font-weight: lighter">Menuju waktu pencairan dana</p>
                             </div>
                             <div class="col-md-6 text-right button-row">
-                                <button class="btn orange-outline mr-2 mt-3 button-block" data-toggle="modal" data-target="#unggahBlangkoModal">Unggah Blangko</button>
-                                <button class="btn orange-outline mr-2 mt-3 button-block" data-toggle="modal" data-target="#unduhBlangkoModal">Unduh Blangko</button>
+                                <button class="btn orange-outline mr-2 mt-3 button-block" data-toggle="modal" data-target="#unggahBlangkoModal" data-transaksi_id="{{$data->id_transaksi}}">Unggah Blangko</button>
+                                <button class="btn orange-outline mr-2 mt-3 button-block" data-toggle="modal" data-target="#unduhBlangkoModal" data-transaksi_id="{{$data->id_transaksi}}">Unduh Blangko</button>
                             </div>
                         </div>
                     </div>
@@ -141,6 +142,7 @@
     @include('user.daftar_pengajuan.modal.batalkan_pengajuan')
     @include('user.daftar_pengajuan.modal.unduh_blangko')
     @include('user.daftar_pengajuan.modal.unggah_blangko')
+    @include('user.daftar_pengajuan.modal.detail_pengajuan')
 @endsection
 
 @section('script')
@@ -164,7 +166,7 @@
 
         $('.popOver').on('shown.bs.popover', function (event) {
             var popover = $(event.target).data('id');
-            console.log(popover);
+
             $('#jadwalkanUlang').attr('data-toggle', 'modal');
             $('#jadwalkanUlang').attr('data-target', '#jadwalkanUlangModal');
             $('#jadwalkanUlang').attr('data-transaksi_id', popover);
@@ -196,6 +198,9 @@
     </script>
 
     <script>
+
+
+
         $('#jadwalkanUlangModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var id = button.data('transaksi_id');
@@ -211,12 +216,174 @@
             $('#transaksi_id_batal').val(id);
 
         });
-    </script>
 
-    <script>
+        $('#unduhBlangkoModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('transaksi_id');
+
+            $('#transaksi_id_unduh').val(id);
+
+        });
+
+        $('#unggahBlangkoModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('transaksi_id');
+
+            var myDropzone = Dropzone.forElement("#unggahDokumen");
+            myDropzone.removeAllFiles();
+            $(".dz-message").removeClass("hidden");
+
+            $('#transaksi_id_unggah').val(id);
+            $('#keteranganUnggah').empty();
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-Token': "{{csrf_token()}}"
+                },
+                url: "{{route('user.get_blangko_status')}}",
+                dataType: "JSON",
+                data : {id : id},
+                success: function (response) {
+                   if (response[0] == true){
+                       var content =  '<div class="alert alert-success" role="alert">'+
+                          ' File sudah terunggah       <a href="'+response[1]+'" target="_blank">Lihat</a></div>'
+                       $('#keteranganUnggah').append(content);
+                   }else{
+                       var content  =  '<div class="alert alert-secondary" role="alert">'+
+                           ' File belum diunggah</div>'
+                       $('#keteranganUnggah').append(content);
+                   }
+                }
+            });
+
+
+
+
+
+
+        });
+
+
+        $('#detailPengajuanModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('transaksi_id');
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-Token': "{{csrf_token()}}"
+                },
+                url: "{{route('user.get_detail_transaksi')}}",
+                dataType: "JSON",
+                data : {id : id},
+                success: function (response) {
+
+
+                    //header
+                    $('#jadwal_detail').val(response['tanggal']);
+                    $('#slot_detail').val(response['slot_waktu']);
+                    $('#cabang_detail').val(response['nama_cabang']);
+                    $('#customer_service_detail').val(response['nama_cs']);
+
+                    //formulir pengajuan
+                    $('#produk_kredit_detail').val(response['nama_produk']);
+                    $('#penghasilan_per_bulan_detail').val(response['penghasilan']);
+                    $('#jangka_waktu_kredit_detail').val(response['masa_tenor']);
+                    $('#suku_bunga_detail').val(response['suku_bunga']);
+                    $('#max_plafond_detail').val(response['max_plafond']);
+                    $('#nominal_pengajuan_kredit_detail').val(response['plafond']);
+                    $('#jumlah_angsuran_per_bulan_detail').val(response['jumlah_angsuran']);
+                    $('#keperluan_pinjaman_detail').val(response['keperluan_pinjaman']);
+
+
+                    //biodata
+                    $('#nama_panggilan_detail').val(JSON.parse(response['biodata']).nama_panggilan);
+                    $('#masa_berlaku_ktp_detail').val(JSON.parse(response['biodata']).masa_berlaku_ktp);
+                    $('#nama_ibu_kandung_detail').val(JSON.parse(response['biodata']).nama_ibu_kandung);
+                    $('#status_perkawinan_detail').val(JSON.parse(response['biodata']).status_perkawinan);
+                    $('#agama_detail').val(JSON.parse(response['biodata']).agama);
+                    $('#nama_pasangan_detail').val(JSON.parse(response['biodata']).nama_pasangan);
+                    $('#no_ktp_pasangan_detail').val(JSON.parse(response['biodata']).no_ktp_pasangan);
+                    $('#pekerjaan_pasangan_detail').val(JSON.parse(response['biodata']).pekerjaan_pasangan);
+                    $('#alamat_nohp_pasangan_detail').val(JSON.parse(response['biodata']).alamat_nohp_pasangan);
+                    $('#hubungan_pasangan_detail').val(JSON.parse(response['biodata']).hubungan);
+                    $('#pendidikan_detail').val(JSON.parse(response['biodata']).pendidikan);
+                    $('#keterangan_gelar_detail').val(JSON.parse(response['biodata']).keterangan_gelar);
+                    $('#kewarganegaraan_detail').val(JSON.parse(response['biodata']).kewarganegaraan);
+                    $('#jumlah_anak_detail').val(JSON.parse(response['biodata']).jumlah_anak);
+                    $('#no_telp_rumah_detail').val(JSON.parse(response['biodata']).no_telp_rumah);
+                    $('#status_kepemilikan_rumah_detail').val(JSON.parse(response['biodata']).status_kepemilikan_rumah);
+                    $('#jabatan_detail').val(JSON.parse(response['biodata']).jabatan);
+                    $('#pangkat_detail').val(JSON.parse(response['biodata']).pangkat);
+                    $('#kantor_detail').val(JSON.parse(response['biodata']).kantor);
+                    $('#nip_detail').val(JSON.parse(response['biodata']).NIP);
+                    $('#no_telp_kantor_detail').val(JSON.parse(response['biodata']).no_telp_kantor);
+                    $('#no_fax_kantor_detail').val(JSON.parse(response['biodata']).no_fax_kantor);
+                    $('#email_kantor_detail').val(JSON.parse(response['biodata']).email_kantor);
+                    $('#lama_bekerja_detail').val(JSON.parse(response['biodata']).lama_bekerja);
+                    $('#alamat_kantor_detail').val(JSON.parse(response['biodata']).alamat_kantor);
+                    $('#provinsi_detail').val(response['provinsi']);
+                    $('#kabkot_detail').val(response['kabkot']);
+                    $('#kecamatan_detail').val(response['kecamatan']);
+                    $('#kelurahan_detail').val(response['kelurahan']);
+                    $('#kode_pos_detail').val(response['kode_pos']);
+
+
+                    //dokumen
+                    setImageDokumenSaya(response, "kartu_keluarga");
+                    setImageDokumenSaya(response, "ktp_pasangan");
+                    setImageDokumenSaya(response, "pas_foto_pasangan");
+                    setImageDokumenSaya(response, "buku_tabungan");
+                    setImageDokumenSaya(response, "buku_nikah");
+                    setImageDokumenSaya(response, "jaminan_shm");
+                    setImageDokumenSaya(response, "dokumen_spt");
+
+                    setImageDokumenKredit(response, "gaji_terakhir")
+                    setImageDokumenKredit(response, "struk_gaji_bulan_terakhir")
+                    setImageDokumenKredit(response, "SK_CAPEG")
+                    setImageDokumenKredit(response, "SK_pegawai_tetap")
+                    setImageDokumenKredit(response, "SK_pangkat_terakhir")
+                    setImageDokumenKredit(response, "SK_berkala_terakhir")
+                    setImageDokumenKredit(response, "kartu_pegawai")
+                    setImageDokumenKredit(response, "kartu_taspen")
+
+                    $('#nomor_sk_capeg_detail').val(JSON.parse(response['path_file']).no_SK_CAPEG);
+                    $('#nomor_sk_pegawai_tetap_detail').val(JSON.parse(response['path_file']).no_SK_pegawai_tetap);
+                    $('#nomor_sk_pangkat_terakhir_detail').val(JSON.parse(response['path_file']).no_SK_pangkat_terakhir);
+                    $('#nomor_sk_berkala_terakhir_detail').val(JSON.parse(response['path_file']).no_SK_berkala_terakhir);
+                    $('#nomor_shm_detail').val(JSON.parse(response['path_file_dokumen_saya']).no_shm_bpkb);
+
+
+                }
+            });
+
+        });
+
+        function setImageDokumenSaya(response, nama){
+            $('#'+nama+'_detail').val(response[nama]);
+            if(response[nama] != "Tidak Ada File yang Diunggah"){
+                $('#'+nama+'_image').attr("href", "/"+JSON.parse(response['path_file_dokumen_saya'])[nama]);
+                $('#'+nama+'_image').show();
+            }else{
+                $('#'+nama+'_image').hide();
+            }
+        }
+
+        function setImageDokumenKredit(response, nama){
+            $('#'+nama+'_detail').val(response[nama]);
+            if(response[nama] != "Tidak Ada File yang Diunggah"){
+                $('#'+nama+'_image').attr("href", "/"+JSON.parse(response['path_file'])[nama]);
+                $('#'+nama+'_image').show();
+            }else{
+                $('#'+nama+'_image').hide();
+            }
+        }
+
+
         Dropzone.options.unggahDokumen = {
             autoProcessQueue: true,
-            url: '/user/dokumen/uploadktp',
+            url: '/user/blangko/unggah_blangko',
             addRemoveLinks: true,
             uploadMultiple: false,
             headers: {
@@ -224,40 +391,15 @@
             },
             autoDiscover : false,
             maxFilesize: 5,
-            acceptedFiles: '.jpg, .jpeg, .png',
+            acceptedFiles: '.pdf',
             maxFiles: 1,
             parallelUploads : 3,
             init: function () {
 
-                var myDropzone = this;
-
-                // myDropzone.on("removedfile", function (file) {
-                //     $('.ktp_validation').val('');
-                // });
-
-                // $.ajax({
-                //     url: '/user/dokumen/getthumbnail',
-                //     type: 'post',
-                //     headers: {
-                //         'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                //     },
-                //     data: {data: "ktp"},
-                //     dataType: 'json',
-                //     success: function(response){
-                //
-                //         $.each(response, function(key,value) {
-                //             var mockFile = { name: value.name, size: value.size };
-                //             $('.ktp_validation').val(value.path);
-                //
-                //             myDropzone.emit("addedfile", mockFile);
-                //             myDropzone.emit("thumbnail", mockFile, value.path);
-                //             myDropzone.emit("complete", mockFile);
-                //
-                //         });
-                //
-                //     }
-                // });
-
+                this.on("processing", function(file) {
+                    var transaksi_id = $('#transaksi_id_unggah').val();
+                    this.options.url = "/user/blangko/unggah_blangko/"+transaksi_id;
+                });
 
                 this.on('sending', function(file, xhr, formData) {
                     // Append all form inputs to the formData Dropzone will POST
@@ -267,14 +409,67 @@
                     });
                 });
 
+
                 this.on("success", function() {
                     toastr.success('Berhasil Upload File')
-                    $('.ktp_validation').val("success");
+                    var content =  '<div class="alert alert-success" role="alert">'+
+                        ' File sudah terunggah</div>'
+
+                    $('#keteranganUnggah').empty();
+                    $('#keteranganUnggah').append(content);
                 });
+
+
             }
         }
+
+
+
+
+
+
+
+
+    </script>
+
+
+    {{--    handle tahap akhir--}}
+    <script type="text/javascript">
+
+        $('#biodata_diri_tab').on('click', function(){
+            $('#biodata_diri_link').addClass('tab-bar-konfirmasi-active')
+            $('#biodata_diri_link').removeClass('tab-bar-konfirmasi-inactive');
+            $('#formulir_pengajuan_link').removeClass('tab-bar-konfirmasi-active')
+            $('#dokumen_link').removeClass('tab-bar-konfirmasi-active');
+            $('#formulir_pengajuan_link').addClass('tab-bar-konfirmasi-inactive')
+            $('#dokumen_link').addClass('tab-bar-konfirmasi-inactive');
+        });
+
+        $('#formulir_pengajuan_tab').on('click', function(){
+            $('#biodata_diri_link').addClass('tab-bar-konfirmasi-inactive')
+            $('#biodata_diri_link').removeClass('tab-bar-konfirmasi-active');
+            $('#formulir_pengajuan_link').removeClass('tab-bar-konfirmasi-inactive')
+            $('#dokumen_link').removeClass('tab-bar-konfirmasi-active');
+            $('#formulir_pengajuan_link').addClass('tab-bar-konfirmasi-active')
+            $('#dokumen_link').addClass('tab-bar-konfirmasi-inactive');
+        });
+
+
+        $('#dokumen_tab').on('click', function(){
+            $('#biodata_diri_link').addClass('tab-bar-konfirmasi-inactive')
+            $('#biodata_diri_link').removeClass('tab-bar-konfirmasi-active');
+            $('#formulir_pengajuan_link').removeClass('tab-bar-konfirmasi-active')
+            $('#dokumen_link').removeClass('tab-bar-konfirmasi-inactive');
+            $('#formulir_pengajuan_link').addClass('tab-bar-konfirmasi-inactive')
+            $('#dokumen_link').addClass('tab-bar-konfirmasi-active');
+        });
+
+
     </script>
 
 
 
-    @endsection
+
+
+
+@endsection

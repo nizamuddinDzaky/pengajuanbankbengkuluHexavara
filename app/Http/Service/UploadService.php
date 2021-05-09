@@ -185,4 +185,62 @@ class UploadService
 
     }
 
+
+    public function unggahBlangko($request){
+
+        if($request->hasFile('file')) {
+            $id = $request->id;
+            DB::beginTransaction();
+            try{
+                $transaksi = Transaksi::where('id', $id)->first();
+                $produk = DB::table('transaksi')->join('produk', 'transaksi.produk_id', 'produk.id')->where('transaksi.id', $id)->select('produk.nama')->first();
+                $destinationPath = 'storage/'.$produk->nama.'/';
+
+
+
+                if ($transaksi->path_file_blangko != null){
+                    File::delete(public_path($destinationPath.$transaksi->path_file_blangko));
+                }
+
+
+                // Create directory if not exists
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+
+                // Get file extension
+                $extension = $request->file('file')->getClientOriginalExtension();
+
+                // Valid extensions
+                $validextensions = array("pdf");
+
+                // Check extension
+                if(in_array(strtolower($extension), $validextensions)){
+
+                    // Rename file
+                    $fileName = Auth::user()->name.'_'.$produk->nama.'_'.time() .'.' . $extension;
+                    // Uploading file to given path
+                    $request->file('file')->move($destinationPath, $fileName);
+
+                }
+
+                $pathNow = $destinationPath.$fileName;
+
+                $transaksi->path_file_blangko =  $pathNow;
+
+                if ($transaksi->save()){
+                    DB::commit();
+
+                }else{
+                    DB::rollback();
+                }
+            }catch (\Exception $ex){
+                DB::rollback();
+                session()->flash('error', $ex->getMessage());
+            }
+        }
+    }
+
+
+
 }

@@ -12,14 +12,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label >Jadwal Verifikasi Data Fisik </label>
-                                <input type="date" value="" id="jadwal_verifikasi_data_fisik" class="form-control" readonly>
+                                <input type="date" value="" id="jadwal_detail" class="form-control" readonly>
                             </div>
                         </div>
                         <div class="col-6">
-
                             <div class="form-group">
                                 <label for="nama">Slot Waktu Verifikasi Data Fisik</label>
-                                <input type="text" class="form-control" id="slot_waktu_verifikasi_data_fisik" readonly>
+                                <input type="text" class="form-control" id="slot_detail" readonly>
                             </div>
                         </div>
                     </div>
@@ -27,17 +26,14 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label >Cabang atau Capem</label>
-
-                                <input type="text"  @if(isset($cabang_konfirmasi->nama_kantor)) value="{{$cabang_konfirmasi->nama_kantor}}" @endif class="form-control" readonly>
-
-
+                                <input type="text" id="cabang_detail" class="form-control" readonly>
                             </div>
                         </div>
                         <div class="col-6">
 
                             <div class="form-group">
                                 <label for="nama">Customer Service</label>
-                                <input type="text" class="form-control"  @if(isset($customer_service_konfirmasi->name)) value="{{$customer_service_konfirmasi->name}}" @endif readonly>
+                                <input type="text" class="form-control" id="customer_service_detail" readonly>
                             </div>
                         </div>
                     </div>
@@ -50,16 +46,16 @@
 
                     <div class="tab-content">
                         <div class="tab-pane active mt-3" id="biodata_diri">
-                            @include('user.modal.detail.biodata_multiguna')
+                            @include('user.daftar_pengajuan.modal.detail.biodata_multiguna')
                         </div>
 
                         <div class="tab-pane mt-3" id="formulir_pengajuan">
-                            @include('user.modal.detail.formulir_pengajuan')
+                            @include('user.daftar_pengajuan.modal.detail.formulir_pengajuan')
                         </div>
 
 
                         <div class="tab-pane" id="dokumen">
-                            @include('user.modal.detail.dokumen')
+                            @include('user.daftar_pengajuan.modal.detail.dokumen')
                         </div>
                     </div>
             </div>
