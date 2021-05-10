@@ -51,20 +51,21 @@ class PengajuanController extends Controller
         $kelurahan = Kelurahan::all();
         $produk = Produk::all();
         $cabang = Kantor::all();
+
         $transaksi = DB::table('transaksi')
             ->where('pemohon_id', Auth::user()->id)
-            ->where('status', 0)->first();
+            ->where('status', 1)->first();
 
         $customer_service_konfirmasi = DB::table('transaksi as t')
             ->join('users as u', 'u.id', 't.cs_id')
             ->where('pemohon_id', Auth::user()->id)
-            ->where('status', 0)
+            ->where('status', 1)
             ->select('u.name')->first();
 
         $cabang_konfirmasi = DB::table('transaksi as t')
             ->join('kantor as k', 'k.id', 't.kantor_id')
             ->where('pemohon_id', Auth::user()->id)
-            ->where('status', 0)
+            ->where('status', 1)
             ->select('k.nama_kantor')->first();
 
         $kode_pos_konfirmasi = DB::table('kelurahan')
@@ -114,7 +115,7 @@ class PengajuanController extends Controller
 
             $transaksi = new Transaksi();
             $transaksi->pemohon_id = Auth::user()->id;
-            $transaksi->status = 0;
+            $transaksi->status = 1;
             $transaksi->path_file_dokumen_saya = json_encode($data);
             $transaksi->path_file = json_encode($data_kredit);
             $transaksi->save();
@@ -145,7 +146,7 @@ class PengajuanController extends Controller
 
         $transaksi = DB::table('transaksi')
             ->where('pemohon_id', Auth::user()->id)
-            ->where('status', 0)
+            ->where('status', 1)
             ->select('id')->first();
 
         $transaksi = Transaksi::find($transaksi->id);
@@ -170,7 +171,7 @@ class PengajuanController extends Controller
         DB::beginTransaction();
         try {
             $user = User::find(Auth::user()->id);
-            $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 0)->first();
+            $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 1)->first();
             if ($request->tipe == "multiguna"){
                 //update biodata
                 $user->name = $request->name;
@@ -271,12 +272,6 @@ class PengajuanController extends Controller
         }
 
 
-
-
-
-
-
-
     }
 
 
@@ -366,7 +361,7 @@ class PengajuanController extends Controller
 
     public function getStatusKawin(Request $request){
 
-        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 0)->first();
+        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 1)->first();
         $data = json_decode($transaksi->biodata)->status_perkawinan;
         return response()->json($data);
 
@@ -377,7 +372,7 @@ class PengajuanController extends Controller
         $transaksi = DB::table('transaksi as t')
             ->join('produk as p', 'p.id', 't.produk_id')
         ->where('pemohon_id', Auth::user()->id)
-            ->where('status', 0)
+            ->where('status', 1)
             ->select('p.nama', 't.plafond')
             ->first();
 
@@ -415,7 +410,7 @@ class PengajuanController extends Controller
 
     public function insertNoSHM(Request $request){
 
-        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 0)->first();
+        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 1)->first();
         $noshm = json_decode($transaksi->path_file_dokumen_saya, true);
         $noshm['no_shm_bpkb'] = $request->data;
         $transaksi->path_file_dokumen_saya = json_encode($noshm);
@@ -432,7 +427,7 @@ class PengajuanController extends Controller
 
         $data = $request->data;
         $tipe = $request->tipe;
-        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 0)->first();
+        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 1)->first();
         $noshm = json_decode($transaksi->path_file, true);
         foreach ($data as $keys => $value){
             $noshm[$tipe[$keys]] = $value;
@@ -456,14 +451,13 @@ class PengajuanController extends Controller
         $customer_service = $request->customer_service;
         $tanggal = $request->tanggal;
         //need to change this
-        $durasi = Kantor::where('parent',0)->select('durasi_layanan_cs')->first();
-        $durasi = $durasi->durasi_layanan_cs;
+        $durasi = Kantor::where('parent',0)->select('durasi_layanan_cs')->first()->durasi_layanan_cs;
 
         $transaksi = Transaksi::where('tanggal', $tanggal)
             ->where('jam_mulai', '<>' , null)
             ->where('jam_selesai', '<>' , null)
             ->where('cs_id', $customer_service)
-            ->where('status', '<>', 0)
+            ->where('status', '<>', 1)
             ->get();
 
         $arrayPenampung = [];
@@ -532,7 +526,7 @@ class PengajuanController extends Controller
         $jam_selesai = explode(' ', $slot[1]);
 
 
-        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 0)->first();
+        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 1)->first();
         $transaksi->cs_id = $cs;
         $transaksi->kantor_id = $cabang;
         $transaksi->jam_mulai = $jam_mulai[0];
@@ -550,11 +544,11 @@ class PengajuanController extends Controller
     }
 
     public function konfirmasiPengajuan(){
-        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 0)->first();
+        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 1)->first();
         $kode_cabang = str_pad($transaksi->kantor_id, 3, "0", STR_PAD_LEFT);
 
         $jumlah_transaksi = Transaksi::where('kantor_id', $transaksi->kantor_id)
-            ->where('status', '<>', 0)
+            ->where('status', '<>', 1)
             ->count();
 
         if ($jumlah_transaksi > 9999){
@@ -568,7 +562,7 @@ class PengajuanController extends Controller
         $kode_pengajuan = $kode_cabang.'.'.$nomor_antrian.'.'.$angka_random;
 
 
-        $transaksi->status = 1;
+        $transaksi->status = 2;
         $transaksi->kode_pengajuan = $kode_pengajuan;
 
 

@@ -2,16 +2,16 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="nama">Foto E-KTP (3x4) </label>
-            <input type="text" disabled class="form-control" value="{{substr(strstr(substr(strstr(json_decode(Auth::user()->path_file)->ktp, "/"),1),"/"),1)}}">
-            <a href="{{"/".json_decode(Auth::user()->path_file)->ktp}}" target="_blank" >Lihat</a>
+            <input type="text" disabled class="form-control" id="ktp_detail">
+            <a href="" id="ktp_image" target="_blank" >Lihat</a>
 
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label for="">Pas Foto Saya (3x4) </label>
-            <input type="text" disabled class="form-control" value="{{substr(strstr(substr(strstr(json_decode(Auth::user()->path_file)->pas_foto, "/"),1),"/"),1)}}">
-            <a href="{{"/".json_decode(Auth::user()->path_file)->pas_foto}}" target="_blank" >Lihat</a>
+            <input type="text" disabled class="form-control" id="pas_foto_detail">
+            <a href="" id="pas_foto_image" target="_blank" >Lihat</a>
 
         </div>
     </div>
@@ -20,8 +20,8 @@
     <div class="col-md-6">
         <div class="form-group">
             <label >NPWP (3x4) </label>
-            <input type="text" disabled class="form-control" value="{{substr(strstr(substr(strstr(json_decode(Auth::user()->path_file)->npwp, "/"),1),"/"),1)}}">
-            <a href="{{"/".json_decode(Auth::user()->path_file)->npwp}}" target="_blank" >Lihat</a>
+            <input type="text" disabled class="form-control" id="npwp_detail">
+            <a href="" id="npwp_image" target="_blank" >Lihat</a>
 
         </div>
     </div>

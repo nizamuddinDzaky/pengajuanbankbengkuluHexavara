@@ -2,13 +2,13 @@
     <div class="col-md-6">
         <div class="form-group">
             <label >Nama <span class="red">*</span></label>
-            <input type="text" class="form-control" value="{{Auth::user()->name}}" name="name" id="name" disabled>
+            <input type="text" class="form-control"   id="name_detail" disabled>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label >Email <span class="red">*</span></label>
-            <input type="text" class="form-control" value="{{Auth::user()->email}}" name="email" id="email" disabled>
+            <input type="text" class="form-control"  id="email_detail" disabled>
         </div>
     </div>
 </div>
@@ -22,7 +22,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label >Jenis Kelamin <span class="red">*</span> </label>
-            <input type="text" class="form-control"  value="{{Auth::user()->jenis_kelamin}}"   id="jenis_kelamin_detail" disabled>
+            <input type="text" class="form-control"     id="jenis_kelamin_detail" disabled>
         </div>
     </div>
 </div>
@@ -30,13 +30,13 @@
     <div class="col-md-6">
         <div class="form-group">
             <label >No KTP <span class="red">*</span></label>
-            <input type="text" class="form-control" value="{{Auth::user()->no_ktp}}" id="no_ktp_detail" disabled>
+            <input type="text" class="form-control"  id="no_ktp_detail" disabled>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label for="nohp">No Handphone <span class="red">*</span></label>
-            <input type="text" class="form-control" value="{{Auth::user()->no_hp}}"   id="no_hp_detail" disabled>
+            <input type="text" class="form-control"   id="no_hp_detail" disabled>
         </div>
     </div>
 </div>
@@ -58,13 +58,13 @@
     <div class="col-md-6">
         <div class="form-group">
             <label >Tempat Lahir <span class="red">*</span></label>
-            <input type="text" class="form-control" value="{{Auth::user()->tempat_lahir}}"  id="tempat_lahir_detail" disabled>
+            <input type="text" class="form-control"   id="tempat_lahir_detail" disabled>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label >Tanggal Lahir <span class="red">*</span></label>
-            <input type="date" class="form-control" value="{{Auth::user()->tanggal_lahir}}"  id="tanggal_lahir_detail" disabled>
+            <input type="date" class="form-control"   id="tanggal_lahir_detail" disabled>
         </div>
     </div>
 </div>
@@ -181,7 +181,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <textarea  id="alamat_detail" class="form-control"  disabled>{{Auth::user()->alamat}}</textarea>
+            <textarea  id="alamat_detail" class="form-control"  disabled></textarea>
         </div>
     </div>
 </div>
@@ -204,13 +204,13 @@
     <div class="col-md-6">
         <div class="form-group">
             <label >Pekerjaan <span class="red">*</span></label>
-            <input type="text" class="form-control"  id="pekerjaan_detail" value="{{Auth::user()->pekerjaan}}"  disabled>
+            <input type="text" class="form-control"  id="pekerjaan_detail"   disabled>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label >Nomor NPWP <span class="red">*</span></label>
-            <input type="text" class="form-control"  id="no_npwp_detail" value="{{Auth::user()->npwp}}"  disabled>
+            <input type="text" class="form-control"  id="no_npwp_detail" disabled>
         </div>
     </div>
 </div>

@@ -24,7 +24,7 @@ class DaftarPengajuanController extends Controller
             ->join('users as u', 'u.id', 't.pemohon_id')
             ->join('produk as p' , 'p.id', 't.produk_id')
             ->where('t.pemohon_id', Auth::user()->id)
-            ->where('status' , '<>', 0)
+            ->where('status' , '<>', 1)
             ->orderBy('t.created_at', 'desc')
             ->select('t.id as id_transaksi', 'p.nama as nama', 't.kode_pengajuan', 'u.name', 'u.no_ktp', 'u.pekerjaan', 't.plafond', 't.jumlah_angsuran', 't.tanggal', 't.masa_tenor', 't.jam_mulai', 't.jam_selesai')
             ->paginate(5);
@@ -47,7 +47,7 @@ class DaftarPengajuanController extends Controller
         $transaksi = Transaksi::where('id', $request->transaksi_id)->first();
 
         if ($transaksi->jumlah_reschedule == 3){
-            $transaksi->status = 3;
+            $transaksi->status = 4;
             $transaksi->save();
             session()->flash('error', 'Anda mengajukan reschedule lebih dari 3 kali. Ulangi pengajuan dari awal');
             return redirect()->back();
@@ -69,6 +69,7 @@ class DaftarPengajuanController extends Controller
         $transaksi->jam_mulai = $jam_mulai[0];
         $transaksi->jam_selesai = $jam_selesai[1];
         $transaksi->tanggal = $tanggal;
+        $transaksi->status = 5;
         if ($transaksi->jumlah_reschedule == null){
             $transaksi->jumlah_reschedule = 1;
         }else{
@@ -88,7 +89,7 @@ class DaftarPengajuanController extends Controller
     public function batalkanPengajuan(Request $request){
 
         $transaksi = Transaksi::where('id', $request->transaksi_id)->first();
-        $transaksi->status = 3;
+        $transaksi->status = 4;
 
         if ($transaksi->save()){
             session()->flash('success', 'Pengajuan berhasil dibatalkan');
@@ -101,15 +102,54 @@ class DaftarPengajuanController extends Controller
 
     public function getDetailTransaksi(Request $request){
         $transaksi = Transaksi::where('id', $request->id)->first();
+        $user = User::where('id', $transaksi->pemohon_id)->first();
+        $transaksi->nama_nasabah = $user->name;
+        $transaksi->email_nasabah = $user->email;
+        $transaksi->jenis_kelamin_nasabah = $user->jenis_kelamin;
+        $transaksi->no_ktp_nasabah = $user->no_ktp;
+        $transaksi->no_hp_nasabah = $user->no_hp;
+        $transaksi->tempat_lahir_nasabah = $user->tempat_lahir;
+        $transaksi->tanggal_lahir_nasabah = $user->tanggal_lahir;
+        $transaksi->alamat_nasabah = $user->alamat;
+        $transaksi->pekerjaan_nasabah = $user->pekerjaan;
+        $transaksi->npwp_nasabah = $user->npwp;
+        $transaksi->path_file_user = $user->path_file;
         $transaksi->slot_waktu = $transaksi->jam_mulai.' - '.$transaksi->jam_selesai;
         $transaksi->nama_cabang = Kantor::where('id', $transaksi->kantor_id)->first()->nama_kantor;
         $transaksi->nama_cs = User::where('id', $transaksi->cs_id)->first()->name;
         $transaksi->nama_produk = Produk::where('id', $transaksi->produk_id)->first()->nama;
-        $transaksi->provinsi = Provinsi::where('id', Auth::user()->provinsi_id)->first()->provinsi;
-        $transaksi->kabkot = Kabkot::where('id', Auth::user()->kabkot_id)->first()->kabupaten_kota;
-        $transaksi->kecamatan = Kecamatan::where('id', Auth::user()->kecamatan_id)->first()->kecamatan;
-        $transaksi->kelurahan = Kelurahan::where('id', Auth::user()->kelurahan_id)->first()->kelurahan;
-        $transaksi->kode_pos = Kelurahan::where('id', Auth::user()->kelurahan_id)->first()->kd_pos;
+        $transaksi->provinsi = Provinsi::where('id', $user->provinsi_id)->first()->provinsi;
+        $transaksi->kabkot = Kabkot::where('id', $user->kabkot_id)->first()->kabupaten_kota;
+        $transaksi->kecamatan = Kecamatan::where('id', $user->kecamatan_id)->first()->kecamatan;
+        $transaksi->kelurahan = Kelurahan::where('id', $user->kelurahan_id)->first()->kelurahan;
+        $transaksi->kode_pos = Kelurahan::where('id', $user->kelurahan_id)->first()->kd_pos;
+
+
+
+
+        if(substr(strstr(substr(strstr(json_decode($transaksi->path_file_user)->ktp, "/"),1),"/"),1)){
+            $transaksi->ktp = substr(strstr(substr(strstr(json_decode($transaksi->path_file_user)->ktp, "/"),1),"/"),1);
+        }else{
+            $transaksi->ktp = "Tidak Ada File yang Diunggah";
+        }
+
+        if(substr(strstr(substr(strstr(json_decode($transaksi->path_file_user)->pas_foto, "/"),1),"/"),1)){
+            $transaksi->pas_foto = substr(strstr(substr(strstr(json_decode($transaksi->path_file_user)->pas_foto, "/"),1),"/"),1);
+        }else{
+            $transaksi->pas_foto = "Tidak Ada File yang Diunggah";
+        }
+
+        if(substr(strstr(substr(strstr(json_decode($transaksi->path_file_user)->npwp, "/"),1),"/"),1)){
+            $transaksi->npwp = substr(strstr(substr(strstr(json_decode($transaksi->path_file_user)->npwp, "/"),1),"/"),1);
+        }else{
+            $transaksi->npwp = "Tidak Ada File yang Diunggah";
+        }
+
+
+
+
+
+
         if(substr(strstr(substr(strstr(json_decode($transaksi->path_file_dokumen_saya)->kartu_keluarga, "/"),1),"/"),1)){
             $transaksi->kartu_keluarga = substr(strstr(substr(strstr(json_decode($transaksi->path_file_dokumen_saya)->kartu_keluarga, "/"),1),"/"),1);
         }else{
@@ -203,17 +243,6 @@ class DaftarPengajuanController extends Controller
         }else{
             $transaksi->kartu_taspen = "Tidak Ada File yang Diunggah";
         }
-
-
-
-
-
-
-
-
-
-
-
 
         return response()->json($transaksi);
     }

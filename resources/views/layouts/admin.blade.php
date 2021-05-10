@@ -7,6 +7,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
+    <script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('admin/plugins/fontawesome-free/css/all.min.css')}}">
     <link rel="icon" href="{{asset('images/browsericon.png')}}">
     <!-- Ionicons -->
@@ -21,6 +22,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('admin/dist/css/adminlte.min.css')}}">
     <!-- overlayScrollbars -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
     <link rel="stylesheet" href="{{asset('admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{asset('admin/plugins/daterangepicker/daterangepicker.css')}}">
@@ -29,14 +31,11 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- Data Table -->
-    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    <link rel="stylesheet" href="{{asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+{{--    <link rel="stylesheet" href="{{asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">--}}
+    <meta name="_token" content="{{ csrf_token() }}">
     <!-- select 2 -->
     <link rel="stylesheet" href="{{asset('admin/plugins/select2/css/select2.min.css')}}">
-    <script src="{{asset('admin/plugins/select2/js/select2.min.js')}}"></script>
-    <script src="{{asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
 
     <style type="text/css">
         li {
@@ -129,9 +128,10 @@
 
         </nav>
         <!-- /.sidebar-menu -->
+    </aside>
 </div>
 <!-- /.sidebar -->
-</aside>
+
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -191,11 +191,10 @@
     <!-- Control sidebar content goes here -->
 </aside>
 <!-- /.control-sidebar -->
-</div>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
+
 <!-- jQuery UI 1.11.4 -->
 <script src="{{asset('admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -237,7 +236,8 @@
 <script src="{{asset('js/bootstrap-notify.js')}}"></script>
 <!-- sweetalert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+<script src="{{asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="{{asset('js/core.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
