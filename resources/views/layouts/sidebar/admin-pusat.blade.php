@@ -9,6 +9,14 @@
         </a>
     </li>
     <li class="nav-item">
+        <a href="{{route('admin.pusat.pengelolaan_nasabah')}}" class="nav-link {{ Request::is('admin-pusat/pengelolaan_nasabah') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-user-friends"></i>
+            <p>
+                Pengelolaan Nasabah
+            </p>
+        </a>
+    </li>
+    <li class="nav-item">
         <a href="{{ route('admin.pusat.cabang') }}" class="nav-link {{ Request::is('admin-pusat/list_cabang') ? 'active' : '' }}">
         <i class="nav-icon fa fa-building"></i>
             <p>Cs dan Cabang</p>

@@ -60,7 +60,7 @@
                                             </span>
                                     @enderror
                                 </div>
-                                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Masuk</button>
+                                <button class="btn btn-lg btn-block btn-login text-uppercase font-weight-bold mb-2" style="  background-color: #e46931; color: white" type="submit">Masuk</button>
                                 <div class="text-center">
                                     Belum punya akun? <a class="medium" href="{{ route('register') }}">Daftar Sekarang</a>
                                 </div>

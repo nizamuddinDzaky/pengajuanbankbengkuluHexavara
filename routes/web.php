@@ -131,6 +131,8 @@ Route::middleware(['role'])->group(function() {
             Route::get('/edit_status_cs/{id_cs}/{next_status}', 'AdminController@edit_status_cs')->name('admin.pusat.edit.status.cs');
             Route::get('/reset_password/{id_account}', 'AdminController@reset_password')->name('admin.pusat.edit.reset.password');
             Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.pusat.edit.cs');
+            Route::get('/pengelolaan_nasabah','PengelolaanNasabahController@indexAdminPusat')->name('admin.pusat.pengelolaan_nasabah');
+            Route::post('/pengelolaan_nasabah/delete','PengelolaanNasabahController@delete')->name('admin.pusat.delete_nasabah');
         });
     });
 

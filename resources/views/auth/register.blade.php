@@ -80,7 +80,7 @@
                                             </span>
                                     @enderror
                                 </div>
-                                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Daftar Sekarang</button>
+                                <button class="btn btn-lg btn-block btn-login text-uppercase font-weight-bold mb-2" style="  background-color: #e46931; color: white" type="submit">Daftar Sekarang</button>
                                 <div class="text-center">
                                     Sudah punya akun? <a class="medium" href="{{ route('login') }}">Masuk Sekarang</a>
                             </form>
