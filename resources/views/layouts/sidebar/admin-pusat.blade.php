@@ -22,4 +22,10 @@
             <p>Cs dan Cabang</p>
         </a>
     </li>
+    <li class="nav-item">
+        <a href="{{ route('admin.pusat.report') }}" class="nav-link {{ Request::is('admin-pusat/report') ? 'active' : '' }}">
+            <i class="nav-icon fa fa-file-alt"></i>
+            <p>Report</p>
+        </a>
+    </li>
 </ul>
