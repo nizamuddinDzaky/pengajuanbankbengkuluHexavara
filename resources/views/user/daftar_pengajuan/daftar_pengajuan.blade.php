@@ -112,7 +112,7 @@
                         <div class="row">
                             <div class="col-md-6 text-left">
                                 <p style="color: #E46931; margin-bottom: 0">{{$data->countdown}}</p>
-                                <p style="font-weight: lighter">Menuju waktu pencairan dana</p>
+                                <p style="font-weight: lighter">Menuju waktu verifikasi data fisik</p>
                             </div>
                             <div class="col-md-6 text-right button-row">
                                 <button class="btn orange-outline mr-2 mt-3 button-block" data-toggle="modal" data-target="#unggahBlangkoModal" data-transaksi_id="{{$data->id_transaksi}}">Unggah Blangko</button>

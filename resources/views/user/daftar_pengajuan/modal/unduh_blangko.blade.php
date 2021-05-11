@@ -16,7 +16,6 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-center">
-{{--                            <iframe src="https://docs.google.com/gview?url=http://.'{{asset('blangko/blangko_multiguna_aktif.docx')}}'.&embedded=true"></iframe>--}}
                             <embed src="{{asset('blangko/blangko_pns_aktif.pdf')}}" width="80%" height="800px" />
                         </div>
                     </div>

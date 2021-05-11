@@ -49,7 +49,14 @@
         </div>
         <div class="row">
             @if(!isset($nasabah[0]) )
-                <h1>Tidak Ada Nasabah Baru</h1>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h3>Tidak Ada Nasabah Baru</h3>
+                        </div>
+                    </div>
+                </div>
+
                 @endif
             @if(isset($nasabah[0]))
             <div class="col-6">
@@ -102,7 +109,7 @@
                                 <button class="btn orange-outline mr-2 widthmax" data-toggle="modal" data-target="#detailPengajuanModal" data-transaksi_id="{{$nasabah[0]->transaksi_id}}" >Detail Pengajuan</button>
                             </div>
                             <div class="col-4">
-                                <button class="btn orange-outline mr-2 widthmax"><i class="fa fa-print icon"> </i> Cetak Blangko</button>
+                                <button class="btn orange-outline mr-2 widthmax" data-toggle="modal" data-target="#cetakBlangkoModal" data-transaksi_id="{{$nasabah[0]->transaksi_id}}"><i class="fa fa-print icon"> </i> Cetak Blangko</button>
                             </div>
                         </div>
 
@@ -180,7 +187,7 @@
                                 <form action="{{route('customer_service.selesai_pelayanan')}}" method="post">
                                     @csrf
                                     @if(isset($nasabah[0]))
-                                <input type="hidden" value="{{$nasabah[0]->transaksi_id}}" name="transaksi_id">
+                                <input type="hidden" value="{{$nasabah[0]->transaksi_id}}" name="transaksi_id" id="transaksi_id">
                                     @endif
                                 <button onClick='return confirmSubmit()' class="btn orange-primary mt-3" style="width: 30%">Selesai</button>
                                 </form>
@@ -194,15 +201,15 @@
             </div>
         </div>
     </div>
-
-
 @endsection
+
+
 
 
 @section('modal')
     @include('user.daftar_pengajuan.modal.detail_pengajuan')
     @include('customer_service.modal.cetak_blangko')
-    @endsection
+@endsection
 
 
 @section('script')
@@ -210,6 +217,10 @@
     <script src="{{asset('js/tab-bar.js')}}"></script>
 
     <script type="text/javascript">
+
+
+
+
 
         function startTimer(duration, display) {
             var timer = duration, minutes, seconds;
@@ -254,7 +265,58 @@
 
 
 
+            //handle template blangko
+            var id = $('#transaksi_id').val();
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-Token': "{{csrf_token()}}"
+                },
+                url: "{{route('customer_service.get_jenis_dokumen')}}",
+                dataType: "JSON",
+                data : {id : id},
+                success: function (response) {
+                    var link = "/"+response
+                    $('.template_blangko_pdf').attr('src',link);
+                    $('.blangko_nasabah_pdf').attr('src',link);
+
+                }
+            });
+
+
+
+
+
+
+
         };
+
+
+        function generateDocument(){
+
+            console.log('test');
+            var id = $('#transaksi_id').val();
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-Token': "{{csrf_token()}}"
+                },
+                url: "  {{route('user.download_blangko')}}",
+                dataType: "JSON",
+                data : {transaksi_id : id},
+                success: function (response) {
+                }
+            });
+
+        }
+
+
+        function printBlangkoNasabah(){
+            console.log('test');
+            var id = $('#transaksi_id').val();
+        }
+
+
 
       function setTimer (id) {
           $('.cardTimer').show();
@@ -297,6 +359,22 @@
             }
 
         }
+
+
+        function printDocument(documentId) {
+            console.log('test');
+            var doc = document.getElementById(documentId);
+
+            //Wait until PDF is ready to print
+            if (typeof doc.print === 'undefined') {
+                setTimeout(function(){printDocument(documentId);}, 1000);
+            } else {
+                doc.print();
+            }
+        }
+
+
+
 
 
 

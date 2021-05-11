@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Kantor;
+use App\Produk;
 use App\Transaksi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,8 +19,7 @@ class CustomerServiceController extends Controller
             ->join('users as u', 'u.id', 't.pemohon_id')
             ->join('produk as p', 'p.id', 't.produk_id')
             ->where('t.tanggal', Carbon::now()->toDateString())
-            ->where('t.status', 2)
-            ->orWhere('t.status', 5)
+            ->where('t.status', '<>', 1)
             ->select('t.id as transaksi_id', 't.kode_pengajuan', 'u.name', 't.plafond', 't.masa_tenor', 't.jam_mulai', 't.jam_selesai', 'p.nama')
             ->orderBy('t.jam_mulai', 'asc')
             ->where('t.cs_id', Auth::user()->id)
@@ -44,7 +44,7 @@ class CustomerServiceController extends Controller
                 $q->where('t.status', 5)
                     ->orWhere('t.status', 2);
             })
-            ->select('t.id as transaksi_id', 't.kode_pengajuan', 'u.name', 't.plafond', 't.masa_tenor', 't.jam_mulai', 't.jam_selesai', 'p.nama', 't.status', 't.jam_mulai_pelayanan')
+            ->select('t.id as transaksi_id', 't.kode_pengajuan', 'u.name', 't.plafond', 't.masa_tenor', 't.jam_mulai', 't.jam_selesai', 'p.nama', 't.status', 't.jam_mulai_pelayanan', 't.path_file_blangko')
             ->orderBy('t.jam_mulai', 'asc')
             ->where('t.cs_id', Auth::user()->id)
             ->get()
@@ -57,7 +57,9 @@ class CustomerServiceController extends Controller
             ->where('tanggal', Carbon::now()->toDateString())
             ->where(function($q) {
                 $q->where('status', 2)
-                    ->orWhere('status', 5);
+                    ->orWhere('status', 5)
+                ->orWhere('status', 3)
+                ->orWhere('status', 6);
             })
             ->select('jam_mulai')
             ->orderBy('jam_mulai', 'asc')
@@ -145,7 +147,17 @@ class CustomerServiceController extends Controller
         }
 
 
+    }
 
+
+    public function get_jenis_dokumen(Request $request){
+
+        $produk_id = Transaksi::where('id', $request->id)->select('produk_id')->first()->produk_id;
+        $produk = Produk::where('id', $produk_id)->first();
+
+        $dokumen = json_decode($produk->path_file)->blangko_pdf;
+
+        return response()->json($dokumen);
 
     }
 }

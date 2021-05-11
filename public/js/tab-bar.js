@@ -25,3 +25,24 @@ $('#dokumen_tab').on('click', function(){
     $('#formulir_pengajuan_link').addClass('tab-bar-konfirmasi-inactive')
     $('#dokumen_link').addClass('tab-bar-konfirmasi-active');
 });
+
+
+
+
+$('#template_blangko_tab').on('click', function(){
+    $('#template_blangko_link').addClass('tab-bar-konfirmasi-active')
+    $('#template_blangko_link').removeClass('tab-bar-konfirmasi-inactive');
+    $('#blangko_nasabah_link').addClass('tab-bar-konfirmasi-inactive')
+    $('#blangko_nasabah_link').removeClass('tab-bar-konfirmasi-active');
+    $('#buttonCetakBlangko').show();
+
+});
+
+
+$('#blangko_nasabah_tab').on('click', function(){
+    $('#template_blangko_link').addClass('tab-bar-konfirmasi-inactive')
+    $('#template_blangko_link').removeClass('tab-bar-konfirmasi-active');
+    $('#blangko_nasabah_link').addClass('tab-bar-konfirmasi-active')
+    $('#blangko_nasabah_link').removeClass('tab-bar-konfirmasi-inactive');
+    $('#buttonCetakBlangko').hide();
+});

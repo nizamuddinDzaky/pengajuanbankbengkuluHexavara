@@ -161,6 +161,7 @@ Route::middleware(['role'])->group(function() {
             Route::get('/pelayanan_nasabah', 'CustomerServiceController@pelayanan_nasabah')->name('customer_service.pelayanan_nasabah');
             Route::post('/pelayanan_nasabah/selesai', 'CustomerServiceController@selesai_pelayanan')->name('customer_service.selesai_pelayanan');
             Route::post('/pelayanan_nasabah/mulai', 'CustomerServiceController@mulai_pelayanan')->name('customer_service.mulai_pelayanan');
+            Route::post('/pelayanan_nasabah/getJenisDokumen', 'CustomerServiceController@get_jenis_dokumen')->name('customer_service.get_jenis_dokumen');
 
         });
     });
