@@ -28,4 +28,10 @@
             <p>Report</p>
         </a>
     </li>
+    <li class="nav-item">
+        <a href="{{ route('admin.pusat.produk_kredit') }}" class="nav-link {{ Request::is('admin-pusat/produk_kredit') ? 'active' : '' }}">
+            <i class="nav-icon fa fa-credit-card"></i>
+            <p>Produk dan Akad Kredit</p>
+        </a>
+    </li>
 </ul>

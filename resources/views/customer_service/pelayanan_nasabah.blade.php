@@ -311,12 +311,6 @@
         }
 
 
-        function printBlangkoNasabah(){
-            console.log('test');
-            var id = $('#transaksi_id').val();
-        }
-
-
 
       function setTimer (id) {
           $('.cardTimer').show();
@@ -358,19 +352,6 @@
                 return false;
             }
 
-        }
-
-
-        function printDocument(documentId) {
-            console.log('test');
-            var doc = document.getElementById(documentId);
-
-            //Wait until PDF is ready to print
-            if (typeof doc.print === 'undefined') {
-                setTimeout(function(){printDocument(documentId);}, 1000);
-            } else {
-                doc.print();
-            }
         }
 
 

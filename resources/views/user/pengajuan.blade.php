@@ -317,6 +317,7 @@
     <script src="{{asset('js/upload_pengajuan_file/upload_dokumen_saya.js')}}"></script>
     <script src="{{asset('js/upload_pengajuan_file/upload_dokumen_kredit.js')}}"></script>
     <script src="{{asset('js/pengajuan/tahap_akhir.js')}}"></script>
+    <script src="{{asset('js/tab-bar.js')}}"></script>
 
 {{--   handle toastr --}}
     <script type="text/javascript">
@@ -1271,34 +1272,6 @@
 
 {{--    handle tahap akhir--}}
     <script type="text/javascript">
-
-        $('#biodata_diri_tab').on('click', function(){
-            $('#biodata_diri_link').addClass('tab-bar-konfirmasi-active')
-            $('#biodata_diri_link').removeClass('tab-bar-konfirmasi-inactive');
-            $('#formulir_pengajuan_link').removeClass('tab-bar-konfirmasi-active')
-            $('#dokumen_link').removeClass('tab-bar-konfirmasi-active');
-            $('#formulir_pengajuan_link').addClass('tab-bar-konfirmasi-inactive')
-            $('#dokumen_link').addClass('tab-bar-konfirmasi-inactive');
-        });
-
-        $('#formulir_pengajuan_tab').on('click', function(){
-            $('#biodata_diri_link').addClass('tab-bar-konfirmasi-inactive')
-            $('#biodata_diri_link').removeClass('tab-bar-konfirmasi-active');
-            $('#formulir_pengajuan_link').removeClass('tab-bar-konfirmasi-inactive')
-            $('#dokumen_link').removeClass('tab-bar-konfirmasi-active');
-            $('#formulir_pengajuan_link').addClass('tab-bar-konfirmasi-active')
-            $('#dokumen_link').addClass('tab-bar-konfirmasi-inactive');
-        });
-
-
-        $('#dokumen_tab').on('click', function(){
-            $('#biodata_diri_link').addClass('tab-bar-konfirmasi-inactive')
-            $('#biodata_diri_link').removeClass('tab-bar-konfirmasi-active');
-            $('#formulir_pengajuan_link').removeClass('tab-bar-konfirmasi-active')
-            $('#dokumen_link').removeClass('tab-bar-konfirmasi-inactive');
-            $('#formulir_pengajuan_link').addClass('tab-bar-konfirmasi-inactive')
-            $('#dokumen_link').addClass('tab-bar-konfirmasi-active');
-        });
 
 
         function confirmSubmit(){

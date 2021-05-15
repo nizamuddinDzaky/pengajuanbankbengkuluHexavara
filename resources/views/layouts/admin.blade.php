@@ -36,6 +36,7 @@
     <meta name="_token" content="{{ csrf_token() }}">
     <!-- select 2 -->
     <link rel="stylesheet" href="{{asset('admin/plugins/select2/css/select2.min.css')}}">
+    <link href="{{asset('js/dropzone/dist/dropzone.css')}}" rel="stylesheet">
 
     <style type="text/css">
         li {
@@ -238,6 +239,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="{{asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="{{asset('js/dropzone/dist/dropzone.js')}}"></script>
 <script src="{{asset('js/core.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -279,13 +281,13 @@
 
 </script>
 <script type="text/javascript">
-    $().ready(function(){
-        @if(Session::has('success'))
-        notif.statusSuccess();
-        @elseif(Session::has('error'))
-        notif.statusFail();
-        @endif
-    });
+    {{--$().ready(function(){--}}
+    {{--    @if(Session::has('success'))--}}
+    {{--    notif.statusSuccess();--}}
+    {{--    @elseif(Session::has('error'))--}}
+    {{--    notif.statusFail();--}}
+    {{--    @endif--}}
+    {{--});--}}
 </script>
 @yield('script')
 </body>

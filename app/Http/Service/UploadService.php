@@ -4,11 +4,13 @@
 namespace App\Http\Service;
 
 
+use App\Produk;
 use App\Transaksi;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use DB;
 use File;
+use Illuminate\Support\Facades\Session;
 
 
 class UploadService
@@ -20,7 +22,7 @@ class UploadService
 
             DB::beginTransaction();
             try{
-                $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 0)->first();
+                $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 1)->first();
 
                 $destinationPath = 'storage/'.$jenis.'/';
                 if (isset(json_decode($transaksi->path_file_dokumen_saya)->$jenis)){
@@ -80,7 +82,7 @@ class UploadService
 
             DB::beginTransaction();
             try{
-                $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 0)->first();
+                $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 1)->first();
 
                 $destinationPath = 'storage/'.$jenis.'/';
                 if (isset(json_decode($transaksi->path_file)->$jenis)){
@@ -137,7 +139,7 @@ class UploadService
 
         $jenis = $request->data;
         $tipe = $request->tipe;
-        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 0)->first();
+        $transaksi = Transaksi::where('pemohon_id', Auth::user()->id)->where('status', 1)->first();
         $file_list = array();
 
         if ($tipe == "dokumen_saya"){
@@ -242,5 +244,51 @@ class UploadService
     }
 
 
+    public function unggahBlangkoProduk($request){
+
+        if($request->hasFile('file')) {
+            DB::beginTransaction();
+            try{
+
+                $destinationPath = 'blangko/';
+
+                // Create directory if not exists
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+
+                // Get file extension
+                $extension = $request->file('file')->getClientOriginalExtension();
+
+                // Valid extensions
+                if ($request->jenis == "template"){
+                    $validextensions = array("pdf");
+                }else{
+                    $validextensions = array("docx");
+                }
+
+
+                // Check extension
+                if(in_array(strtolower($extension), $validextensions)){
+
+                    // Rename file
+                    $fileName = $request->file('file')->getClientOriginalName().'_'.time() .'.' . $extension;
+                    // Uploading file to given path
+                    $request->file('file')->move($destinationPath, $fileName);
+
+                }
+
+                $pathNow = $destinationPath.$fileName;
+                if ($request->jenis == "template"){
+                    Session::put('template', $pathNow);
+                }else{
+                    Session::put('dokumen', $pathNow);
+                }
+
+            }catch (\Exception $ex){
+                session()->flash('error', $ex->getMessage());
+            }
+        }
+    }
 
 }

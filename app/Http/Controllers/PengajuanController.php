@@ -280,19 +280,28 @@ class PengajuanController extends Controller
 
     public function getSukuBunga(Request $request){
 
-        $produk = $request->produk;
+        $produk_id = $request->produk;
         $jangka_waktu = $request->jangka_waktu;
+        $produk = Produk::find($produk_id);
 
-        $suku_bunga = SukuBunga::where('produk_id', $produk)->get();
-        $index = 0;
+        if ($produk->jenis_suku_bunga == "berjangka"){
 
-        foreach ($suku_bunga as $keys => $data){
-            if ($jangka_waktu >= $data->dari_bulan && $jangka_waktu <= $data->sampai_bulan){
-                $index = $keys;
+            $suku_bunga = SukuBunga::where('produk_id', $produk_id)->get();
+            $index = 0;
+
+            foreach ($suku_bunga as $keys => $data){
+                if ($jangka_waktu >= $data->dari_bulan && $jangka_waktu <= $data->sampai_bulan){
+                    $index = $keys;
+                }
             }
+
+            $bunga = $suku_bunga[$index]->bunga;
+
+        }else{
+            $suku_bunga = SukuBunga::where('produk_id', $produk_id)->first();
+            $bunga = $suku_bunga->bunga;
         }
 
-        $bunga = $suku_bunga[$index]->bunga;
 
 
         return response()->json($bunga);

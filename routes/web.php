@@ -134,6 +134,12 @@ Route::middleware(['role'])->group(function() {
             Route::get('/pengelolaan_nasabah','PengelolaanNasabahController@indexAdminPusat')->name('admin.pusat.pengelolaan_nasabah');
             Route::post('/pengelolaan_nasabah/delete','PengelolaanNasabahController@delete')->name('admin.pusat.delete_nasabah');
             Route::get('/report','ReportController@indexAdminPusat')->name('admin.pusat.report');
+            Route::get('/produk_kredit','ProdukKreditController@index')->name('admin.pusat.produk_kredit');
+            Route::post('/produk_kredit/store','ProdukKreditController@store')->name('admin.pusat.tambah.produk_kredit');
+            Route::post('/produk_kredit/update','ProdukKreditController@update')->name('admin.pusat.edit.produk_kredit');
+            Route::post('/produk_kredit/get_detail','ProdukKreditController@getDetail')->name('admin.pusat.detail.produk_kredit');
+            Route::post('/produk_kredit/upload_blangko/{jenis}','ProdukKreditController@uploadBlangko')->name('admin.pusat.upload.blangko');
+            Route::post('/produk_kredit/get_thumbnail','ProdukKreditController@getThumbnailBlangko')->name('admin.pusat.thumbnail.blangko');
         });
     });
 
