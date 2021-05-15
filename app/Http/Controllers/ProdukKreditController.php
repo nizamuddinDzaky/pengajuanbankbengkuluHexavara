@@ -211,6 +211,16 @@ class ProdukKreditController extends Controller
         }
     }
 
+    public function delete(Request  $request){
+        $produk = Produk::find($request->id);
+        if ($produk->delete()){
+            session()->flash('success', "Berhasil Menghapus Produk");
+            return response()->json(true);
+        }else{
+            return response()->json(false);
+        }
+    }
+
 
     public function uploadBlangko(Request $request){
         $this->UploadService->unggahBlangkoProduk($request);

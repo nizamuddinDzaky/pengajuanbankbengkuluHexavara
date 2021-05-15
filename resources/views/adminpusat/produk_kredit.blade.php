@@ -64,7 +64,7 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editProdukModal" data-produk_id="{{$data->id}}" ><i class="fa fa-pencil-alt"></i> Edit</a>
-                                            <a class="dropdown-item" onclick="hapusNasabah({{$data->id}})"><i class="fa fa-trash-alt"></i> Hapus</a>
+                                            <a class="dropdown-item" onclick="hapusProduk({{$data->id}})"><i class="fa fa-trash-alt"></i> Hapus</a>
                                         </div></td>
                                 </tr>
                             @endforeach
@@ -89,31 +89,31 @@
     </script>
 
     <script>
-        {{--function hapusNasabah(id){--}}
-        {{--    var agree=confirm("Apakah anda yakin ingin menghapus nasabah ini?");--}}
-        {{--    if (agree) {--}}
-        {{--        $.ajax({--}}
-        {{--            type: "POST",--}}
-        {{--            headers: {--}}
-        {{--                'X-CSRF-Token': "{{csrf_token()}}"--}}
-        {{--            },--}}
-        {{--            url: "{{route('admin.pusat.delete_nasabah')}}",--}}
-        {{--            dataType: "JSON",--}}
-        {{--            data : {id : id},--}}
-        {{--            success: function (response) {--}}
-        {{--                if (response == true){--}}
-        {{--                    location.reload();--}}
-        {{--                }else{--}}
-        {{--                    toastr.error('Gagal Menghapus Nasabah');--}}
-        {{--                }--}}
+        function hapusProduk(id){
+            var agree=confirm("Apakah anda yakin ingin menghapus produk ini?");
+            if (agree) {
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-Token': "{{csrf_token()}}"
+                    },
+                    url: "{{route('admin.pusat.delete_produk')}}",
+                    dataType: "JSON",
+                    data : {id : id},
+                    success: function (response) {
+                        if (response == true){
+                            location.reload();
+                        }else{
+                            toastr.error('Gagal Menghapus Nasabah');
+                        }
 
-        {{--            }--}}
-        {{--        });--}}
+                    }
+                });
 
-        {{--    }else {--}}
-        {{--        return false;--}}
-        {{--    }--}}
-        {{--}--}}
+            }else {
+                return false;
+            }
+        }
 
         $('#tambahProdukModal').on('show.bs.modal', function (event) {
 

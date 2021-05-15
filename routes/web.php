@@ -140,6 +140,7 @@ Route::middleware(['role'])->group(function() {
             Route::post('/produk_kredit/get_detail','ProdukKreditController@getDetail')->name('admin.pusat.detail.produk_kredit');
             Route::post('/produk_kredit/upload_blangko/{jenis}','ProdukKreditController@uploadBlangko')->name('admin.pusat.upload.blangko');
             Route::post('/produk_kredit/get_thumbnail','ProdukKreditController@getThumbnailBlangko')->name('admin.pusat.thumbnail.blangko');
+            Route::post('/produk_kredit/delete','ProdukKreditController@delete')->name('admin.pusat.delete_produk');
         });
     });
 
