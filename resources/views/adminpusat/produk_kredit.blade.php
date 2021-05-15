@@ -57,8 +57,8 @@
                                 <tr>
                                     <td>{{$data->nama}}</td>
                                     <td>{{$data->deskripsi}}</span></td>
-                                    <td></td>
-                                    <td>{{$data->nama}}</td>
+                                    <td>{!! $data->bunga !!}</td>
+                                    <td>{{substr(strstr(json_decode($data->path_file)->blangko, "/"),1)}}</td>
                                     <td>  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Atur
                                         </button>

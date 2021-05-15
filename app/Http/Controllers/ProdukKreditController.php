@@ -25,6 +25,37 @@ class ProdukKreditController extends Controller
 
         $produk = Produk::all();
 
+
+        foreach ($produk as $data){
+
+            if ($data->jenis_suku_bunga == "berjangka"){
+                $suku_bunga = SukuBunga::where('produk_id', $data->id)->get();
+
+                foreach ($suku_bunga as $keys => $value){
+                    if ($keys == 0){
+                        $data->bunga = $data->bunga.' '.$value->dari_bulan/12 .' tahun - '.$value->sampai_bulan / 12 .' tahun : '.$value->bunga.' % <br>';
+                    }
+                    else
+                    {
+                        $data->bunga = $data->bunga.' '.($value->dari_bulan - 1) /12 .' tahun - '.$value->sampai_bulan / 12 .' tahun : '.$value->bunga.' % <br>';
+                    }
+
+                }
+
+
+
+            }else{
+                $suku_bunga = SukuBunga::where('produk_id', $data->id)->first();
+                $data->bunga = $suku_bunga->bunga.' %';
+
+            }
+
+
+
+
+
+        }
+
         return view('adminpusat.produk_kredit', get_defined_vars());
     }
 
