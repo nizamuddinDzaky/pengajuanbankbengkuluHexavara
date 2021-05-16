@@ -164,6 +164,12 @@ Route::middleware(['role'])->group(function() {
             Route::get('/reset_password/{id_account}', 'AdminController@reset_password')->name('admin.cabang.edit.reset.password');
             Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.cabang.edit.cs');
             // Route::post('/save_new_kantor', 'AdminPusatController@add_kantor')->name('admin.pusat.add.kantor.post');
+            Route::get('/pengelolaan_nasabah','PengelolaanNasabahController@indexAdminCabang')->name('admin.cabang.pengelolaan_nasabah');
+            Route::post('/pengelolaan_nasabah/delete','PengelolaanNasabahController@delete')->name('admin.cabang.delete_nasabah');
+            Route::post('/pengelolaan_nasabah/getdetailnasabah','PengelolaanNasabahController@getDetailNasabah')->name('admin.cabang.detail_nasabah');
+            Route::get('/report','ReportController@indexAdminCabang')->name('admin.cabang.report');
+            Route::get('/testimoni','TestimoniController@indexAdminCabang')->name('admin.cabang.testimoni');
+            Route::get('/testimoni/{kantor}','TestimoniController@indexFilterCabang')->name('admin.cabang.testimoni_filter');
         });
     });
 
