@@ -34,4 +34,10 @@
             <p>Produk dan Akad Kredit</p>
         </a>
     </li>
+    <li class="nav-item">
+        <a href="{{ route('admin.pusat.testimoni') }}" class="nav-link {{ Request::is('admin-pusat/testimoni') ? 'active' : '' }} {{ Request::is('admin-pusat/testimoni/*') ? 'active' : '' }}">
+            <i class="nav-icon fa fa-comment"></i>
+            <p>Testimoni</p>
+        </a>
+    </li>
 </ul>

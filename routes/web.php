@@ -142,6 +142,8 @@ Route::middleware(['role'])->group(function() {
             Route::post('/produk_kredit/upload_blangko/{jenis}','ProdukKreditController@uploadBlangko')->name('admin.pusat.upload.blangko');
             Route::post('/produk_kredit/get_thumbnail','ProdukKreditController@getThumbnailBlangko')->name('admin.pusat.thumbnail.blangko');
             Route::post('/produk_kredit/delete','ProdukKreditController@delete')->name('admin.pusat.delete_produk');
+            Route::get('/testimoni','TestimoniController@index')->name('admin.pusat.testimoni');
+            Route::get('/testimoni/{kantor}','TestimoniController@indexFilter')->name('admin.pusat.testimoni_filter');
         });
     });
 
