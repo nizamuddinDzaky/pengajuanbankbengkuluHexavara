@@ -215,7 +215,6 @@
 @section('script')
     <script src="{{asset('js/detail_pengajuan.js')}}"></script>
     <script src="{{asset('js/tab-bar.js')}}"></script>
-
     <script type="text/javascript">
 
 

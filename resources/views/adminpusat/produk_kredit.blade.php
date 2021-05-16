@@ -370,9 +370,6 @@
             }
 
 
-
-            // console.log(bunga[0]['dari_bulan'])
-
         }
 
 

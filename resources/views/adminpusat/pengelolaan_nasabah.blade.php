@@ -3,6 +3,7 @@
 @section('title', 'Pengelolaan Nasabah')
 
 @section('css')
+    <link href="{{asset('css/tab_bar_modal.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -69,7 +70,7 @@
                                             Atur
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#detailNasabahModal" >Lihat Detail</a>
+                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#detailNasabahModal" data-id="{{$data->id}}" >Lihat Detail</a>
                                             <a class="dropdown-item" onclick="hapusNasabah({{$data->id}})">Hapus</a>
                                         </div></td>
                                 </tr>
@@ -88,6 +89,7 @@
 @endsection
 
 @section('script')
+    <script src="{{asset('js/tab-bar.js')}}"></script>
     <script>
         $('#list-nasabah').DataTable({
             "paging": true,
@@ -125,5 +127,67 @@
                 return false;
             }
         }
+
+        $('#detailNasabahModal').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-Token': "{{csrf_token()}}"
+                },
+                url: "{{route('admin.pusat.detail_nasabah')}}",
+                dataType: "JSON",
+                data : {id : id},
+                success: function (response) {
+                    $('#nama').val(response['name'])
+                    $('#email').val(response['email'])
+                    $('#no_ktp').val(response['no_ktp'])
+                    $('#no_hp').val(response['no_hp'])
+                    $('#tempat_lahir').val(response['tempat_lahir'])
+                    $('#tanggal_lahir').val(response['tanggal_lahir'])
+                    $('#jenis_kelamin').val(response['jenis_kelamin'])
+                    $('#pekerjaan').val(response['pekerjaan'])
+                    $('#no_npwp').val(response['npwp'])
+                    $('#alamat').val(response['alamat'])
+                    $('#provinsi').val(response['provinsi'])
+                    $('#kabkot').val(response['kabkot'])
+                    $('#kecamatan').val(response['kecamatan'])
+                    $('#kelurahan').val(response['kelurahan'])
+                    $('#kode_pos').val(response['kode_pos'])
+
+
+                    //dokumen
+                    $('#foto_ktp').val(JSON.parse(response['path_file']).ktp)
+                    $('#pas_foto').val(JSON.parse(response['path_file']).pas_foto)
+                    $('#foto_npwp').val(JSON.parse(response['path_file']).npwp)
+
+
+
+                    $('#lihat_ktp').attr("href","/"+JSON.parse(response['path_file']).ktp);
+                    $('#lihat_pas_foto').attr("href","/"+JSON.parse(response['path_file']).pas_foto);
+                    $('#lihat_npwp').attr("href","/"+JSON.parse(response['path_file']).npwp);
+
+
+
+
+
+
+
+
+
+                }
+            });
+
+
+
+
+
+
+        });
+
     </script>
 @endsection

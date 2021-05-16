@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Kabkot;
+use App\Kecamatan;
+use App\Kelurahan;
+use App\Provinsi;
 use App\Transaksi;
 use App\User;
 use Illuminate\Http\Request;
@@ -41,5 +45,15 @@ class PengelolaanNasabahController extends Controller
             return response()->json(false);
         }
 
+    }
+
+    public function getDetailNasabah(Request $request){
+        $user = User::find($request->id);
+        $user->provinsi = Provinsi::where('id', $user->provinsi_id)->first()->provinsi;
+        $user->kabkot = Kabkot::where('id', $user->kabkot_id)->first()->kabupaten_kota;
+        $user->kecamatan = Kecamatan::where('id', $user->kecamatan_id)->first()->kecamatan;
+        $user->kelurahan = Kelurahan::where('id', $user->kelurahan_id)->first()->kelurahan;
+        $user->kode_pos = Kelurahan::where('id', $user->kelurahan_id)->first()->kd_pos;
+        return response()->json($user);
     }
 }

@@ -133,6 +133,7 @@ Route::middleware(['role'])->group(function() {
             Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.pusat.edit.cs');
             Route::get('/pengelolaan_nasabah','PengelolaanNasabahController@indexAdminPusat')->name('admin.pusat.pengelolaan_nasabah');
             Route::post('/pengelolaan_nasabah/delete','PengelolaanNasabahController@delete')->name('admin.pusat.delete_nasabah');
+            Route::post('/pengelolaan_nasabah/getdetailnasabah','PengelolaanNasabahController@getDetailNasabah')->name('admin.pusat.detail_nasabah');
             Route::get('/report','ReportController@indexAdminPusat')->name('admin.pusat.report');
             Route::get('/produk_kredit','ProdukKreditController@index')->name('admin.pusat.produk_kredit');
             Route::post('/produk_kredit/store','ProdukKreditController@store')->name('admin.pusat.tambah.produk_kredit');
