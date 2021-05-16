@@ -85,7 +85,7 @@
 @endsection
 
 @section('modal')
-    @include('adminpusat.modal.detail_nasabah');
+    @include('adminpusat.modal.detail_nasabah')
 @endsection
 
 @section('script')

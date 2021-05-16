@@ -23,6 +23,7 @@ class CustomerServiceController extends Controller
             ->select('t.id as transaksi_id', 't.kode_pengajuan', 'u.name', 't.plafond', 't.masa_tenor', 't.jam_mulai', 't.jam_selesai', 'p.nama')
             ->orderBy('t.jam_mulai', 'asc')
             ->where('t.cs_id', Auth::user()->id)
+            ->where('u.deleted_at', null)
             ->get();
 
 
@@ -47,23 +48,26 @@ class CustomerServiceController extends Controller
             ->select('t.id as transaksi_id', 't.kode_pengajuan', 'u.name', 't.plafond', 't.masa_tenor', 't.jam_mulai', 't.jam_selesai', 'p.nama', 't.status', 't.jam_mulai_pelayanan', 't.path_file_blangko')
             ->orderBy('t.jam_mulai', 'asc')
             ->where('t.cs_id', Auth::user()->id)
+            ->where('u.deleted_at', null)
             ->get()
             ->take(2);
 
 
 
 
-        $jam = DB::table('transaksi')
-            ->where('tanggal', Carbon::now()->toDateString())
+        $jam = DB::table('transaksi as t')
+            ->join('users as u', 'u.id', 't.pemohon_id')
+            ->where('t.tanggal', Carbon::now()->toDateString())
             ->where(function($q) {
-                $q->where('status', 2)
-                    ->orWhere('status', 5)
-                ->orWhere('status', 3)
-                ->orWhere('status', 6);
+                $q->where('t.status', 2)
+                    ->orWhere('t.status', 5)
+                ->orWhere('t.status', 3)
+                ->orWhere('t.status', 6);
             })
-            ->select('jam_mulai')
-            ->orderBy('jam_mulai', 'asc')
-            ->where('cs_id', Auth::user()->id)
+            ->select('t.jam_mulai')
+            ->orderBy('t.jam_mulai', 'asc')
+            ->where('t.cs_id', Auth::user()->id)
+            ->where('u.deleted_at', null)
             ->get();
 
 
@@ -95,13 +99,6 @@ class CustomerServiceController extends Controller
                 $nasabah[0]->status_mulai = false;
             }
         }
-
-
-
-
-
-
-
 
 
 

@@ -15,7 +15,7 @@ class ReportController extends Controller
             ->join('users as u', 't.pemohon_id', 'u.id')
             ->join('produk as p', 'p.id', 't.produk_id')
             ->join('ref_status as rs', 'rs.id', 't.status')
-            ->select('t.kode_pengajuan as kode_registrasi', 't.tanggal', 'u.name', 'p.nama as nama_produk', 't.plafond', 't.masa_tenor', 'rs.status', 't.id', 't.jam_mulai_pelayanan')
+            ->select('t.kode_pengajuan as kode_registrasi', 't.tanggal', 'u.name', 'p.nama as nama_produk', 't.plafond', 't.masa_tenor', 'rs.status', 't.id', 't.jam_mulai_pelayanan', 't.jam_selesai_pelayanan')
             ->orderBy('t.tanggal', 'desc')
             ->get();
 

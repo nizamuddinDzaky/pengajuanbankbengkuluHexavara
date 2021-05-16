@@ -43,12 +43,12 @@
                                     <td>{{$kant->nama_kantor}}</td>
                                     <td>{{$kant->alamat}}</td>
                                     <td class = "text-center">
-                                        <span class="td-status badge badge-{{$kant->is_active == 1 ? 'success':'danger'}}" 
+                                        <span class="td-status badge badge-{{$kant->is_active == 1 ? 'success':'danger'}}"
                                             data-id = "{{$kant->id}}"
                                             data-status = "{{$kant->is_active}}"
                                             data-name = "{{$kant->name}}",
                                             data-url = "{{route(
-                                                            $role == 'AdminPusat'? 'admin.pusat.delete.kantor' : 'admin.cabang.delete.kantor', 
+                                                            $role == 'AdminPusat'? 'admin.pusat.delete.kantor' : 'admin.cabang.delete.kantor',
                                                                 ['id_kantor' => $kant->id , 'next_status' => ($kant->is_active == 1 ? 0 : 1) ]
                                                         )}}"
                                         >
@@ -72,7 +72,7 @@
 @endsection
 
 @section('modal')
-    @include('modal.list_cabang');
+    @include('modal.list_cabang')
 @endsection
 
 @section('script')
