@@ -17,9 +17,9 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('admin.cabang.cabang') }}" class="nav-link {{ Request::is('admin-cabang/list_cabang') ? 'active' : '' }}">
+        <a href="{{ route('admin.cabang_pembantu.cs') }}" class="nav-link {{ Request::is('admin-cabang-pembantu/list_cs') ? 'actived' : '' }}">
             <i class="nav-icon fa fa-building"></i>
-            <p>Capem dan CS</p>
+            <p>Pengelolaan Cs</p>
         </a>
     </li>
     <li class="nav-item">

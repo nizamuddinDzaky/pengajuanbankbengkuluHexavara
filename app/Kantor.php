@@ -37,6 +37,30 @@ class Kantor extends Model
         return $this->belongsTo(Kelurahan::class,'kelurahan_id');
     }
 
+    public function str_provinsi()
+    {
+        if($this->provinsi_id != '' && $this->provinsi_id != 0){
+            return $this->provinsi->provinsi;
+        }
+        return '';
+    }
+
+    public function str_kabkot()
+    {
+        if($this->kabkot_id != '' && $this->kabkot_id != 0){
+            return $this->kabupaten->kabupaten_kota;
+        }
+        return '';
+    }
+
+    public function str_kecamatan()
+    {
+        if($this->kecamatan_id != '' && $this->kecamatan_id != 0){
+            return 'Kec. '.$this->kecamatan->kecamatan;
+        }
+        return '';
+    }
+
     public function url_detail()
     {
         return "asd";

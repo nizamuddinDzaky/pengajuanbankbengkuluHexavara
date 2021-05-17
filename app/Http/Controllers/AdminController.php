@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\CustomerService;
 use App\Repositories\AdminRepository;
 
 // use AdminRepository;
@@ -44,12 +43,14 @@ class AdminController extends Controller
         $url_add_form = $this->adminRepository->get_url_tambah_cabang();
         $role = $this->adminRepository->get_role_admin();
         $param_route_edit_status_cabang = $this->adminRepository->get_param_route_edit_status_cabang();
-
+        $title_card = $this->adminRepository->get_title_card();
+        // print_r(Auth::user()->kantor->provinsi);die;
+        $user_data = Auth::user();
         $cabang = Kantor::where('parent', Auth::user()->kantor_id)->get();
 
         $cabangPembantu = Kantor::where('parent', '!=', 1)->where('parent' ,'!=', 0)->get();
         
-        return view('adminpusat.list_cabang', compact('role',  'cabang', 'cabangPembantu', 'url_add_form', 'param_route_edit_status_cabang'));
+        return view('adminpusat.list_cabang', compact('role',  'cabang', 'cabangPembantu', 'url_add_form', 'param_route_edit_status_cabang', "title_card", "user_data"));
     }
 
     public function form_add_cabang($id_parent)
@@ -278,7 +279,17 @@ class AdminController extends Controller
             $cabang_pembantu = $cabang_pembantu->where('parent', '=',  Auth::user()->kantor_id)->get();
         }
 
-        $customer_service = $this->adminRepository->get_list_cs($request);
+        $kantor_id = null;
+        if($role != "AdminPusat"){
+            $kantor_id = Auth::user()->kantor_id;
+        }
+
+        if($request->kantor_id){
+            $kantor_id = $request->kantor_id;
+        }
+        $customer_service = $this->adminRepository->get_list_cs($kantor_id);
+
+        // print_r($customer_service[0]->service_duration());die;
         
         return view('adminpusat.list_cs', compact('cabang', 'cabang_pembantu', 'url_add_form', 'customer_service', 'role', 'url_filter_cs', 'param_route_edit_status_cs'));
     }
@@ -286,10 +297,9 @@ class AdminController extends Controller
     public function form_add_cs()
     {
         $url_post = $this->adminRepository->get_url_submit_form_add_cs();
-        $type_cs = TypeCs::all();
         $cabang = Kantor::find(Auth::user()->kantor_id);
         $default_password = 'password';
-        $view = view('adminpusat.form_add_cs', compact('type_cs', 'cabang', 'default_password', 'url_post') )->render();
+        $view = view('adminpusat.form_add_cs', compact('cabang', 'default_password', 'url_post') )->render();
         return response()->json([
             'view' => $view,
         ]);
@@ -302,7 +312,6 @@ class AdminController extends Controller
             $validator = Validator::make($request->all(), [
                 'name_cs' => 'required|max:255',
                 'email_cs' =>'required|max:255',
-                'type_cs' =>'required|max:255',
                 'password' =>'required|max:255',
             ]);
             
@@ -316,6 +325,7 @@ class AdminController extends Controller
             $user->kantor_id = Auth::user()->kantor_id;
             $user->password = Hash::make($request->password);
             $user->is_active = 1;
+            $user->no_hp = $request->no_hp;;
             if(!$user->save()){
                 throw new Exception("Gagal Menyimpan data");
             }
@@ -324,13 +334,6 @@ class AdminController extends Controller
             $userRole->user_id = $user->id;
             $userRole->role_id = 4;
             if(!$userRole->save()){
-                throw new Exception("Gagal Menyimpan data");
-            }
-
-            $cs = new CustomerService;
-            $cs->user_id = $user->id;
-            $cs->type_cs_id = $request->type_cs;
-            if(!$cs->save()){
                 throw new Exception("Gagal Menyimpan data");
             }
             DB::commit();
@@ -344,11 +347,10 @@ class AdminController extends Controller
 
     public function form_edit_cs(Request $request)
     {
-        $cs = CustomerService::find($request->id);
+        $cs = User::find($request->id);
         $url_post = $this->adminRepository->get_url_submit_form_edit_cs();
-        $type_cs = TypeCs::all();
-        $cabang = Kantor::find($cs->user->kantor_id);
-        $view = view('adminpusat.form_edit_cs', compact('cs', 'url_post', 'type_cs', 'cabang'))->render();
+        $cabang = Kantor::find($cs->kantor_id);
+        $view = view('adminpusat.form_edit_cs', compact('cs', 'url_post', 'cabang'))->render();
         return response()->json([
             'view' => $view,
         ]);
@@ -362,32 +364,23 @@ class AdminController extends Controller
             $validator = Validator::make($request->all(), [
                 'name_cs' => 'required|max:255',
                 'email_cs' =>'required|max:255',
-                'type_cs' =>'required|max:255',
             ]);
 
             if ($validator->fails()){
                 throw new Exception($validator->errors()->first());
             }
 
-            $cs = CustomerService::find($request->id);
-            $cs->type_cs_id = $request->type_cs;
-
-            $user = User::find($cs->user_id);
-            $user->name = $request->name_cs;
-            $user->email = $request->email_cs;
+            $cs = User::find($request->id);
+            $cs->name = $request->name_cs;
+            $cs->email = $request->email_cs;
+            if($request->has("password")){
+                $cs->password = Hash::make($request->password);
+            }
 
             if(!$cs->save()){
                 throw new Exception("Gagal Menyimpan data");
             }
-
-            if(!$user->save()){
-                throw new Exception("Gagal Menyimpan data");
-            }
-            // print_r($cs);die;
-            // $cs->is_active = 1;
-            if(!$cs->save()){
-                throw new Exception("Gagal Menyimpan data");
-            }
+            
 
             DB::commit();
             return back()->with(['success' => 'Berhasil Menyimpan Data']);
@@ -401,10 +394,8 @@ class AdminController extends Controller
     {
         DB::beginTransaction();
         try {
-            
-            $cs = CustomerService::find($id_cs);
 
-            $user = User::find($cs->user_id);
+            $user = User::find($id_cs);
             $user->is_active = $next_status;
             
             if(!$user->save()){

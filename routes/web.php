@@ -136,7 +136,7 @@ Route::middleware(['role'])->group(function() {
             Route::get('/list_cs', 'AdminController@list_cs')->name('admin.pusat.cs');
             Route::get('/form_add_cs', 'AdminController@form_add_cs')->name('admin.pusat.form.add.cs');
             Route::post('/save_new_cs', 'AdminController@add_cs')->name('admin.pusat.add.cs');
-            Route::get('/filter_cs/{$kantor_id}', 'AdminController@list_cs')->name('admin.pusat.filter.cs');
+            Route::get('/filter_cs/{kantor_id}', 'AdminController@list_cs')->name('admin.pusat.filter.cs');
             Route::get('/form_edit_cs/{id}', 'AdminController@form_edit_cs')->name('admin.pusat.form.edit.cs');
             Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.pusat.edit.cs');
             Route::get('/edit_status_cs/{id_cs}/{next_status}', 'AdminController@edit_status_cs')->name('admin.pusat.edit.status.cs');
@@ -175,7 +175,7 @@ Route::middleware(['role'])->group(function() {
             Route::get('/list_cs', 'AdminController@list_cs')->name('admin.cabang.cs');
             Route::get('/form_add_cs', 'AdminController@form_add_cs')->name('admin.cabang.form.add.cs');
             Route::post('/save_new_cs', 'AdminController@add_cs')->name('admin.cabang.add.cs');
-            Route::get('/filter_cs/{$kantor_id}', 'AdminController@list_cs')->name('admin.cabang.filter.cs');
+            Route::get('/filter_cs/{kantor_id}', 'AdminController@list_cs')->name('admin.cabang.filter.cs');
             Route::get('/form_edit_cs/{id}', 'AdminController@form_edit_cs')->name('admin.cabang.form.edit.cs');
             Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.cabang.edit.cs');
             Route::get('/edit_status_cs/{id_cs}/{next_status}', 'AdminController@edit_status_cs')->name('admin.cabang.edit.status.cs');
@@ -210,6 +210,14 @@ Route::middleware(['role'])->group(function() {
 //            Route::get('/reset_password/{id_account}', 'AdminController@reset_password')->name('admin.cabang.edit.reset.password');
 //            Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.cabang.edit.cs');
 //            // Route::post('/save_new_kantor', 'AdminPusatController@add_kantor')->name('admin.pusat.add.kantor.post');
+            Route::get('/list_cs','AdminController@list_cs')->name('admin.cabang_pembantu.cs');
+            Route::get('/form_add_cs', 'AdminController@form_add_cs')->name('admin.cabang_pembantu.form.add.cs');
+            Route::post('/save_new_cs', 'AdminController@add_cs')->name('admin.cabang_pembantu.add.cs');
+            Route::get('/form_edit_cs/{id}', 'AdminController@form_edit_cs')->name('admin.cabang_pembantu.form.edit.cs');
+            Route::get('/edit_status_cs/{id_cs}/{next_status}', 'AdminController@edit_status_cs')->name('admin.cabang_pembantu.edit.status.cs');
+            Route::get('/form_edit_cs/{id}', 'AdminController@form_edit_cs')->name('admin.cabang_pembantu.form.edit.cs');
+            Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.cabang_pembantu.edit.cs');
+
             Route::get('/pengelolaan_nasabah','PengelolaanNasabahController@indexAdminCapem')->name('admin.cabang_pembantu.pengelolaan_nasabah');
             Route::post('/pengelolaan_nasabah/delete','PengelolaanNasabahController@delete')->name('admin.cabang_pembantu.delete_nasabah');
             Route::post('/pengelolaan_nasabah/getdetailnasabah','PengelolaanNasabahController@getDetailNasabah')->name('admin.cabang_pembantu.detail_nasabah');

@@ -1,7 +1,6 @@
 <?php
     namespace App\Repositories;
 
-use App\CustomerService;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +16,18 @@ class AdminRepository
         }else if($this->get_role_admin() == 'AdminCabang'){
             return route('admin.cabang.form.add.cabang', ['id_parent' =>  Auth::user()->id]);
         }
+    }
+
+    public function get_title_card()
+    {
+        if($this->get_role_admin() == 'AdminPusat'){
+            return "Kantor Pusat";
+        }else if($this->get_role_admin() == 'AdminCabang'){
+            return "Kantor Cabang";
+        }else if($this->get_role_admin() == 'AdminCabangPembantu'){
+            return "Kantor Cabang Pembantu";
+        }
+        return "";
     }
 
     public function get_role_admin()
@@ -58,6 +69,8 @@ class AdminRepository
             return route('admin.pusat.form.add.cs');
         }else if($this->get_role_admin() == 'AdminCabang'){
             return route('admin.cabang.form.add.cs');
+        }else if($this->get_role_admin() == 'AdminCabangPembantu'){
+            return route('admin.cabang_pembantu.form.add.cs');
         }
     }
 
@@ -67,6 +80,8 @@ class AdminRepository
             return route('admin.pusat.add.cs');
         }else if($this->get_role_admin() == 'AdminCabang'){
             return route('admin.cabang.add.cs');
+        }else if($this->get_role_admin() == 'AdminCabangPembantu'){
+            return route('admin.cabang_pembantu.add.cs');
         }
     }
 
@@ -85,6 +100,8 @@ class AdminRepository
             return route('admin.pusat.edit.cs');
         }else if($this->get_role_admin() == 'AdminCabang'){
             return route('admin.cabang.edit.cs');
+        }else if($this->get_role_admin() == 'AdminCabangPembantu'){
+            return route('admin.cabang_pembantu.edit.cs');
         }
     }
 
@@ -94,28 +111,19 @@ class AdminRepository
             return 'admin.pusat.edit.status.cs';
         }else if($this->get_role_admin() == 'AdminCabang'){
             return 'admin.cabang.edit.status.cs';
+        }else if($this->get_role_admin() == 'AdminCabangPembantu'){
+            return 'admin.cabang_pembantu.edit.status.cs';
         }
     }
 
-    public function get_list_cs($request)
+    public function get_list_cs($kantor_id)
     {
-        $customer_service = [];
-        if($request->kantor_id){
-            $customer_service = CustomerService::select('cs.*')
-                                                ->join('users', 'users.id', '=', 'cs.user_id')
-                                                ->where('kantor_id', '=', $request->kantor_id)
-                                                ->get();
-        }else{
-            if($this->get_role_admin() == 'AdminPusat'){
-                $customer_service = CustomerService::all();
-            }else{
-                $customer_service = CustomerService::select('cs.*')
-                ->join('users', 'users.id', '=', 'cs.user_id')
-                ->where('kantor_id', '=', Auth::user()->kantor_id)
-                ->get();
-            }
+
+        $customer_service = User::select('users.*')->join('user_role', 'user_role.user_id', '=', 'users.id')->where('user_role.role_id', 4);
+        if($kantor_id){
+            $customer_service = $customer_service->where('kantor_id', '=', $kantor_id);
         }
-        return $customer_service;
+        return $customer_service->get();
     }
 }
 ?>

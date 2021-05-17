@@ -20,12 +20,8 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="">Hak Akses</label>
-                <select class="form-control select2" name="type_cs" id="type_cs">
-                    @foreach($type_cs as $tcs)
-                    <option value="{{$tcs->id}}">{{$tcs->name}}</option>
-                    @endforeach
-                </select>
+                <label for="">No Hp</label>
+                <input type="number" class="form-control" id="" placeholder="Nomor Hp" name="no_hp">
             </div>
         </div>
         <div class="col-md-6">

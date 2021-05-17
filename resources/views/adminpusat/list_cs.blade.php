@@ -7,6 +7,7 @@
     <div class="row">
         <h1 class="m-0 text-dark ml-4 mt-4 mb-3"></h1>
     </div>
+    @if($role == 'AdminCabangPembantu')
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -19,6 +20,25 @@
                             <button class="float-right btn btn-orange" data-url-add = "{{$url_add_form}}" id="btn-add-cs" data-csrf = "{{csrf_token()}}">Tambah </button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p><b>Total : </b> {{count($customer_service)}}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="float-right btn btn-orange" data-url-add = "{{$url_add_form}}" id="btn-add-cs" data-csrf = "{{csrf_token()}}">Tambah </button>
+                        </div>
+                    </div>
+                    @if($role != 'AdminCabangPembantu')
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -44,14 +64,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
+                    @endif
+                    <hr>
                     <div class="table-responsive">
                         <table class="table table-striped datatable">
                             <thead>
@@ -59,7 +73,6 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Hak Akses</th>
                                     <th scope="col">Rata-rata Pelayanan</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Cabang/Capem</th>
@@ -70,20 +83,19 @@
                                 @foreach($customer_service as $cs)
                                 <tr>
                                     <th scope="row">#</th>
-                                    <td>{{$cs->user->name}}</td>
-                                    <td>{{$cs->user->email}}</td>
-                                    <td>{{$cs->type_cs->name}}</td>
-                                    <td>@mdo</td>
+                                    <td>{{$cs->name}}</td>
+                                    <td>{{$cs->email}}</td>
+                                    <td>{{$cs->service_duration()}}</td>
                                     <td>{!! $cs->str_status() !!}</td>
-                                    <td>{{$cs->user->kantor->nama_kantor}}</td>
+                                    <td>{{$cs->kantor->nama_kantor}}</td>
                                     <td class="text-center">
                                         <div class="dropdown">
                                             <a class="btn btn-default dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Atur
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item btn-edit-cs" href="#" data-url-edit = "{{ $cs->url_form_edit($role) }}" data-csrf = "{{csrf_token()}}">Edit</a>
-                                                <a class="dropdown-item td-status"  href="{{route($param_route_edit_status_cs, $cs->param_route_edit_status())}}">{{$cs->str_change_staus()}}</a>
+                                                <a class="dropdown-item btn-edit-cs" href="#" data-url-edit = "{{ $cs->url_form_edit_cs($role) }}" data-csrf = "{{csrf_token()}}">Edit</a>
+                                                <a class="dropdown-item td-status"  href="{{route($param_route_edit_status_cs, $cs->param_route_edit_status_cs())}}">{{$cs->str_change_staus()}}</a>
                                             </div>
                                         </div>
                                     </td>

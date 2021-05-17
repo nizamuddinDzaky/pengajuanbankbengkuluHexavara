@@ -7,13 +7,13 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="">Nama</label>
-                <input type="text" class="form-control" id="" placeholder="Nama CS" name="name_cs" value="{{$cs->user->name}}">
+                <input type="text" class="form-control" id="" placeholder="Nama CS" name="name_cs" value="{{$cs->name}}">
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="">Email</label>
-                <input type="email" class="form-control" id="" placeholder="Email CS" name="email_cs" value="{{$cs->user->email}}">
+                <input type="email" class="form-control" id="" placeholder="Email CS" name="email_cs" value="{{$cs->email}}">
             </div>
         </div>
     </div>
@@ -21,27 +21,23 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="">Hak Akses</label>
-                <select class="form-control select2" name="type_cs" id="type_cs">
-                    @foreach($type_cs as $tcs)
-                    <option value="{{$tcs->id}}" @if($tcs->id == $cs->type_cs_id) {{'selected'}} @endif>{{$tcs->name}}</option>
-                    @endforeach
-                </select>
+                <label for="">No Hp</label>
+                <input type="number" class="form-control" id="" placeholder="Nomor Hp" name="no_hp" value="{{$cs->no_hp}}">
             </div>
         </div>
-        <!-- <div class="col-md-6">
-            <div class="form-group">
-                <label for="">Password</label>
-                <input type="password" class="form-control" id="" placeholder="Password" name="password" value="{{$cs->password}}">
-            </div>
-        </div> -->
-    </div>
-
-    <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label for="">Cabang/Capem</label>
                 <input type="text" class="form-control" id="" placeholder="" name="" value="{{$cabang->nama_kantor}}" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="">Password</label>
+                <input type="password" class="form-control" id="" placeholder="Password" name="password">
             </div>
         </div>
     </div>

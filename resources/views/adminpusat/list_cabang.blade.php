@@ -22,13 +22,13 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8">
-                                <h5><b>Kantor Pusat</b></h5>
-                                <p>Jl. Basuki Rahmat No.6, Belakang Pd., Kec. Ratu Samban, Kota Bengkulu, Bengkulu 38222</p>
+                                <h5><b>{{$title_card}}</b></h5>
+                                <p>{{$user_data->kantor->alamat}}, {{$user_data->kantor->str_kecamatan()}}, {{$user_data->kantor->str_kabkot()}}, {{$user_data->kantor->str_provinsi()}} 38222</p>
                                 <p>Waktu Layanan: <br/> 08:00 - 15:00</p>
                                 <p>Waktu Layanan Customer Service: <br/>20 menit/layanan    </p>
                             </div>
                             <div class="col-md-4">
-                                <button class="float-right btn btn-orange">Edit </button>
+                                <button class="float-right btn btn-orange d-none">Edit </button>
                             </div>
                         </div>
                     </div>
