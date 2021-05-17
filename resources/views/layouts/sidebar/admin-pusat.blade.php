@@ -9,7 +9,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{route('admin.pusat.pengelolaan_nasabah')}}" class="nav-link {{ Request::is('admin-pusat/pengelolaan_nasabah') ? 'active' : '' }}">
+        <a href="{{route('admin.pusat.pengelolaan_nasabah')}}" class="nav-link {{ Request::is('admin-pusat/pengelolaan_nasabah') ? 'active' : '' }} {{ Request::is('admin-pusat/pengelolaan_nasabah/*') ? 'active' : '' }}" >
             <i class="nav-icon fas fa-user-friends"></i>
             <p>
                 Pengelolaan Nasabah

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Kabkot;
+use App\Kantor;
 use App\Kecamatan;
 use App\Kelurahan;
 use App\Provinsi;
@@ -33,7 +34,51 @@ class PengelolaanNasabahController extends Controller
             ->get();
 
 
-        return view('adminpusat.pengelolaan_nasabah', compact('jumlah_nasabah', 'nasabah'));
+        $kantor = Kantor::select('id', 'nama_kantor')->get();
+        $kantor_selected = "";
+
+        return view('adminpusat.pengelolaan_nasabah', compact('jumlah_nasabah', 'nasabah', 'kantor', 'kantor_selected'));
+    }
+
+    public function indexFilterPusat(Request $request){
+
+        $jumlah_nasabah = DB::table('transaksi as t')
+            ->join('users as u', 'u.id', 't.pemohon_id')
+            ->join('kantor as k', 'k.id', 't.kantor_id')
+            ->distinct('t.pemohon_id')
+            ->select('u.name', 'u.pekerjaan', 'u.no_ktp','u.email', 'u.id', 'k.nama_kantor', 't.kantor_id')
+            ->where('u.deleted_at', null)
+            ->count('t.pemohon_id');
+
+        $nasabah = DB::table('transaksi as t')
+            ->join('users as u', 'u.id', 't.pemohon_id')
+            ->join('kantor as k', 'k.id', 't.kantor_id')
+            ->distinct('t.pemohon_id')
+            ->select('u.name', 'u.pekerjaan', 'u.no_ktp','u.email', 'u.id', 'k.nama_kantor', 't.kantor_id')
+            ->where('u.deleted_at', null)
+            ->get();
+
+        if ($request->kantor != null){
+            $jumlah_nasabah = DB::table('transaksi as t')
+                ->join('users as u', 'u.id', 't.pemohon_id')
+                ->join('kantor as k', 'k.id', 't.kantor_id')
+                ->distinct('t.pemohon_id')
+                ->select('u.name', 'u.pekerjaan', 'u.no_ktp','u.email', 'u.id', 'k.nama_kantor', 't.kantor_id')
+                ->where('u.deleted_at', null)
+                ->where('t.kantor_id', $request->kantor)
+                ->count('t.pemohon_id');
+            $nasabah = $nasabah->where('kantor_id', $request->kantor);
+        }
+
+
+        $kantor = Kantor::select('id', 'nama_kantor')->get();
+        $kantor_selected = $request->kantor;
+
+
+
+        return view('adminpusat.pengelolaan_nasabah', compact('jumlah_nasabah', 'nasabah', 'kantor', 'kantor_selected'));
+
+
     }
 
 
