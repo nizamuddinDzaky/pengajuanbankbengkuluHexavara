@@ -19,51 +19,131 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Daftar Cabang</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-default" id="btn-add-cabang" data-url-add = "{{$url}}" data-csrf = "{{csrf_token()}}">
-                                <i class="fas fa-plus"></i>
-                            </button>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5><b>Kantor Pusat</b></h5>
+                                <p>Jl. Basuki Rahmat No.6, Belakang Pd., Kec. Ratu Samban, Kota Bengkulu, Bengkulu 38222</p>
+                                <p>Waktu Layanan: <br/> 08:00 - 15:00</p>
+                                <p>Waktu Layanan Customer Service: <br/>20 menit/layanan    </p>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="float-right btn btn-orange">Edit </button>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                    @if($role == 'AdminPusat')
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#cabang" role="tab" aria-controls="home" aria-selected="true">Cabang</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#cabang-pembantu" role="tab" aria-controls="profile" aria-selected="false">Cabang Pembantu</a>
+                            </li>
+                        </ul>
+                        @endif
+                    </div>
                     <div class="card-body">
-                        <table id="list-kantor" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Nama Cabang</th>
-                                    <th>Alamat</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($kantor as $kant)
-                                <tr>
-                                    <td>{{$kant->nama_kantor}}</td>
-                                    <td>{{$kant->alamat}}</td>
-                                    <td class = "text-center">
-                                        <span class="td-status badge badge-{{$kant->is_active == 1 ? 'success':'danger'}}" 
-                                            data-id = "{{$kant->id}}"
-                                            data-status = "{{$kant->is_active}}"
-                                            data-name = "{{$kant->name}}",
-                                            data-url = "{{route(
-                                                            $role == 'AdminPusat'? 'admin.pusat.delete.kantor' : 'admin.cabang.delete.kantor', 
-                                                                ['id_kantor' => $kant->id , 'next_status' => ($kant->is_active == 1 ? 0 : 1) ]
-                                                        )}}"
-                                        >
-                                            {{$kant->is_active == 1 ? 'Aktif':'Tidak Aktif'}}</span>
-                                    </td>
-                                    <td class = "text-center">
-                                        @if($role == 'AdminPusat')
-                                        <button class="btn btn-sm btn-primary btn-list-cabang" data-cabang = "{{$kant->children}}" title="Daftar Cabang Pembantu" data-id = "{{$kant->id}}" data-url-form = "{{route('admin.pusat.form.add.cabang', ['id_cabang' => $kant->id])}}"><i class="fa fa-list" aria-hidden="true"></i></button>
-                                        @endif
-                                        <a href="{{route($role == 'AdminPusat'? 'admin.pusat.detail.kantor' : 'admin.cabang.detail.kantor', ['id_kantor' => $kant->id])}}" class="btn btn-sm btn-success" title="Detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="cabang" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5>Daftar Cabang</h5>
+                                        <p>Total : {{count($cabang)}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="float-right btn btn-orange" id="btn-add-cabang" data-url-add = "{{$url_add_form}}" data-csrf = "{{csrf_token()}}">Tambah </button>
+                                    </div>
+                                </div>
+                                
+                                <table id="list-cabang" class="table table-bordered table-hover datatable">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Cabang</th>
+                                            <th>Email</th>
+                                            <th>Status</th>
+                                            <th>Alamat Lengkap</th>
+                                            <th>Role</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($cabang as $c)
+                                            <tr>
+                                                <td>{{$c->nama_kantor}}</td>
+                                                <td>{{$c->admin->email}}</td>
+                                                <th>{!! $c->str_status() !!}</th>
+                                                <td>{{$c->alamat}}</td>
+                                                <td>{{$c->admin->userRole->role->role}}</td>
+                                                <td class="text-center">
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-default dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Atur
+                                                        </a>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                            <a class="dropdown-item btn-edit-cabang" href="#" data-url-edit = "{{ $c->url_form_edit($role) }}" data-csrf = "{{csrf_token()}}">Edit</a>
+                                                            <a class="dropdown-item td-status" href="{{route($param_route_edit_status_cabang, $c->param_route_edit_status())}}">{{$c->str_change_staus()}}</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade " id="cabang-pembantu" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5>Daftar Cabang Pembantu</h5>
+                                        <p>Total : {{count($cabangPembantu)}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="float-right btn btn-orange" id="btn-add-cabang-pembantu" data-url-add = "{{route('admin.pusat.form.add.cabang', ['id_parent' =>  0])}}" data-csrf = "{{csrf_token()}}">Tambah </button>
+                                    </div>
+                                </div>
+                                <table id="" class="table table-bordered table-hover datatable">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Cabang</th>
+                                            <th>Email</th>
+                                            <th>Status</th>
+                                            <th>Alamat Lengkap</th>
+                                            <th>Role</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($cabangPembantu as $cp)
+                                            <tr>
+                                                <td>{{$cp->nama_kantor}}</td>
+                                                <td>{{$cp->admin->email}}</td>
+                                                <th>{!! $cp->str_status() !!}</th>
+                                                <td>{{$cp->alamat}}</td>
+                                                <td>{{$cp->admin->userRole->role->role}}</td>
+                                                <td class="text-center">
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-default dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Atur
+                                                        </a>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                            <a class="dropdown-item btn-edit-cabang" href="#" data-url-edit = "{{ $cp->url_form_edit($role) }}" data-csrf = "{{csrf_token()}}">Edit</a>
+                                                            <a class="dropdown-item td-status" href="{{route($param_route_edit_status_cabang, $cp->param_route_edit_status())}}">{{$cp->str_change_staus()}}</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -72,42 +152,12 @@
 @endsection
 
 @section('modal')
-    @include('modal.list_cabang');
+    @include('adminpusat.modal.modal_list_cabang');
 @endsection
 
 @section('script')
 <script>
-    $('#list-kantor').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
     $(document).ready(function(){
-        $('.btn-list-cabang').click(function(){
-            if ( $.fn.DataTable.isDataTable('#list-cabang') ) {
-              $('#list-cabang').DataTable().destroy();
-            }
-            $('#list-cabang tbody').empty();
-
-            let data_cabang = $(this).data("cabang");
-            let tr = '';
-            $.each(data_cabang, function(key, value){
-                tr += '<tr>' +
-                            '<td>'+value.nama_kantor+'</td>' +
-                            '<td>'+value.alamat+'</td>' +
-                            '<td>'+value.is_active+'</td>' +
-                            '<td> <a  href="{{url("/admin-pusat/detail_kantor/")}}/'+value.id+'" class="btn btn-sm btn-success" title="Detail" ><i class="fa fa-eye" aria-hidden="true"></i></a>'+'</td>' +
-                        '</tr>'
-            });
-            $('#btn-tambah-cabang-pembantu').attr('data-url-form', $(this).data('url-form'))
-            $('#tb-list-cabang').html(tr)
-            $('#modal-list-cabang').modal('toggle');
-            $('#modal-list-cabang').modal('show');
-            $('#list-cabang').dataTable({});
-        });
         $('#btn-add-cabang').click(function(){
             $.ajax({
                type:'GET',
@@ -116,29 +166,46 @@
                     _token : $(this).data('csrf')
                },
                success:function(data) {
-                    $('#modal-content-add-cabang').html(data.view)
-                    $('#add-cabang').modal('toggle');
-                    $('#add-cabang').modal('show');
+                    $('#modal-content-form-cabang').html(data.view)
+                    $('#modal-title-form-cabang').text("Tambah Data Cabang")
+                    $('#modal-form-cabang').modal('toggle');
+                    $('#modal-form-cabang').modal('show');
                }
             });
         });
 
-        $('#btn-tambah-cabang-pembantu').click(function(){
-            $('#modal-list-cabang').modal('toggle');
-
+        $('#btn-add-cabang-pembantu').click(function(){
             $.ajax({
                type:'GET',
-               url:$(this).data('url-form'),
+               url:$(this).data('url-add'),
                data: {
                     _token : $(this).data('csrf')
                },
                success:function(data) {
-                    $('#modal-content-add-cabang').html(data.view)
-                    $('#add-cabang').modal('toggle');
-                    $('#add-cabang').modal('show');
+                    $('#modal-content-form-cabang').html(data.view)
+                    $('#modal-title-form-cabang').text("Tambah Data Cabang")
+                    $('#modal-form-cabang').modal('toggle');
+                    $('#modal-form-cabang').modal('show');
                }
             });
-        })
+        });
+
+        $('.btn-edit-cabang').click(function(){
+
+            $.ajax({
+               type:'GET',
+               url:$(this).data('url-edit'),
+               data: {
+                    _token : $(this).data('csrf')
+               },
+               success:function(data) {
+                    $('#modal-content-form-cabang').html(data.view)
+                    $('#modal-title-form-cabang').text("Edit Data Cabang")
+                    $('#modal-form-cabang').modal('toggle');
+                    $('#modal-form-cabang').modal('show');
+               }
+            });
+        });
 
         $('.td-status').click(function(){
             let is_active = $(this).data("status");

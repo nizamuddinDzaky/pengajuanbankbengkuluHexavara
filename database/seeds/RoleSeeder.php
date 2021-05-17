@@ -1,6 +1,6 @@
 <?php
 
-use App\User;
+use App\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +14,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
+        Role::truncate();
         $data = [
             [
                 'role'=> 'AdminPusat',

@@ -1,7 +1,7 @@
 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <li class="nav-header">Main Menu</li>
     <li class="nav-item">
-        <a href="{{url('/')}}" class="nav-link {{ Request::is('admin-pusat') ? 'active' : '' }}">
+        <a href="{{url('/')}}" class="nav-link {{ Request::is('admin-pusat') ? 'actived' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
                 Dashboard
@@ -9,7 +9,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{route('admin.pusat.pengelolaan_nasabah')}}" class="nav-link {{ Request::is('admin-pusat/pengelolaan_nasabah') ? 'active' : '' }}">
+        <a href="{{route('admin.pusat.pengelolaan_nasabah')}}" class="nav-link {{ Request::is('admin-pusat/pengelolaan_nasabah') ? 'actived' : '' }}">
             <i class="nav-icon fas fa-user-friends"></i>
             <p>
                 Pengelolaan Nasabah
@@ -17,11 +17,23 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('admin.pusat.cabang') }}" class="nav-link {{ Request::is('admin-pusat/list_cabang') ? 'active' : '' }}">
+        <a href="{{ route('admin.pusat.cabang') }}" class="nav-link {{ Request::is('admin-pusat/list_cabang') ? 'actived' : '' }}">
         <i class="nav-icon fa fa-building"></i>
-            <p>Cs dan Cabang</p>
+            <p>
+                Pengelolaan Cabang
+            </p>
         </a>
     </li>
+
+    <li class="nav-item">
+        <a href="{{ route('admin.pusat.cs') }}" class="nav-link {{ Request::is('admin-pusat/list_cs') ? 'actived' : '' }}">
+        <i class="nav-icon fa fa-building"></i>
+            <p>
+                Pengelolaan CS
+            </p>
+        </a>
+    </li>
+
     <li class="nav-item">
         <a href="{{ route('admin.pusat.report') }}" class="nav-link {{ Request::is('admin-pusat/report') ? 'active' : '' }}">
             <i class="nav-icon fa fa-file-alt"></i>

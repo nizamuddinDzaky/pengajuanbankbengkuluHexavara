@@ -121,19 +121,30 @@ Route::middleware(['role'])->group(function() {
         Route::middleware(['auth_admin_pusat', 'auth'])->group(function() {
             Route::get('/', 'AdminController@dashboard')->name('admin.pusat.index');
             Route::get('/list_cabang', 'AdminController@list_cabang')->name('admin.pusat.cabang');
-            Route::get('/detail_kantor/{id_kantor}', 'AdminController@detail_kantor')->name('admin.pusat.detail.kantor');
-            Route::get('/delete_kantor/{id_kantor}/{next_status}', 'AdminController@edit_status_kantor')->name('admin.pusat.delete.kantor');
-            Route::get('/form_add_kantor/{id_parent}', 'AdminController@form_add_kantor')->name('admin.pusat.form.add.cabang');
+            Route::get('/form_add_cabang/{id_parent}', 'AdminController@form_add_cabang')->name('admin.pusat.form.add.cabang');
+            Route::get('/form_edit_cabang/{id}', 'AdminController@form_edit_cabang')->name('admin.pusat.form.edit.cabang');
+            Route::get('/edit_status_cabang/{id_cabang}/{next_status}', 'AdminController@edit_status_cabang')->name('admin.pusat.edit.status.cabang');
+            Route::get('/form_add_cabang_pembantu', 'AdminController@form_add_cabang_pembantu')->name('admin.pusat.form.add.cabang.pembantu');
             Route::post('/save_new_kantor', 'AdminController@add_cabang')->name('admin.pusat.add.cabang');
             Route::post('/save_edit_kantor', 'AdminController@edit_cabang')->name('admin.pusat.edit.cabang');
-            Route::post('/save_account_kantor', 'AdminController@edit_account_cabang')->name('admin.pusat.edit.account.cabang');
-            Route::post('/save_cs', 'AdminController@add_cs')->name('admin.pusat.add.teller');
-            Route::get('/edit_status_cs/{id_cs}/{next_status}', 'AdminController@edit_status_cs')->name('admin.pusat.edit.status.cs');
-            Route::get('/reset_password/{id_account}', 'AdminController@reset_password')->name('admin.pusat.edit.reset.password');
-            Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.pusat.edit.cs');
             Route::get('/pengelolaan_nasabah','PengelolaanNasabahController@indexAdminPusat')->name('admin.pusat.pengelolaan_nasabah');
             Route::post('/pengelolaan_nasabah/delete','PengelolaanNasabahController@delete')->name('admin.pusat.delete_nasabah');
             Route::get('/report','ReportController@indexAdminPusat')->name('admin.pusat.report');
+            
+            Route::get('/list_cs', 'AdminController@list_cs')->name('admin.pusat.cs');
+            Route::get('/form_add_cs', 'AdminController@form_add_cs')->name('admin.pusat.form.add.cs');
+            Route::post('/save_new_cs', 'AdminController@add_cs')->name('admin.pusat.add.cs');
+            Route::get('/filter_cs/{$kantor_id}', 'AdminController@list_cs')->name('admin.pusat.filter.cs');
+            Route::get('/form_edit_cs/{id}', 'AdminController@form_edit_cs')->name('admin.pusat.form.edit.cs');
+            Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.pusat.edit.cs');
+            Route::get('/edit_status_cs/{id_cs}/{next_status}', 'AdminController@edit_status_cs')->name('admin.pusat.edit.status.cs');
+
+            // Route::get('/detail_kantor/{id_kantor}', 'AdminController@detail_kantor')->name('admin.pusat.detail.kantor');
+            // Route::post('/save_account_kantor', 'AdminController@edit_account_cabang')->name('admin.pusat.edit.account.cabang');
+            // Route::post('/save_cs', 'AdminController@add_cs')->name('admin.pusat.add.teller');
+            // Route::get('/edit_status_cs/{id_cs}/{next_status}', 'AdminController@edit_status_cs')->name('admin.pusat.edit.status.cs');
+            // Route::get('/reset_password/{id_account}', 'AdminController@reset_password')->name('admin.pusat.edit.reset.password');
+            // Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.pusat.edit.cs');
         });
     });
 
@@ -143,16 +154,26 @@ Route::middleware(['role'])->group(function() {
         Route::middleware(['auth_admin_cabang', 'auth'])->group(function() {
             Route::get('/', 'AdminController@dashboard')->name('admin.cabang.index');
             Route::get('/list_cabang', 'AdminController@list_cabang')->name('admin.cabang.cabang');
-            Route::get('/form_add_kantor/{id_parent}', 'AdminController@form_add_kantor')->name('admin.cabang.form.add.cabang');
-            Route::get('/detail_kantor/{id_kantor}', 'AdminController@detail_kantor')->name('admin.cabang.detail.kantor');
+            Route::get('/form_add_cabang/{id_parent}', 'AdminController@form_add_cabang')->name('admin.cabang.form.add.cabang');
+            Route::get('/form_edit_cabang/{id}', 'AdminController@form_edit_cabang')->name('admin.cabang.form.edit.cabang');
+            Route::get('/edit_status_cabang/{id_kantor}/{next_status}', 'AdminController@edit_status_cabang')->name('admin.cabang.edit.status.cabang');
             Route::post('/save_new_kantor', 'AdminController@add_cabang')->name('admin.cabang.add.cabang');
-            Route::get('/delete_kantor/{id_kantor}/{next_status}', 'AdminController@edit_status_kantor')->name('admin.cabang.delete.kantor');
             Route::post('/save_edit_kantor', 'AdminController@edit_cabang')->name('admin.cabang.edit.cabang');
-            Route::post('/save_account_kantor', 'AdminController@edit_account_cabang')->name('admin.cabang.edit.account.cabang');
-            Route::post('/save_cs', 'AdminController@add_cs')->name('admin.cabang.add.teller');
-            Route::get('/edit_status_cs/{id_cs}/{next_status}', 'AdminController@edit_status_cs')->name('admin.cabang.edit.status.cs');
-            Route::get('/reset_password/{id_account}', 'AdminController@reset_password')->name('admin.cabang.edit.reset.password');
+
+
+            Route::get('/list_cs', 'AdminController@list_cs')->name('admin.cabang.cs');
+            Route::get('/form_add_cs', 'AdminController@form_add_cs')->name('admin.cabang.form.add.cs');
+            Route::post('/save_new_cs', 'AdminController@add_cs')->name('admin.cabang.add.cs');
+            Route::get('/filter_cs/{$kantor_id}', 'AdminController@list_cs')->name('admin.cabang.filter.cs');
+            Route::get('/form_edit_cs/{id}', 'AdminController@form_edit_cs')->name('admin.cabang.form.edit.cs');
             Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.cabang.edit.cs');
+            Route::get('/edit_status_cs/{id_cs}/{next_status}', 'AdminController@edit_status_cs')->name('admin.cabang.edit.status.cs');
+            
+            // Route::get('/detail_kantor/{id_kantor}', 'AdminController@detail_kantor')->name('admin.cabang.detail.kantor');
+            // Route::post('/save_account_kantor', 'AdminController@edit_account_cabang')->name('admin.cabang.edit.account.cabang');
+            // Route::post('/save_cs', 'AdminController@add_cs')->name('admin.cabang.add.teller');
+            // Route::get('/reset_password/{id_account}', 'AdminController@reset_password')->name('admin.cabang.edit.reset.password');
+            // Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.cabang.edit.cs');
             // Route::post('/save_new_kantor', 'AdminPusatController@add_kantor')->name('admin.pusat.add.kantor.post');
         });
     });

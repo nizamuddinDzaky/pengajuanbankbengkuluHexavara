@@ -43,4 +43,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserRole::class, 'user_id');
     }
+
+    public function kantor()
+    {
+        return $this->belongsTo(Kantor::class, 'kantor_id');
+    }
 }

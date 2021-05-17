@@ -41,6 +41,45 @@
         li {
             list-style-type: none;
         }
+
+
+        .nav-sidebar > li > .actived >  i {
+            color: #E46931;
+        }
+
+        .nav-sidebar > li > .actived  {
+            color: #E46931;
+            border-left: 4px solid #E46931;
+        }
+
+        .nav-tabs > li > .active >  i {
+            color: #E46931 !important;
+        }
+
+        .nav-tabs > li > .active  {
+            color: #E46931 !important;
+            border-bottom: 4px solid #E46931 !important;
+        }
+
+        .nav-tabs > li > .nav-link {
+            color: black ;
+        }
+
+        .btn-orange {
+            color : #E46931;
+            border-color: #E46931;
+        }
+
+        .btn-orange:hover {
+            color : #fff;
+            border-color: #E46931;
+            background-color: #E46931;
+        }
+
+        /* .nav-sidebar > .actived > a > p  {
+            color: #E46931;
+            border-left: 4px solid #E46931;
+        } */
     </style>
 
     @yield('css')
@@ -235,12 +274,22 @@
 <!-- select2 -->
 <script src="{{asset('js/bootstrap-notify.js')}}"></script>
 <!-- sweetalert -->
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="{{asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="{{asset('js/core.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        $('.datatable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+
+
         @if (session('notification'))
         $.notify({
             icon: '{{ session('icon') }}',
