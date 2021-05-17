@@ -124,6 +124,8 @@
                     @include('layouts.sidebar.admin-cabang')
                 @elseif($role == 'CustomerService')
                     @include('layouts.sidebar.customer-service')
+                @elseif($role == 'AdminCabangPembantu')
+                    @include('layouts.sidebar.admin-cabang-pembantu')
                 @else
                     @include('layouts.sidebar.main')
                 @endif

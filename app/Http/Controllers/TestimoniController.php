@@ -115,4 +115,29 @@ class TestimoniController extends Controller
 
         return view('admincabang.testimoni', get_defined_vars());
     }
+
+
+    //admin capem
+    public function indexAdminCapem(){
+
+        $jumlah_testimoni = DB::table('testimoni as t')
+            ->join('users as u', 'u.id', 't.user_id')
+            ->join('transaksi as tr', 'tr.id', 't.transaksi_id')
+            ->join('produk as p', 'p.id', 'tr.produk_id')
+            ->select('u.name', 'p.nama', 't.created_at', 't.rating', 't.testimoni', 't.id')
+            ->where('tr.kantor_id', Auth::user()->kantor_id)
+            ->count();
+
+        $testimoni = DB::table('testimoni as t')
+            ->join('users as u', 'u.id', 't.user_id')
+            ->join('transaksi as tr', 'tr.id', 't.transaksi_id')
+            ->join('produk as p', 'p.id', 'tr.produk_id')
+            ->select('u.name', 'p.nama', 't.created_at', 't.rating', 't.testimoni', 't.id')
+            ->where('tr.kantor_id', Auth::user()->kantor_id)
+            ->get();
+
+
+
+        return view('admincapem.testimoni', get_defined_vars());
+    }
 }

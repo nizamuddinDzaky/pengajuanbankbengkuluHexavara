@@ -90,4 +90,36 @@ class PengelolaanNasabahController extends Controller
         return view('admincabang.pengelolaan_nasabah', compact('jumlah_nasabah', 'nasabah'));
 
     }
+
+
+    // admin cabang pembantu
+    public function indexAdminCapem(){
+        $jumlah_nasabah = DB::table('transaksi as t')
+            ->join('users as u', 'u.id', 't.pemohon_id')
+            ->join('kantor as k', 'k.id', 't.kantor_id')
+            ->distinct('t.pemohon_id')
+            ->select('u.name', 'u.pekerjaan', 'u.no_ktp','u.email', 'u.id', 'k.nama_kantor')
+            ->where('u.deleted_at', null)
+            ->where(function($q) {
+                $q->where('t.kantor_id', Auth::user()->kantor_id)
+                    ->orWhere('k.parent', Auth::user()->kantor_id);
+            })
+            ->count('t.pemohon_id');
+
+        $nasabah = DB::table('transaksi as t')
+            ->join('users as u', 'u.id', 't.pemohon_id')
+            ->join('kantor as k', 'k.id', 't.kantor_id')
+            ->distinct('t.pemohon_id')
+            ->select('u.name', 'u.pekerjaan', 'u.no_ktp','u.email', 'u.id', 'k.nama_kantor')
+            ->where('u.deleted_at', null)
+            ->where(function($q) {
+                $q->where('t.kantor_id', Auth::user()->kantor_id)
+                    ->orWhere('k.parent', Auth::user()->kantor_id);
+            })
+            ->get();
+
+
+        return view('admincapem.pengelolaan_nasabah', compact('jumlah_nasabah', 'nasabah'));
+
+    }
 }

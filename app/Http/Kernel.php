@@ -53,6 +53,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth_admin_pusat'=> \App\Http\Middleware\AdminPusatMiddleware::class,
         'auth_admin_cabang'=> \App\Http\Middleware\AdminCabangMiddleware::class,
+        'auth_admin_capem'=> \App\Http\Middleware\AdminCapemMiddleware::class,
         'auth_customer_service'=> \App\Http\Middleware\CustomerServiceMiddleware::class,
         'role' => \App\Http\Middleware\RoleMiddleware::class,
         'auth' => \App\Http\Middleware\Authenticate::class,

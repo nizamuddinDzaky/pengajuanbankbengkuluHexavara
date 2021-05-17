@@ -27,19 +27,6 @@
                             <div class="col-3">
                                 <h3 >Total : {{$jumlah_testimoni}} Testimoni</h3>
                             </div>
-                            <div class="col-3 offset-6 text-right">
-                                <select name="" class="form-control" id="filter_kantor">
-                                    @foreach($kantor as $data)
-                                        @if($kantor_selected == $data->id)
-                                            <option value="{{$data->id}}" selected>{{$data->nama_kantor}}</option>
-                                        @else
-                                            <option value="{{$data->id}}">{{$data->nama_kantor}}</option>
-                                        @endif
-
-                                    @endforeach
-
-                                </select>
-                            </div>
                         </div>
 
 
@@ -127,32 +114,6 @@
             }
         }
 
-        $('#tambahProdukModal').on('show.bs.modal', function (event) {
-
-            var jenis = $('#suku_bunga_tambah').val();
-            if (jenis == "berjangka"){
-                $('#suku_bunga_berjangka').show();
-                $('#suku_bunga_flat').hide();
-                $('.berjangka').attr('required');
-                $('#bunga_flat').removeAttr('required');
-            }else{
-                $('#suku_bunga_flat').show();
-                $('#suku_bunga_berjangka').hide();
-                $('#bunga_flat').attr('required');
-                $('.berjangka').removeAttr('required');
-            }
-
-
-
-        });
-
-
-
-
-        $('#filter_kantor').on('change', function () {
-            var kantor = $(this).val()
-            window.location = '{{url('/admin-cabang/testimoni')}}'+"/"+kantor;
-        });
 
 
 

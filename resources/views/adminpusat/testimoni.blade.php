@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Produk dan Akad Kredit')
+@section('title', 'Testimoni')
 
 @section('css')
     <style>
