@@ -128,7 +128,9 @@ Route::middleware(['role'])->group(function() {
             Route::post('/save_new_kantor', 'AdminController@add_cabang')->name('admin.pusat.add.cabang');
             Route::post('/save_edit_kantor', 'AdminController@edit_cabang')->name('admin.pusat.edit.cabang');
             Route::get('/pengelolaan_nasabah','PengelolaanNasabahController@indexAdminPusat')->name('admin.pusat.pengelolaan_nasabah');
+            Route::get('/pengelolaan_nasabah/{kantor}','PengelolaanNasabahController@indexFilterPusat')->name('admin.pusat.filter_nasabah');
             Route::post('/pengelolaan_nasabah/delete','PengelolaanNasabahController@delete')->name('admin.pusat.delete_nasabah');
+            Route::post('/pengelolaan_nasabah/getdetailnasabah','PengelolaanNasabahController@getDetailNasabah')->name('admin.pusat.detail_nasabah');
             Route::get('/report','ReportController@indexAdminPusat')->name('admin.pusat.report');
             
             Route::get('/list_cs', 'AdminController@list_cs')->name('admin.pusat.cs');
@@ -145,6 +147,15 @@ Route::middleware(['role'])->group(function() {
             // Route::get('/edit_status_cs/{id_cs}/{next_status}', 'AdminController@edit_status_cs')->name('admin.pusat.edit.status.cs');
             // Route::get('/reset_password/{id_account}', 'AdminController@reset_password')->name('admin.pusat.edit.reset.password');
             // Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.pusat.edit.cs');
+            Route::get('/produk_kredit','ProdukKreditController@index')->name('admin.pusat.produk_kredit');
+            Route::post('/produk_kredit/store','ProdukKreditController@store')->name('admin.pusat.tambah.produk_kredit');
+            Route::post('/produk_kredit/update','ProdukKreditController@update')->name('admin.pusat.edit.produk_kredit');
+            Route::post('/produk_kredit/get_detail','ProdukKreditController@getDetail')->name('admin.pusat.detail.produk_kredit');
+            Route::post('/produk_kredit/upload_blangko/{jenis}','ProdukKreditController@uploadBlangko')->name('admin.pusat.upload.blangko');
+            Route::post('/produk_kredit/get_thumbnail','ProdukKreditController@getThumbnailBlangko')->name('admin.pusat.thumbnail.blangko');
+            Route::post('/produk_kredit/delete','ProdukKreditController@delete')->name('admin.pusat.delete_produk');
+            Route::get('/testimoni','TestimoniController@index')->name('admin.pusat.testimoni');
+            Route::get('/testimoni/{kantor}','TestimoniController@indexFilter')->name('admin.pusat.testimoni_filter');
         });
     });
 
@@ -175,6 +186,36 @@ Route::middleware(['role'])->group(function() {
             // Route::get('/reset_password/{id_account}', 'AdminController@reset_password')->name('admin.cabang.edit.reset.password');
             // Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.cabang.edit.cs');
             // Route::post('/save_new_kantor', 'AdminPusatController@add_kantor')->name('admin.pusat.add.kantor.post');
+            Route::get('/pengelolaan_nasabah','PengelolaanNasabahController@indexAdminCabang')->name('admin.cabang.pengelolaan_nasabah');
+            Route::post('/pengelolaan_nasabah/delete','PengelolaanNasabahController@delete')->name('admin.cabang.delete_nasabah');
+            Route::post('/pengelolaan_nasabah/getdetailnasabah','PengelolaanNasabahController@getDetailNasabah')->name('admin.cabang.detail_nasabah');
+            Route::get('/report','ReportController@indexAdminCabang')->name('admin.cabang.report');
+            Route::get('/testimoni','TestimoniController@indexAdminCabang')->name('admin.cabang.testimoni');
+            Route::get('/testimoni/{kantor}','TestimoniController@indexFilterCabang')->name('admin.cabang.testimoni_filter');
+        });
+    });
+
+    Route::group(['prefix' => 'admin-cabang-pembantu'], function() {
+        Route::middleware(['auth_admin_capem', 'auth'])->group(function() {
+            Route::get('/', 'AdminController@dashboard')->name('admin.cabang.index');
+//            Route::get('/list_cabang', 'AdminController@list_cabang')->name('admin.cabang.cabang');
+//            Route::get('/form_add_kantor/{id_parent}', 'AdminController@form_add_kantor')->name('admin.cabang.form.add.cabang');
+//            Route::get('/detail_kantor/{id_kantor}', 'AdminController@detail_kantor')->name('admin.cabang.detail.kantor');
+//            Route::post('/save_new_kantor', 'AdminController@add_cabang')->name('admin.cabang.add.cabang');
+//            Route::get('/delete_kantor/{id_kantor}/{next_status}', 'AdminController@edit_status_kantor')->name('admin.cabang.delete.kantor');
+//            Route::post('/save_edit_kantor', 'AdminController@edit_cabang')->name('admin.cabang.edit.cabang');
+//            Route::post('/save_account_kantor', 'AdminController@edit_account_cabang')->name('admin.cabang.edit.account.cabang');
+//            Route::post('/save_cs', 'AdminController@add_cs')->name('admin.cabang.add.teller');
+//            Route::get('/edit_status_cs/{id_cs}/{next_status}', 'AdminController@edit_status_cs')->name('admin.cabang.edit.status.cs');
+//            Route::get('/reset_password/{id_account}', 'AdminController@reset_password')->name('admin.cabang.edit.reset.password');
+//            Route::post('/save_edit_cs', 'AdminController@edit_cs')->name('admin.cabang.edit.cs');
+//            // Route::post('/save_new_kantor', 'AdminPusatController@add_kantor')->name('admin.pusat.add.kantor.post');
+            Route::get('/pengelolaan_nasabah','PengelolaanNasabahController@indexAdminCapem')->name('admin.cabang_pembantu.pengelolaan_nasabah');
+            Route::post('/pengelolaan_nasabah/delete','PengelolaanNasabahController@delete')->name('admin.cabang_pembantu.delete_nasabah');
+            Route::post('/pengelolaan_nasabah/getdetailnasabah','PengelolaanNasabahController@getDetailNasabah')->name('admin.cabang_pembantu.detail_nasabah');
+            Route::get('/report','ReportController@indexAdminCapem')->name('admin.cabang_pembantu.report');
+            Route::get('/testimoni','TestimoniController@indexAdminCapem')->name('admin.cabang_pembantu.testimoni');
+            Route::get('/testimoni/{kantor}','TestimoniController@indexFilterCapem')->name('admin.cabang_pembantu.testimoni_filter');
         });
     });
 

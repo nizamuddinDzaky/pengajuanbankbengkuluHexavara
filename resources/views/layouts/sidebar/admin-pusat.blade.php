@@ -9,7 +9,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{route('admin.pusat.pengelolaan_nasabah')}}" class="nav-link {{ Request::is('admin-pusat/pengelolaan_nasabah') ? 'actived' : '' }}">
+        <a href="{{route('admin.pusat.pengelolaan_nasabah')}}" class="nav-link {{ Request::is('admin-pusat/pengelolaan_nasabah') ? 'actived' : '' }} {{ Request::is('admin-pusat/pengelolaan_nasabah/*') ? 'actived' : '' }}" >
             <i class="nav-icon fas fa-user-friends"></i>
             <p>
                 Pengelolaan Nasabah
@@ -35,9 +35,21 @@
     </li>
 
     <li class="nav-item">
-        <a href="{{ route('admin.pusat.report') }}" class="nav-link {{ Request::is('admin-pusat/report') ? 'active' : '' }}">
+        <a href="{{ route('admin.pusat.report') }}" class="nav-link {{ Request::is('admin-pusat/report') ? 'actived' : '' }}">
             <i class="nav-icon fa fa-file-alt"></i>
             <p>Report</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('admin.pusat.produk_kredit') }}" class="nav-link {{ Request::is('admin-pusat/produk_kredit') ? 'actived' : '' }}">
+            <i class="nav-icon fa fa-credit-card"></i>
+            <p>Produk dan Akad Kredit</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('admin.pusat.testimoni') }}" class="nav-link {{ Request::is('admin-pusat/testimoni') ? 'actived' : '' }} {{ Request::is('admin-pusat/testimoni/*') ? 'actived' : '' }}">
+            <i class="nav-icon fa fa-comment"></i>
+            <p>Testimoni</p>
         </a>
     </li>
 </ul>

@@ -1,8 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Daftar Cabang')
+@section('title', 'Report')
 
 @section('css')
+    <link href="{{asset('css/tab_bar_modal.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -68,7 +69,7 @@
                                     <td>{{$data->nama_produk}}</td>
                                     <td>Rp {{number_format($data->plafond, 0 , ',' , '.')}}</td>
                                     <td>{{$data->masa_tenor}} Bulan</td>
-                                    @if(\Carbon\Carbon::now() > \Carbon\Carbon::createFromFormat('Y-m-d', $data->tanggal) && $data->jam_mulai_pelayanan == null)
+                                    @if(\Carbon\Carbon::now() > \Carbon\Carbon::createFromFormat('Y-m-d', $data->tanggal) && $data->jam_mulai_pelayanan == null && $data->jam_selesai_pelayanan == null )
                                         <td>Tidak Datang</td>
                                     @else
                                         <td>{{$data->status}}</td>
@@ -77,7 +78,7 @@
                                             Lihat
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#detailNasabahModal" >Lihat Detail</a>
+                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#detailPengajuanModal" data-transaksi_id="{{$data->id}}" >Lihat Detail</a>
                                             <a class="dropdown-item" onclick="hapusNasabah({{$data->id}})">Hapus</a>
                                         </div></td>
                                 </tr>
@@ -92,12 +93,16 @@
 @endsection
 
 @section('modal')
-    @include('adminpusat.modal.detail_nasabah');
+    @include('user.daftar_pengajuan.modal.detail_pengajuan')
 @endsection
 
 @section('script')
+    <script src="{{asset('js/detail_pengajuan.js')}}"></script>
+    <script src="{{asset('js/tab-bar.js')}}"></script>
     <script>
-        $('#list-transaksi').DataTable();
+        $(document).ready(function() {
+            $('#list-transaksi').DataTable();
+        });
     </script>
 
     <script>

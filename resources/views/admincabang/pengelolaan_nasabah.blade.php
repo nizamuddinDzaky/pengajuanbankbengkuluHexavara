@@ -20,17 +20,19 @@
                             <div class="col-3">
                                 <h3 >Total : {{$jumlah_nasabah}} Nasabah</h3>
                             </div>
-                            <div class="col-3 offset-6">
-                                <select name="filter_kantor" id="filter_kantor" class="form-control">
-                                    <option value="" selected >Semua Kantor</option>
-                                    @foreach($kantor as $data)
-                                        @if($kantor_selected == $data->id)
-                                            <option selected value="{{$data->id}}">{{$data->nama_kantor}}</option>
-                                        @else
-                                            <option value="{{$data->id}}">{{$data->nama_kantor}}</option>
-                                            @endif
-
-                                        @endforeach
+                            <div class="col-3">
+                                <select name="" id="" class="form-control">
+                                    <option value="" selected disabled>Semua Kantor</option>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <select name="" id="" class="form-control">
+                                    <option value="" selected disabled>Pilih Filter</option>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <select name="" id="" class="form-control">
+                                    <option value="" selected disabled>Urutkan Berdasarkan</option>
                                 </select>
                             </div>
                         </div>
@@ -97,14 +99,6 @@
             "autoWidth": false,
             "responsive": true,
         });
-
-
-
-       $('#filter_kantor').on('change', function (event){
-           var kantor = $(this).val()
-           window.location = '{{url('/admin-pusat/pengelolaan_nasabah')}}'+"/"+kantor;
-       });
-
     </script>
 
     <script>
@@ -116,7 +110,7 @@
                     headers: {
                         'X-CSRF-Token': "{{csrf_token()}}"
                     },
-                    url: "{{route('admin.pusat.delete_nasabah')}}",
+                    url: "{{route('admin.cabang.delete_nasabah')}}",
                     dataType: "JSON",
                     data : {id : id},
                     success: function (response) {
@@ -145,7 +139,7 @@
                 headers: {
                     'X-CSRF-Token': "{{csrf_token()}}"
                 },
-                url: "{{route('admin.pusat.detail_nasabah')}}",
+                url: "{{route('admin.cabang.detail_nasabah')}}",
                 dataType: "JSON",
                 data : {id : id},
                 success: function (response) {
@@ -178,6 +172,13 @@
                     $('#lihat_npwp').attr("href","/"+JSON.parse(response['path_file']).npwp);
 
 
+
+
+
+
+
+
+
                 }
             });
 
@@ -186,11 +187,7 @@
 
 
 
-
-
         });
-
-
 
     </script>
 @endsection
